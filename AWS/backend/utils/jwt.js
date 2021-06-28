@@ -18,9 +18,10 @@ const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
     try {
+        console.log("get session try : " , req.headers)
         //보통 jwt는 요청을 request의 header(authorization)에 보낸다;
-        req.decoded = jwt.verify(req.headers.authorization, "ssafy")
-        console.log(req.decoded)
+        req.decoded = jwt.verify(req.headers.authorization, "fhth")
+        console.log("decoded : " , req.decoded)
         return next();
     } catch (e) {
         return res.json(e);

@@ -1,5 +1,8 @@
-|날짜|설명
-|---|---|
-|210618|Login.Vue 구현|
-||Axios userAPI.login(id,pw)
-||Axios userAPI.signup(form)
+# Directory
+```/
+├── /app
+│   ├── views/Hello.vue
+│   │   ├── components/login.vue
+│   │   └── components/signup.vue
+│   └── views/auth/main.vue
+``` 

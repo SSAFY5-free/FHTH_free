@@ -5,7 +5,7 @@ const path = require("path")
 const jwt = require('jsonwebtoken')
 const {verifyToken} =require("../utils/jwt")
 
-const {User, Device } = require("../models/index")
+const {User, Device, RegistedDevice } = require("../models/index")
 
 require("dotenv").config({
     path : path.resolve(
@@ -16,10 +16,8 @@ require("dotenv").config({
     
 const {MONGO_URI} = process.env
 
-
-
-router.get("/device", async (req, res) => {
-    //전체 device종류 목록 가져오기
+//전체 device 목록 가져오기
+router.get("/", async (req, res) => {
     Device.find({}, "type", (err,e) => {
         res.send({"data" : e.reduce((acc,cur) => {
             acc.push(cur["type"])
@@ -28,10 +26,21 @@ router.get("/device", async (req, res) => {
     })
 })
 
-router.get("/device/add/:type", async (req, res) => {
-    //device 종류 추가
+//device 종류 추가
+router.get("/add/:type", async (req, res) => {
     Device.create({type:req.params.type})
     res.send({"data" : 1})
+})
+
+router.post("/validation/registedDevice", async (req, res) => {
+    console.log(req.body)
+    const {serial, type} = req.body;
+    const result = await RegistedDevice.findOne({serial, type})
+    console.log(result)
+
+    if(!result) res.json({data:0})
+    else res.json({data:1})
+    return
 })
 
 module.exports = router
