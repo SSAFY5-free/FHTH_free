@@ -30,7 +30,6 @@ export default {
     };
   },
   methods: {
-    // ...mapMutations(userInfo, ["loginToken"]),
     async login() {
       const { email, pw } = this.form;
       if (!email || !pw) {
@@ -38,6 +37,8 @@ export default {
       }
 
       //서버에 로그인 요청
+console.log("???")
+/*
       const {data} = await userAPI.login(email, pw);
 
       //로그인 성공시
@@ -52,7 +53,24 @@ export default {
         alert("이메일과 비밀번호를 다시 입력해주세요");
         this.form.pw = "";
       }  
-    },
+*/
+ await userAPI.login(email, pw).then((data) => {
+if (data.accessToken) {
+        // 토큰을 쿠키에 저장
+        
+        this.$store.commit('userInfo/loginToken', {accessToken : data.accessToken})
+        this.$router.push("/main")
+
+      } else {
+        // 로그인 실패
+        alert("이메일과 비밀번호를 다시 입력해주세요");
+        this.form.pw = "";
+      }
+
+});
+
+      //로그인 성공시
+          },
   },
 };
 </script>

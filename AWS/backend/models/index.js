@@ -21,7 +21,7 @@ const deviceSchema = new mongoose.Schema({
 const registedDeviceSchema = new mongoose.Schema({
    type : String,
    serial : String,
-   status : {type : [statusDev1, statusDev2
+   status : {}
 })
 
 const sessionSchema = new mongoose.Schema( {

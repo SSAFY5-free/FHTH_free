@@ -16,11 +16,13 @@ const {User, Device, RegistedDevice, Session} = require("../models")
 //  });
 
 router.post("/getAccessToken", async (req, res, next) => {
+	console.log(req.body)
     const {email, pw, } = req.body
     const result = await User.findOne({email, pw})
     
     //로그인 실패 : 존재하지 않는 회원
     if(!result) return res.json({accessToken : ""});
+console.log(result)
     
     
     //로그인 성공시
