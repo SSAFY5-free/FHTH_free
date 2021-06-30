@@ -1,0 +1,7 @@
+<<<<<<< HEAD
+node_modules/
+=======
+node_modules
+>>>>>>> d214e2162424519b9d21baae29304efc504e7576
+dist/*
+*.log
