@@ -23,7 +23,7 @@ const registedDeviceSchema = new mongoose.Schema({
    serial : String,
    status : {}
 })
-const robotsSchema = new mongoose.Schema({
+const robotSchema = new mongoose.Schema({
 	serial : String
 })
 
@@ -35,7 +35,7 @@ const User = mongoose.model("User",userSchema)
 const Device = mongoose.model("Device", deviceSchema) 
 const RegistedDevice = mongoose.model("RegistedDevice", registedDeviceSchema)
 const Session = mongoose.model("Session", sessionSchema)
-const Robot =  mongoose.model("Robot", robotsSchema)
+const Robot =  mongoose.model("Robot", robotSchema)
 
 Session.createIndexes({
    createdAt : new Date(),

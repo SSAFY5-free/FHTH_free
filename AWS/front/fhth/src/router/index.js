@@ -60,26 +60,6 @@ router.beforeEach( async(to, from, next) => { //여기서 모든 라우팅이 �
     }
   }
 
-  // Ver. refreshToken & accessToken
-  // if(VueCookies.get('accessToken')===null && VueCookies.get('refreshToken') !== null){
-  //   //refreshToken은 있고 accessToken이 없을 경우 토큰 재발급 요청
-  //   console.log("router : accessToken refresh")
-  //   console.log(store.commit("userInfo/refreshToken"), {})
-  //   return next();
-  // }
-  // if (VueCookies.get('accessToken')){
-  //   console.log("router : pair success")
-  //   return next();
-  // }
-  // if(VueCookies.get('accessToken')===null && VueCookies.get('refreshToken') === null){
-  //   //2개 토큰이 모두 없을 경우 로그인페이지로
-  //   if(to.path === '/login' || to.path ==='/signup') return next();
-  //   else {
-  //     alert("세션이 종료되었습니다.")
-  //     return next({path:'/login'})
-  //   }
-  // }
-  
 })
 
 export default router
