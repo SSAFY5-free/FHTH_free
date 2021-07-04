@@ -2,6 +2,12 @@
  - nodejs
  - mongoDB
 
+# Run
+```
+1. cd /FHTH_FREE/AWS/backend </br>
+2. nodemon
+```
+
 # Directory
 ```/
 ├── /unauth
