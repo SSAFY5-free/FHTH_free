@@ -1,6 +1,7 @@
 const express = require('express');
 const unauthRouter = require('./unauth.js')
 const authRouter = require('./auth.js')
+const adminRouter = require('./admin.js')
 
 const router = express.Router();
 
@@ -32,4 +33,5 @@ const router = express.Router();
 // router.use("/api/device", deviceRouter)
 router.use("/unauth", unauthRouter)
 router.use("/auth", authRouter)
+router.use("/admin", adminRouter)
 module.exports =router;

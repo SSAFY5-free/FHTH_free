@@ -23,6 +23,9 @@ const registedDeviceSchema = new mongoose.Schema({
    serial : String,
    status : {}
 })
+const robotsSchema = new mongoose.Schema({
+	serial : String
+})
 
 const sessionSchema = new mongoose.Schema( {
    sid : String,
@@ -31,9 +34,11 @@ const sessionSchema = new mongoose.Schema( {
 const User = mongoose.model("User",userSchema)
 const Device = mongoose.model("Device", deviceSchema) 
 const RegistedDevice = mongoose.model("RegistedDevice", registedDeviceSchema)
-const Session = mongoose.model = mongoose.model("Session", sessionSchema)
+const Session = mongoose.model("Session", sessionSchema)
+const Robot =  mongoose.model("Robot", robotsSchema)
+
 Session.createIndexes({
    createdAt : new Date(),
    expireAfterSeconds : 60*60 
 })
- module.exports = {User, Device, RegistedDevice, Session}
+ module.exports = {User, Device, RegistedDevice, Session, Robot}
