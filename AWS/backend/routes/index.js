@@ -4,7 +4,10 @@ const authRouter = require('./auth.js')
 const adminRouter = require('./admin.js')
 
 const router = express.Router();
-
+router.use((req,res,next) => {
+    console.log("Path : ", req.path)
+    next()
+})
 // router.use(function (req, res, next) {
 //     const whiteList = ['/api/user/login', '/api/device']
 //     //세션 보안 구현
@@ -26,7 +29,7 @@ const router = express.Router();
 //     next();
 //   });
 //1차 라우터 /
+router.use("/admin", adminRouter)
 router.use("/unauth", unauthRouter)
 router.use("/auth", authRouter)
-router.use("/admin", adminRouter)
 module.exports =router;

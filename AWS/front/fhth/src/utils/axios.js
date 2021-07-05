@@ -4,7 +4,7 @@ import  VueCookies  from "vue-cookies";
 
 //request 설정
 
-const IP_AWS = "http://54.180.202.172:8080/"
+const IP_AWS = "http://localhost:8080/"
 const request = axios.create({
     baseURL: IP_AWS
 });
@@ -69,13 +69,24 @@ export const userAPI = {
 }
 
 export const deviceAPI = {
-    getDeviceList: () => {
-        return request.get("/unauth/getDevices", )
-    },
-    verifyRegistedDevice: (form) => {
-        return request.post("/unauth/verifyRegistedDevice", form)
+    
+    getModules : (robot_id) => {
+        return request.post("/auth/getModules", robot_id)
     },
     getMainInfo : () => {
         return request.get("/auth/mainInfo")
+    }
+}
+export const robotAPI = {
+    getRobots : () => {
+        return request.post("/auth/getRobots")
+    },
+    verifyRobot: (form) => {
+        return request.post("/unauth/verifyRobot", form)
+    },
+}
+export const moduleAPI = {
+    getModules : (robot_id) => {
+        return request.post("/auth/getModules", robot_id)
     }
 }

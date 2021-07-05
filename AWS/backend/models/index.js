@@ -1,44 +1,38 @@
 const mongoose = require('mongoose')
 //User
-const userDeviceSchema = new mongoose.Schema({
-    type : Number,
-    serial : String, 
- })
  const userSchema = new mongoose.Schema({
     email : String,
     pw : String,
-    device : [userDeviceSchema]
+    robots_id : [mongoose.Types.ObjectId] 
  })
-const statusDev1 = new mongoose.Schema({
-   power : String,
-   remain : Number
-})
-//Device
-const deviceSchema = new mongoose.Schema({
-   type : String
-})
-
-const registedDeviceSchema = new mongoose.Schema({
-   type : String,
-   serial : String,
-   status : {}
-})
-const robotSchema = new mongoose.Schema({
-	serial : String
-})
-
 const sessionSchema = new mongoose.Schema( {
-   sid : String,
-   email : String,
+    accessToken : String,
+    user_id : mongoose.Types.ObjectId,
 })
-const User = mongoose.model("User",userSchema)
-const Device = mongoose.model("Device", deviceSchema) 
-const RegistedDevice = mongoose.model("RegistedDevice", registedDeviceSchema)
-const Session = mongoose.model("Session", sessionSchema)
-const Robot =  mongoose.model("Robot", robotSchema)
 
+const robotSchema = new mongoose.Schema({
+   serial : String,
+   modules_id : [mongoose.Types.ObjectId]
+})
+
+const registedModuleSchema = new mongoose.Schema( {
+   serial : String,
+   moduleType_id : mongoose.Types.ObjectId,
+   module_data : mongoose.Schema.Types.Mixed
+   ,
+})
+const moduleTypeSchema = new mongoose.Schema( {
+   name : String
+})
+
+const User = mongoose.model("User",userSchema)
+const Robot =  mongoose.model("Robot", robotSchema)
+const Session = mongoose.model("Session", sessionSchema)
 Session.createIndexes({
    createdAt : new Date(),
    expireAfterSeconds : 60*60 
 })
- module.exports = {User, Device, RegistedDevice, Session, Robot}
+const ModuleType = mongoose.model("ModuleType", moduleTypeSchema)
+
+const RegistedModule = mongoose.model("RegistedModule", registedModuleSchema)
+ module.exports = {User, Session, Robot, RegistedModule, ModuleType}

@@ -16,7 +16,7 @@ dotenv.config({
    })
 
 
-const {PORT, MONGO_URI} = process.env //8081, localhost
+const {PORT, MONGO_URI} = process.env
 
 //db:mongo
 mongoose.connect(MONGO_URI, { useNewUrlParser: true , useUnifiedTopology: true })
@@ -33,9 +33,8 @@ app.use(cors())
 
 
 //REST API
- app.use("/", routes);   
+app.use("/", routes);
 
-
-app.listen(PORT,"0.0.0.0", function() {
+app.listen(PORT, function() {
     console.log(PORT + " / FHTH.server is running")
 })

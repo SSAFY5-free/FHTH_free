@@ -1,14 +1,24 @@
 <template>
-  <div id="app">
-    <Hello> </Hello>
+  <div id="Hello">
+    <div id="nav" v-if="data.accessToken == null">
+      <router-link to="/login">로그인</router-link> |
+      <router-link to="/signup">회원가입</router-link>
+    </div>
+    <router-view/>
+    
   </div>
 </template>
 
 <script>
-import Hello from "./views/Hello.vue"
+import {mapState} from "vuex"
 export default {
-  components : {
-    Hello
+  components: {
+  }, 
+  computed : {
+      ...mapState({
+      data: state => state.userInfo
+    }),
+  },mounted() {
   }
 }
 </script>

@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken')
 
 //연결된 session 저장
  // https://www.npmjs.com/package/connect-mongo
-const {User, Device, RegistedDevice, Session} = require("../models")
+const {User, Device, Robot, Session} = require("../models")
 
 // const setSession = session({
 //     secret: 'keyboard cat',
@@ -22,8 +22,7 @@ router.post("/getAccessToken", async (req, res, next) => {
     
     //로그인 실패 : 존재하지 않는 회원
     if(!result) return res.json({accessToken : ""});
-console.log(result)
-    
+    console.log(result)
     
     //로그인 성공시
     // 1. 세션 발급
@@ -35,7 +34,7 @@ console.log(result)
     
     // 1. 세션 발급
     console.log("new session : " , accessToken)
-    Session.create({sid:accessToken, email})
+    Session.create({accessToken:accessToken, user_id : result._id})
     return res.json({accessToken : accessToken})
     //todo 중복세션 처리
 }
@@ -53,19 +52,19 @@ router.post("/addAccount", async(req,res) => {
     return res.send({"result" : 1})
 })
 
-router.get("/getDevices", async (req, res) => {
-    Device.find({}, "type", (err,e) => {
-        res.send({"data" : e.reduce((acc,cur) => {
-            acc.push(cur["type"])
-            return acc
-        }, [])})
-    })
-})
+// router.get("/getDevices", async (req, res) => {
+//     Device.find({}, "type", (err,e) => {
+//         res.send({"data" : e.reduce((acc,cur) => {
+//             acc.push(cur["type"])
+//             return acc
+//         }, [])})
+//     })
+// })
 
-router.post("/verifyRegistedDevice", async (req, res) => {
+router.post("/verifyRobot", async (req, res) => {
     console.log(req.body)
-    const {serial, type} = req.body;
-    const result = await RegistedDevice.findOne({serial, type})
+    const {serial} = req.body;
+    const result = await Robot.findOne({serial})
     console.log(result)
 
     if(!result) res.json({"result":0})
