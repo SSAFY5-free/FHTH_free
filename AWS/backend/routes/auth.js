@@ -1,5 +1,5 @@
 const express = require("express")
-const { Session, Robot, User } = require("../models")
+const { Session, Robot, User, RegistedModule } = require("../models")
 const router = express.Router()
 const path = require("path")
 
@@ -53,7 +53,14 @@ router.post("/getModules", async (req,res) => {
     
     const {modules_id} = await Robot.findById(robot_id)
     console.log("modules_id : ", modules_id)
-    if(modules_id) return res.json({modules_id})
+
+    const result = await modules_id.reduce (async(acc,cur) => {
+
+        const {module_data} = await RegistedModule.findById(cur)
+        acc.push({id:cur,contents:module_data})
+        return acc
+    },[])
+    if(modules_id) return res.json(result)
     
     else return res.json({"err" : "err"})
     // Robots.findOne({})

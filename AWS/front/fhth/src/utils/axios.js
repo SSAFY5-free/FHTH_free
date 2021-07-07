@@ -68,25 +68,23 @@ export const userAPI = {
     },
 }
 
-export const deviceAPI = {
+// export const deviceAPI = {
     
-    getModules : (robot_id) => {
-        return request.post("/auth/getModules", robot_id)
-    },
-    getMainInfo : () => {
-        return request.get("/auth/mainInfo")
-    }
-}
+//     gedtModules : (robot_id) => {
+//         return request.post("/auth/getModules", robot_id)
+//     },
+//     getMainInfo : () => {
+//         return request.get("/auth/mainInfo")
+//     }
+// }
 export const robotAPI = {
-    getRobots : () => {
+    getRobots_id : () => {
         return request.post("/auth/getRobots")
     },
     verifyRobot: (form) => {
-        return request.post("/unauth/verifyRobot", form)
+        return request.post("/unauth/verifyRobot", {form})
     },
-}
-export const moduleAPI = {
     getModules : (robot_id) => {
-        return request.post("/auth/getModules", robot_id)
+        return request.post("/auth/getModules", {robot_id})
     }
 }

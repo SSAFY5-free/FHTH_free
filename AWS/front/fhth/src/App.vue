@@ -1,6 +1,6 @@
 <template>
   <div id="Hello">
-    <div id="nav" v-if="data.accessToken == null">
+    <div id="nav" v-if="accessToken == null">
       <router-link to="/login">로그인</router-link> |
       <router-link to="/signup">회원가입</router-link>
     </div>
@@ -15,9 +15,7 @@ export default {
   components: {
   }, 
   computed : {
-      ...mapState({
-      data: state => state.userInfo
-    }),
+      ...mapState("userInfo", ["accessToken"])
   },mounted() {
   }
 }
