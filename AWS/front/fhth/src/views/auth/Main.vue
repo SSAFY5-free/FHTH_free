@@ -1,55 +1,41 @@
 <template>
-  <div id="Main" style="height: 100%" class="bc">
-    <p>It is main vue</p>
-    <!-- {{this.$store.state.mainInfo.robots}} -->
-    <robot></robot>
-    <modules></modules>
+  <div id="main" class="bc" style="height:100%">
+      <div style="display:block;height:80px;position:absolute;width:100%;" class="bc">It is main vue</div>
+      <div id = "mainView" style="height:100%" class="bc">
+        <robot ></robot>
+        <modules></modules>
+        <module-view class="bc" ></module-view>
+      </div>
   </div>
 </template>
 <script>
 import Robot from "../../components/Robot.vue";
 import Modules from "../../components/Modules.vue";
-import { robotAPI } from "../../utils/axios";
+import ModuleView from "../../components/ModuleView.vue";
 import { mapState } from "vuex";
+import "../../assets/css/main.css"
 
 export default {
   components: {
     Robot,
     Modules,
+    ModuleView,
   },
   computed: {
-    ...mapState("mainInfo", ["robots"]),
+    ...mapState("mainInfo", ["robots", "cur"]),
+    // curModule() {
+      // return this.$store.state.mainInfo.robots[this.$store.state.mainInfo.cur.robot_idx].modules[this.$store.state.mainInfo.cur.module_idx];
+    // }
   },
   methods: {
-    // ...mapMutations("mainInfo", ["SET_ROBOTS", "SET_MODULES_ID"]),
-
-    async GET_ROBOTS_FROM_SERVER() {
-      const robots_id = (await robotAPI.getRobots_id()).data;
-      //robot id별로 배열 원소 생성
-
-      const result = await robots_id.reduce(async (acc, cur) => {
-        acc.push({ id: cur, modules: [] });
-        // console.log(acc[acc.length-1])
-
-        const {data} = await robotAPI.getModules(cur);
-        console.log("dd : ", data);
-
-        acc[acc.length - 1]["modules"] = data
-        return acc;
-      }, []);
-      console.log("result : ", result);
-      return { result };
-    },
+    
+  },
+  data() {
+return  {
+}
   },
   async mounted() {
-    const { result } = await this.GET_ROBOTS_FROM_SERVER();
-    console.log("in main.vue : ", result);
-    //  this.$set(this.$store.state.mainInfo.robots, 0)
-    this.$store.commit("mainInfo/SET_ROBOTS", result);
-    console.log("ㅋㅋㅋㅋ : ", this.$store.state.mainInfo.robots);
+    await this.$store.dispatch("mainInfo/GET_ROBOTS_FROM_SERVER")
   },
 };
 </script>
-
-<style>
-</style>

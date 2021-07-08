@@ -10,9 +10,9 @@ const sessionSchema = new mongoose.Schema( {
     user_id : mongoose.Types.ObjectId,
 })
 
-const robotSchema = new mongoose.Schema({
+const robotSchema = new mongoose.Schema({ 
    serial : String,
-   modules_id : [mongoose.Types.ObjectId]
+   modules : [mongoose.Types.ObjectId]
 })
 
 const registedModuleSchema = new mongoose.Schema( {

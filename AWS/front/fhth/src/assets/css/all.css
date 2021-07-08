@@ -2,4 +2,40 @@
   border: 1px solid black;
 }
 
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/*# sourceMappingURL=all.css.map */
+#mainView > * {
+  height: -webkit-calc(100% - 80px);
+  margin-top: 80px;
+}
+#mainView > #Robot {
+  width: 450px;
+  position: absolute;
+}
+#mainView > #Modules {
+  position: absolute;
+  width: 100px;
+  margin-left: 450px;
+}
+#mainView > #ModuleView {
+  padding-left: 550px;
+}
+#mainView > #ModuleView > #ModuleContent {
+  height: 60px;
+}
+
+#KeyPad {
+  justify-content: center;
+}
+#KeyPad > div > div {
+  border: 1px solid black;
+  width: 80px;
+  height: 80px;
+}
+
 /*# sourceMappingURL=all.css.map */

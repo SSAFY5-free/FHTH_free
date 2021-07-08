@@ -1,31 +1,28 @@
 ### mongoDB
 
 # Vuex
-
 |date|editor|desc|
 |---|---|---|
 |21-07-05|김지환|초안 |
-|21-07-07|백엔드 작성| |
+|21-07-07|김지환||
+|21-07-08|김지환|프론트 작성|
 
 ### mainInfo.js
 - state
-  - robot_idx (Number)
   - robots [object]
     - id (String)
-    - modules (Array)
-        - id (String)
-        - contents (Object)
-        - clickable [Boolean]
+    - modules [object]
+      - id (String)
+      - type_id (String)
+      - date (time)
+      - contents (Object)
+      - ~~clickable [Boolean]~~
+  - cur (object]
+    - robot_idx (Number)
+    - module_idx (Number)
 
 ### userInfo.js
 - state
   - host (String)
   - accessToken (String)
   - user_email (String)
-  - robots [object]
-    - id : String
-    - modules : [obejct]
-      - id :(String)
-      - type :(String)
-      - content :(object)
-        - ...

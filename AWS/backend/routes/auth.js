@@ -51,16 +51,18 @@ router.post("/getModules", async (req,res) => {
     const {robot_id} = req.body
     console.log("robot_id : ", robot_id)
     
-    const {modules_id} = await Robot.findById(robot_id)
-    console.log("modules_id : ", modules_id)
+    const {modules} = await Robot.findById(robot_id)
+    const result = await modules.reduce (async(promise,cur) => {
+        const acc = await promise.then()
 
-    const result = await modules_id.reduce (async(acc,cur) => {
-
-        const {module_data} = await RegistedModule.findById(cur)
-        acc.push({id:cur,contents:module_data})
+        
+        const {module_data, moduleType_id} = await RegistedModule.findById(cur)
+        
+        acc.push({id:cur,contents:module_data, type_id : moduleType_id})
         return acc
-    },[])
-    if(modules_id) return res.json(result)
+    },Promise.resolve([]))
+    console.log("result : " , result)
+    if(modules) return res.json(result)
     
     else return res.json({"err" : "err"})
     // Robots.findOne({})

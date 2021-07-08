@@ -85,6 +85,7 @@ export const robotAPI = {
         return request.post("/unauth/verifyRobot", {form})
     },
     getModules : (robot_id) => {
+        console.log("robotAPI _ GETMODULES : " )
         return request.post("/auth/getModules", {robot_id})
     }
 }

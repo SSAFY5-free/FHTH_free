@@ -5,10 +5,9 @@
 │   └── /addRobot
 │
 └── /Main
-│   ├── **SideBar**
-│   ├── **Modules**
-│   ├──     └──**Modal**
-│   └── **NavBar**
+│   ├── Robot
+│   ├── Module
+│   └── ModuleView
 
 # Backend
 /route/index
@@ -17,9 +16,9 @@
 │   ├── /getAccessToken => {accessToken : accessToken / ""}
 │   ├── /verifyRobot => {result : 0 / 1}
 ├── /auth
-│   ├── /getRobots {} => {robots}
-│   ├── /getModules {robot_id} => {registedModule} 
-│   └── ~~/mainInfo [{serial, type, status = {}}]~~
+│   ├── /getRobot {} => {robot}
+│   └── /getModules {robot_id} => {registedModule} 
+│    
 ├── /admin
 │   ├── /addModuleType {result : 1}
 │   ├── /addRegistedModule {result : 1}

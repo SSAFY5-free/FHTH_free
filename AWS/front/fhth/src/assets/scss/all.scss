@@ -1,3 +1,39 @@
-.border-class {
-  border: "1px solid black";
+$module_banner_height : 60px;
+.bc {
+  border: 1px solid black;
+}
+html, body, #app{ height: 100%; margin: 0; padding: 0;}
+/*# sourceMappingURL=all.css.map */
+#mainView {
+  > *{
+  height:-webkit-calc(100% - 80px);
+  margin-top:80px;
+  }
+  > #Robot {
+      width: 450px;
+      position: absolute;
+    }
+    > #Modules {
+    position: absolute;
+      width: 100px;
+      margin-left: 450px;
+  }
+  > #ModuleView {
+    padding-left: 550px;
+
+    > #ModuleContent {
+      height: $module_banner_height;
+    }
+  }
+}
+
+#KeyPad {
+  justify-content: center;
+  > div {
+    > div {
+      border: 1px solid black;
+      width:80px;
+      height:80px
+    }
+  }
 }

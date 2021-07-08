@@ -1,6 +1,6 @@
 <template>
-  <div id="Hello">
-    <div id="nav" v-if="accessToken == null">
+  <div id="app">
+    <div id="nav" v-if="check == null">
       <router-link to="/login">로그인</router-link> |
       <router-link to="/signup">회원가입</router-link>
     </div>
@@ -11,9 +11,14 @@
 
 <script>
 import {mapState} from "vuex"
+import VueCookies from "vue-cookies"
 export default {
   components: {
-  }, 
+  }, methods : {
+    check() {
+      return VueCookies.get("accessToken")
+    }
+  },
   computed : {
       ...mapState("userInfo", ["accessToken"])
   },mounted() {
