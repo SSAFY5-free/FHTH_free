@@ -1,1 +1,11 @@
+<<<<<<< HEAD
 backend_rpi/node_modules
+=======
+<<<<<<< HEAD
+node_modules/
+=======
+node_modules
+>>>>>>> d214e2162424519b9d21baae29304efc504e7576
+dist/*
+*.log
+>>>>>>> ac3d4a6ec430ad2def0b15a7ff3ea1fd4492a006
