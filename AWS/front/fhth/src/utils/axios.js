@@ -87,5 +87,9 @@ export const robotAPI = {
     getModules : (robot_id) => {
         console.log("robotAPI _ GETMODULES : " )
         return request.post("/auth/getModules", {robot_id})
+    },
+    getModule : (module_id) => {
+        console.log("robotAPI _ GETMODULE : " )
+        return request.post("/auth/getModule", {module_id})
     }
 }

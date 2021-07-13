@@ -1,5 +1,5 @@
 <template>
-  <div id="Login" style="width: 400px">
+  <div id="Login" style="width: 400px;margin:auto">
     <img alt="Vue logo" src="../assets/logo.png" />
     <el-form :label-position="labelPosition" label-width="100px" :model="form">
       <el-form-item label="email">

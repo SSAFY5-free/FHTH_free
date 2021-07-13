@@ -1,11 +1,11 @@
 ### mongoDB
 
 # Vuex
-|date|editor|desc|
-|---|---|---|
-|21-07-05|김지환|초안 |
-|21-07-07|김지환||
-|21-07-08|김지환|프론트 작성|
+| date     | editor | desc        |
+| -------- | ------ | ----------- |
+| 21-07-05 | 김지환 | 초안        |
+| 21-07-07 | 김지환 |             |
+| 21-07-08 | 김지환 | 프론트 작성 |
 
 ### mainInfo.js
 - state
@@ -15,8 +15,8 @@
       - id (String)
       - type_id (String)
       - date (time)
-      - contents (Object)
-      - ~~clickable [Boolean]~~
+      - module_data (Object)
+      - clickable [Boolean]
   - cur (object]
     - robot_idx (Number)
     - module_idx (Number)
@@ -26,3 +26,7 @@
   - host (String)
   - accessToken (String)
   - user_email (String)
+
+# MongoDB
+erlCloud
+![image](./DATA.jpg)

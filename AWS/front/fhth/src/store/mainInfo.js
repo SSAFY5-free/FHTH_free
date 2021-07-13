@@ -2,11 +2,14 @@ import { robotAPI } from "../utils/axios"
 const mainInfo = {
     namespaced: true,
     state: {
-        robots: [{ id: "", modules: [{ id: "", type_id: "", data: "", content: {}, clickable: false }] }],
+        robots: [{ id: "", modules: [{ id: "", type_id: "", module_data: {}, clickable: false }] }],
         cur: {
             robot_idx: 0,
             module_idx: 0
         },
+        socket : {
+
+        }
     },
     mutations: {
         SET_ROBOTS(state, data) {
@@ -14,9 +17,15 @@ const mainInfo = {
             state.robots = data
         }, SET_CUR_MODULE_IDX(state, data) {
             state.cur.module_idx = data
-            console.log("ff", state.cur.module_idx)
-            console.log("ff", state.cur)
         },
+        SET_MODULE_CLICKABLE(state, data) {
+            const{module_id, value} = data
+            state.robots[state.cur.robot_idx].modules[module_id].clickable = value
+        },
+        SET_MODULE_DATA(state, data) {
+            const {module_data} = data
+            state.robots[state.cur.robot_idx].modules[state.cur.module_idx].module_data = module_data
+        }
     },
     getters: {
         GET_CURRENT_MODULE(state) {
@@ -34,13 +43,14 @@ const mainInfo = {
                 acc.push({ id: robot, modules: [] });
 
                 const data = await dispatch("GET_MODULES", robot);
-                console.log("recieve : ", data)
+
+                //module
+                data.map((e) => {e['clickable'] = false})
 
                 acc[acc.length - 1]["modules"] = data;
 
                 return Promise.resolve(acc);
             }, Promise.resolve([]));
-            console.log("robot_SET : ", state.robots);
         },
         async GET_MODULES(state, robot_id) {
             console.log("GET_MODULES ID :", robot_id)

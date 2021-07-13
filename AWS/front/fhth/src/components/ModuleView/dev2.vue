@@ -1,6 +1,6 @@
 <template>
   <div id="dev2">
-      dev2 {{module.contents.value1}}
+      dev2 {{module.module_data.value1}}
     </div>
 </template>
 

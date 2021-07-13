@@ -3,10 +3,10 @@
     <div id="ModuleContent" class="bc">
     ModuleView
     </div>
-    {{ curModule[midx].type_id }}
+    {{ module }}
     <!-- {{this.$store.state.mainInfo.cur.module_idx}} -->
-    <dev1 v-if="curModule[midx].type_id == '60e16a243d78505adcf1de84'" v-bind:module = "curModule[midx]"></dev1>
-    <dev2 v-if="curModule[midx].type_id == '60e17160ba2b2c1d1405e233'" v-bind:module = "curModule[midx]"></dev2>
+    <dev1 v-if="module.type_id == '60ed57dfca9e496b485c20da'" v-bind:module = "module"></dev1>
+    <dev2 v-if="module.type_id == '60ed57e5ca9e496b485c20e0'" v-bind:module = "module"></dev2>
   </div>
 </template>
 <script>
@@ -15,22 +15,18 @@ import dev2 from "./ModuleView/dev2.vue"
 export default {
   components: {
     dev1,dev2
+  },props: ["module"],
+  mounted() {
+    console.log("mounted")
+    this.$socket.on("module", (data) => {
+        const {module_data} = data
+        // console.log("get from server : " , module_data)
+        this.$store.commit("mainInfo/SET_MODULE_DATA",{module_data})
+      })
+    setInterval(() => {
+      this.$socket.emit("module", this.module)
+    }, 2000)
   },
-  computed: {
-    curModule() {
-      return this.$store.state.mainInfo.robots[
-        this.$store.state.mainInfo.cur.robot_idx
-      ].modules
-    },
-    ridx() {
-      return this.$store.state.mainInfo.cur.robot_idx
-    },
-    midx() {
-      return this.$store.state.mainInfo.cur.module_idx
-    },
-  },
-  methods: {},
-  mounted() {},
 };
 </script>
 
