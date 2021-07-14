@@ -11,7 +11,7 @@ Vue.use(ElementUI)
 
 // vue-socket.io 설정
 import io from "socket.io-client"
-const socket = io("http://localhost:8080", {
+const socket = io("http://54.180.202.172:8080", {
 withCredentials: true,
 extraHeaders: {
       "my-custom-header": "abcd"

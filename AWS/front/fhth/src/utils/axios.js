@@ -4,7 +4,7 @@ import  VueCookies  from "vue-cookies";
 
 //request 설정
 
-const IP_AWS = "http://localhost:8080/"
+const IP_AWS = "http://54.180.202.172:8080/"
 const request = axios.create({
     baseURL: IP_AWS
 });
