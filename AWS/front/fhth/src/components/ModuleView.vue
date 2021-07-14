@@ -13,7 +13,7 @@
 ModuleView
     </div>
     <!-- {{ module }} -->
-    <!-- {{this.$store.state.mainInfo.cur.module_idx}} -->
+    {{this.$store.state.mainInfo.cur.module_idx}}
     <dev1 v-if="module.type_id == '60ed95d495b7ee1cccc3b484'" v-bind:module = "module"></dev1>
     <dev2 v-if="module.type_id == '60ed95d695b7ee1cccc3b486'" v-bind:module = "module"></dev2>
   </div>

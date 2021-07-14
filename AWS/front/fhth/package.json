@@ -1,12 +1,18 @@
 {
   "name": "fhth",
   "version": "0.1.0",
+  "homepage": "http://SSAFY5-free.github.io/FHTH_free",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "css": "npx sass src/assets/scss:src/assets/css/"
+    "css": "npx sass src/assets/scss:src/assets/css/",
+    "predeploy" : "vue-cli-service build",
+    "deploy": "gh-pages -d dist",
+    "clean":"gh-paages-clean",
+    "test:unit": " vue-cli-service test:unit",
+    "lint":"vue-cli-service lint"
   },
   "dependencies": {
     "@vue/cli": "^4.5.13",
@@ -29,6 +35,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^7.30.0",
     "eslint-plugin-vue": "^7.13.0",
+    "gh-pages": "^3.2.3",
     "vue-template-compiler": "^2.6.14"
   }
 }
