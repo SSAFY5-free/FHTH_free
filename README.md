@@ -1,4 +1,4 @@
-# FHTH_free
+# Rpi_backend
 
 ## INSTALL & START
     git clone -b Rpi --single-branch <repo URL>
