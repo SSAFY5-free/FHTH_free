@@ -6,7 +6,7 @@
         npm start
   
 ## TEST
--POSTMAN
+* POSTMAN
 ```  
 POST http://localhost/test/1  
 Headers["x-access-key] = 로그인 시 발급받는 key
