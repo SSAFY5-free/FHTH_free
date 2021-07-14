@@ -39,11 +39,10 @@ const mainInfo = {
             state.robots = await robots_id.reduce(async (promise, robot) => {
                 const acc = await promise.then();
 
-                console.log("robot :  ", robot)
-                acc.push({ id: robot, modules: [] });
+                acc.push({ id: robot, modules: [] } );
 
                 const data = await dispatch("GET_MODULES", robot);
-
+                console.log("modules_id : ", data)
                 //module
                 data.map((e) => {e['clickable'] = false})
 
@@ -51,6 +50,7 @@ const mainInfo = {
 
                 return Promise.resolve(acc);
             }, Promise.resolve([]));
+            console.log("SET init result : " , state.robots)
         },
         async GET_MODULES(state, robot_id) {
             console.log("GET_MODULES ID :", robot_id)

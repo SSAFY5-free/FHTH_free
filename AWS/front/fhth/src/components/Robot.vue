@@ -1,8 +1,18 @@
 <template>
   <div id="Robot" class="bc">
-      <!-- <p> Robot </p> -->
-      <!-- {{robots[cur.robot_idx].id}} -->
-          <!-- {{robots[cur.robot_idx]}} -->
+      
+      {{robots[cur.robot_idx].id}}
+    <div style="display:flex">
+      <el-dropdown split-button type="primary">
+  Default
+  <el-dropdown-menu slot="dropdown">
+    <el-dropdown-item>Action 1</el-dropdown-item>
+    <el-dropdown-item>Action 2</el-dropdown-item>
+    <el-dropdown-item>Action 3</el-dropdown-item>
+    <el-dropdown-item>Action 4</el-dropdown-item>
+  </el-dropdown-menu>
+</el-dropdown>
+</div>
         <div style="widht:400px;height:300px;margin: 40px 30px" class="bc"></div>
         <div id = "KeyPad" style="display:flex" class="bc">
           <div >

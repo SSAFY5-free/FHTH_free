@@ -1,30 +1,48 @@
-$module_banner_height : 60px;
+$robot_width: 450px;
+$nav_height: 80px;
 .bc {
   border: 1px solid black;
 }
-html, body, #app{ height: 100%; margin: 0; padding: 0;}
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 /*# sourceMappingURL=all.css.map */
-#mainView {
-  > *{
-  height:-webkit-calc(100% - 80px);
-  margin-top:80px;
-  }
-  > #Robot {
-      width: 450px;
-      position: absolute;
-    }
-    > #Modules {
-    position: absolute;
-      width: 100px;
-      margin-left: 450px;
-  }
-  > #ModuleView {
-    padding-left: 550px;
 
-    > #ModuleContent {
-      height: $module_banner_height;
-    }
+#nav {
+  display: block;
+  height: $nav_height;
+  position: absolute;
+  padding: 0px;
+  width: -webkit-calc(100%);
+  // width: -webkit-calc(100vw-$robot_width);
+}
+#Robot {
+  width: $robot_width;
+  height: -webkit-calc(100% - #{$nav_height});
+  position: absolute;
+  margin-top: $nav_height;
+}
+#mainView {
+  width: -webkit-calc(100% - #{$robot_width});
+  height: -webkit-calc(100% - #{$nav_height});
+  margin-top: $nav_height;
+  margin-left: $robot_width;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  > * {
+    height: 80%;
+    width: 60%;
   }
+  // > #Modules {
+  //   // position: absolute;
+  //   width: 100px;
+  // }
 }
 
 #KeyPad {
@@ -32,8 +50,8 @@ html, body, #app{ height: 100%; margin: 0; padding: 0;}
   > div {
     > div {
       border: 1px solid black;
-      width:80px;
-      height:80px
+      width: 80px;
+      height: 80px;
     }
   }
 }

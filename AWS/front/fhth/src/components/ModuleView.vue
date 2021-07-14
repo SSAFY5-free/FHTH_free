@@ -1,12 +1,21 @@
 <template>
   <div id="ModuleView">
     <div id="ModuleContent" class="bc">
-    ModuleView
+        <el-dropdown split-button type="primary">
+  Default
+  <el-dropdown-menu slot="dropdown">
+    <el-dropdown-item>Action 1</el-dropdown-item>
+    <el-dropdown-item>Action 2</el-dropdown-item>
+    <el-dropdown-item>Action 3</el-dropdown-item>
+    <el-dropdown-item>Action 4</el-dropdown-item>
+  </el-dropdown-menu>
+</el-dropdown>
+ModuleView
     </div>
-    {{ module }}
+    <!-- {{ module }} -->
     <!-- {{this.$store.state.mainInfo.cur.module_idx}} -->
-    <dev1 v-if="module.type_id == '60ed57dfca9e496b485c20da'" v-bind:module = "module"></dev1>
-    <dev2 v-if="module.type_id == '60ed57e5ca9e496b485c20e0'" v-bind:module = "module"></dev2>
+    <dev1 v-if="module.type_id == '60ed95d495b7ee1cccc3b484'" v-bind:module = "module"></dev1>
+    <dev2 v-if="module.type_id == '60ed95d695b7ee1cccc3b486'" v-bind:module = "module"></dev2>
   </div>
 </template>
 <script>

@@ -55,9 +55,9 @@ router.post("/getModules", async (req,res) => {
     const result = await modules.reduce (async(promise,cur) => {
         const acc = await promise.then()
 
-        const {module_data, moduleType_id} = await RegistedModule.findById(cur)
+        const {module_data, moduleType_id,name} = await RegistedModule.findById(cur)
         
-        acc.push({id:cur,module_data:module_data, type_id : moduleType_id})
+        acc.push({id:cur,module_data:module_data, type_id : moduleType_id, name})
         return acc
     },Promise.resolve([]))
     if(modules) return res.json(result)
@@ -68,12 +68,12 @@ router.post("/getModules", async (req,res) => {
 router.post("/getModule", async (req, res) => {
     const {module_id} = req.body
     try {
-        // const result = await RegistedModule.findById(module_id)
-        // console.log(" resultddddddddddddddddd : ", result)
-        // const gap = new Date() - result.updatedAt
+        const result = await RegistedModule.findById(module_id)
+        // console.log(" : ", result)
+        const gap = new Date() - result.updatedAt
 
-        // if(gap < 8000) res.status(200).send(result)
-        // else res.status(204).send("off")
+        if(gap < 8000) res.status(200).send(result)
+        else res.status(204).send("off")
     } catch(err) {
         console.log("err")
         res.status(404).send("no")

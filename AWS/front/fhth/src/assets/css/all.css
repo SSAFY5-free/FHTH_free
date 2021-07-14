@@ -2,31 +2,43 @@
   border: 1px solid black;
 }
 
-html, body, #app {
+html,
+body,
+#app {
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
 /*# sourceMappingURL=all.css.map */
-#mainView > * {
+#nav {
+  display: block;
+  height: 80px;
+  position: absolute;
+  padding: 0px;
+  width: -webkit-calc(100%);
+}
+
+#Robot {
+  width: 450px;
   height: -webkit-calc(100% - 80px);
+  position: absolute;
   margin-top: 80px;
 }
-#mainView > #Robot {
-  width: 450px;
-  position: absolute;
-}
-#mainView > #Modules {
-  position: absolute;
-  width: 100px;
+
+#mainView {
+  width: -webkit-calc(100% - 450px);
+  height: -webkit-calc(100% - 80px);
+  margin-top: 80px;
   margin-left: 450px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
 }
-#mainView > #ModuleView {
-  padding-left: 550px;
-}
-#mainView > #ModuleView > #ModuleContent {
-  height: 60px;
+#mainView > * {
+  height: 80%;
+  width: 60%;
 }
 
 #KeyPad {

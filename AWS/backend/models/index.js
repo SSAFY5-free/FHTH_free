@@ -12,13 +12,15 @@ const sessionSchema = new mongoose.Schema( {
 
 const robotSchema = new mongoose.Schema({ 
    serial : String,
-   modules : [mongoose.Types.ObjectId]
+   modules : [mongoose.Types.ObjectId],
+   name : String
 })
 
 const registedModuleSchema = new mongoose.Schema( {
    serial : String,
    moduleType_id : mongoose.Types.ObjectId,
-   module_data : mongoose.Schema.Types.Mixed
+   module_data : mongoose.Schema.Types.Mixed,
+   name : String
    ,
 }, {
    timestamps: true

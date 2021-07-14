@@ -1,7 +1,7 @@
 <template>
   <div id="Modules" class="bc">
-    <!-- <p>Modules</p> -->
-    {{cur}}
+    
+    <!-- {{cur}} -->
     <el-button
       style="height: 100px; width: 100px; margin: 0px"
       type="primary"
@@ -11,6 +11,7 @@
       
       @click="onClick(idx)"
     >
+    {{module.name}}
     </el-button>
   </div>
 </template>

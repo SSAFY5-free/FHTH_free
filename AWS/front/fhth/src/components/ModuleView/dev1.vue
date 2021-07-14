@@ -1,7 +1,8 @@
 <template>
-  <div id="dev1">
+  <div id="dev1" class="bc">
     <p>dev1</p>
      <!-- {{module}} -->
+     <p>status of {{module.name}}</p>
      {{module.module_data.value1}}
      {{module.module_data.value2}}
 
