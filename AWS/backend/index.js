@@ -1,6 +1,8 @@
 const express = require("express")
 const app = express()
 const cors = require("cors")
+
+
 const routes = require('./routes')
 const {RegistedModule} = require("./models")
 //dotenv
@@ -24,13 +26,11 @@ app.use(express.json());
 app.use(cors())
 
 
-
-
 //socket.io
 const server = require('http').createServer(app);
 const io = require('socket.io')(server, {
    cors: {
-      origin: "http://localhost:8081",
+      origin: "http://54.180.202.172:8081",
       methods: ["GET", "POST"],
       allowedHeaders: ["my-custom-header"],
       transports: ['websocket', 'polling'],
