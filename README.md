@@ -1,6 +1,7 @@
 # FHTH_free
 
 ## INSTALL & START
+    git clone -b Rpi <주소>
     cd backend_rpi
     npm install
     npm start
