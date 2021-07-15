@@ -31,10 +31,32 @@ router.post('/1', function(req, res, next) {
             console.log(error);
         });
 });
-
 router.post('/2', function(req, res, next) {
-    axios.post('http://54.180.202.172:8080/unauth/setModules', {
-            module: req.body.module
+    // req.headers["x-access-token"]="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjU5ODk2NzUsImV4cCI6MTYyNTk5MzI3NX0.t7JgajuQOxsYgemV67ahnwM1ppkgItSIuVVohZ7YOYo"
+    console.log(req.headers["x-access-token"]);
+    axios.post('http://54.180.202.172:8080/unauth/verifyRobot', {
+            serial: req.body.serial
+            // headers: {
+            //     'x-access-token': req.headers['x-access-token']
+            // },
+        })
+        .then(response => {
+            res.send(response.data)
+            console.log(response.data)
+            console.log(22222)
+
+        })
+        .catch(function(error) {
+            res.send(error)
+            console.log(11111)
+            console.log(error);
+        });
+});
+
+router.post('/3', function(req, res, next) {
+    axios.post('http://54.180.202.172:8080/unauth/setModule', {
+            module_id : req.body.module_id,
+            module_data : req.body.module_data
         })
         .then(response => {
             res.send(response.data)
