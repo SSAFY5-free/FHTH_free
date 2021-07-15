@@ -10,7 +10,7 @@
     "css": "npx sass src/assets/scss:src/assets/css/",
     "predeploy" : "vue-cli-service build",
     "deploy": "gh-pages -d dist",
-    "clean":"gh-paages-clean",
+    "clean":"gh-pages-clean",
     "test:unit": " vue-cli-service test:unit",
     "lint":"vue-cli-service lint"
   },
