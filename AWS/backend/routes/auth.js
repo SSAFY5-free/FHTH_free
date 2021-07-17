@@ -50,7 +50,7 @@ router.post("/getRobots", async (req,res) => {
 router.post("/getModules", async (req,res) => {
     const {robot_id} = req.body
     console.log("robot_id : ", robot_id)
-    
+    console.log("!111")
     const {modules} = await Robot.findById(robot_id)
     const result = await modules.reduce (async(promise,cur) => {
         const acc = await promise.then()
