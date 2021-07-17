@@ -1,12 +1,12 @@
 const express = require("express")
-const { ModuleType, RegistedModule,Robot } = require("../models")
+const { ModuleType, RegistedModule,Robot,User } = require("../models")
 const router = express.Router()
 require("../models")
 
 router.post("/addRobot", async (req, res) => {
-	const {serial} = req.body
-	const result = await Robot.create({serial})
-    console.log(serial)
+	const {serial,modules_id} = req.body
+	const result = await Robot.create({serial, modules:modules_id})
+    console.log(result)
 
     if(!result) res.json({"result":0})
     else res.json({"result":1})
@@ -15,6 +15,7 @@ router.post("/addRobot", async (req, res) => {
 
 router.post("/addAccount", async(req,res) => {
     const {email, pw, robots_id} = req.body
+    console.log(email, pw, robots_id)
     User.create({
        email, pw , robots_id
     }, function (err) {
@@ -25,21 +26,22 @@ router.post("/addAccount", async(req,res) => {
 })
 
 router.get("/addModuleType/:id", async(req,res) => {
+    console.log("zz")
     const name = req.params.id
     ModuleType.create({name
     }).then((data) =>{
         console.log(data)
+        return res.send("ok")
+    }).catch((err) => {
+        return res.status("200").send("err")
     })
 
-    return res.json({result : 1})
 })
 router.post("/addRegistedModule/", async(req,res) => {
-//     serial : String,
-//    module_id : String,
-//    module_type : mongoose.Types.ObjectId,
-//    module_data : {}
     const {serial, moduleType_id, module_data} = req.body
     RegistedModule.create({serial,moduleType_id,module_data}).then((data) =>{
+        console.log(data)
+    }).then((data) => {
         console.log(data)
     })
     return res.json({result : 1})

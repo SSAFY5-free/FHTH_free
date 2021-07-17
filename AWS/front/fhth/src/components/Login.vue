@@ -1,5 +1,5 @@
 <template>
-  <div id="Login" style="width: 400px">
+  <div id="Login" style="width: 400px; margin: auto">
     <img alt="Vue logo" src="../assets/logo.png" />
     <el-form :label-position="labelPosition" label-width="100px" :model="form">
       <el-form-item label="email">
@@ -29,7 +29,7 @@ export default {
       },
     };
   },
-  methods: {  
+  methods: {
     async login() {
       const { email, pw } = this.form;
       if (!email || !pw) {
@@ -40,9 +40,8 @@ export default {
         const { data } = res;
         if (data.accessToken) {
           // 토큰을 쿠키에 저장
-
           this.$store.commit("userInfo/loginToken", {
-            accessToken: data.accessToken,
+            ...data,
           });
           this.$router.push("/main");
         } else {

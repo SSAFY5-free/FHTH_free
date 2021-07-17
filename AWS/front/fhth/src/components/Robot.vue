@@ -22,28 +22,106 @@
             <div>8</div>
             <div>9</div>
           </div>
+  <el-card id="Robot" shadow="always" :body-style="{ padding: '20px' }">
+    <div slot="header">
+      <el-select v-model="value" placeholder="Select" @change="selected(value)">
+        <el-option
+          v-for="(robot, idx) in lst.robots"
+          :key="robot.name"
+          :label="robot.name"
+          :value="idx"
+        >
+        </el-option>
+      </el-select>
+    </div>
+
+    <!-- card body -->
+
+    <!-- <p>robot_id : {{ lst }}</p> -->
+    <!-- <p>robots : {{ robots }}</p> -->
+    <div style="display: flex"></div>
+    <div id="screen" class="bc"></div>
+    <div id="keyPad">
+      <div>
+        <div></div>
+        <div>
+          <el-button
+            type="primary"
+            size="default"
+            icon="el-icon-caret-top"
+            @click="onClick('top')"
+          ></el-button>
         </div>
-  </div>
+
+        <div></div>
+      </div>
+      <div>
+        <div>
+          <el-button
+            type="primary"
+            size="default"
+            icon="el-icon-caret-left"
+            @click="onClick('left')"
+          ></el-button>
+        </div>
+        <div></div>
+        <div>
+          <el-button
+            type="primary"
+            size="default"
+            icon="el-icon-caret-right"
+            @click="onClick('right')"
+          ></el-button>
+        </div>
+      </div>
+      <div>
+        <div></div>
+        <div>
+          <el-button
+            type="primary"
+            size="default"
+            icon="el-icon-caret-bottom"
+            @click="onClick('bottom')"
+          ></el-button>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </el-card>
 </template>
 
 <script>
 // import { mapGetters} from 'vuex'
-import {mapState} from 'vuex'
-
+import { mapState } from "vuex";
+import { commandAPI } from "./../utils/axios";
+// import { baseURL, port } from "../utils/conf";
+// import io from "vue-socket.io";
 export default {
-    computed : {
-        // ...mapGetters("mainInfo", ["GET_ROBOT_ID"]),
-        ...mapState('mainInfo', ['robots', "cur"])
+  computed: {
+    // ...mapGetters("mainInfo", ["GET_ROBOT_ID"]),
+    ...mapState("mainInfo", ["robots", "cur", "lst"]),
+    socket() {
+      return this.$socket;
     },
-    methods: {
+    curRobot_idx() {
+      return this.cur.robot_idx;
     },
-    async mounted() {
-        
+  },
+  methods: {
+    selected(idx) {
+      alert("here");
+      this.cur.robot_idx = idx;
     },
-    method() {
-    }
-}
+    onClick(direction) {
+      // this.socket.emit("command", { direction });
+      console.log(this.socket);
+      commandAPI.moveRobot(direction);
+    },
+  },
+  created() {
+    console.log("here : ", this.$socket);
+  },
+};
 </script>
 <style>
-
 </style>

@@ -2,40 +2,116 @@
   border: 1px solid black;
 }
 
-html, body, #app {
+html,
+body,
+#app {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: #909399;
 }
 
 /*# sourceMappingURL=all.css.map */
-#mainView > * {
+#Main > #nav {
+  display: block;
+  height: 80px;
+  position: absolute;
+  padding: 0px;
+  width: -webkit-calc(100%);
+  display: flex;
+  justify-content: space-between;
+}
+#Main > #nav > #User {
+  display: flex;
+  align-items: center;
+}
+#Main > #nav > #User > #info {
+  width: 100px;
+}
+#Main > #nav > #User > #menu {
+  width: 100px;
+}
+#Main > #Nav {
+  display: flex;
+  width: 100%;
+}
+#Main > #Nav h1 {
+  margin: 0px;
+}
+#Main > #sideBar {
+  width: 550px;
   height: -webkit-calc(100% - 80px);
-  margin-top: 80px;
+  position: absolute;
 }
-#mainView > #Robot {
+#Main > #sideBar > * {
+  position: absolute;
+}
+#Main > #sideBar > #Robot {
   width: 450px;
-  position: absolute;
+  height: 100%;
 }
-#mainView > #Modules {
-  position: absolute;
+#Main > #sideBar > #Robot > .el-card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#Main > #sideBar > #Robot > .el-card__body > #screen {
+  width: 400px;
+  height: 300px;
+  margin: 40px 30px;
+}
+#Main > #sideBar > #Robot > .el-card__body #keyPad {
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+}
+#Main > #sideBar > #Robot > .el-card__body #keyPad > div {
+  display: flex;
+}
+#Main > #sideBar > #Robot > .el-card__body #keyPad > div > div {
+  width: 80px;
+  height: 80px;
+}
+#Main > #sideBar > #Robot > .el-card__body #keyPad > div > div > button {
+  width: 80px;
+  height: 80px;
+}
+#Main > #sideBar > #Modules {
+  height: -webkit-calc(100%);
   width: 100px;
   margin-left: 450px;
 }
-#mainView > #ModuleView {
-  padding-left: 550px;
-}
-#mainView > #ModuleView > #ModuleContent {
-  height: 60px;
-}
-
-#KeyPad {
+#Main > #mainView {
+  width: -webkit-calc(100% - 550px);
+  height: -webkit-calc(100% - 80px);
+  margin-left: 550px;
+  display: flex;
+  position: absolute;
   justify-content: center;
+  flex-direction: row;
+  align-items: center;
 }
-#KeyPad > div > div {
-  border: 1px solid black;
-  width: 80px;
-  height: 80px;
+#Main > #mainView > * {
+  height: 80%;
+  width: 80%;
+}
+#Main > #mainView > .el-card > #ModuleView {
+  padding: 40px;
+}
+#Main > #mainView > .el-card > #ModuleView > #dev1 > #view {
+  display: flex;
+  justify-content: space-between;
+}
+#Main > #mainView > .el-card > #ModuleView > #dev1 > #view > * {
+  flex-grow: 1;
+}
+#Main > #mainView > .el-card > #ModuleView > #dev1 > #view > #control {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+#Main > #mainView > .el-card > #ModuleView > #dev1 > #view > #control > * {
+  width: 80%;
 }
 
 /*# sourceMappingURL=all.css.map */
