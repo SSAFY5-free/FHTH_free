@@ -3,7 +3,9 @@
       <!-- <p> Robot </p> -->
       <!-- {{robots[cur.robot_idx].id}} -->
           <!-- {{robots[cur.robot_idx]}} -->
-        <div style="widht:400px;height:300px;margin: 40px 30px" class="bc"></div>
+        <div style="widht:400px;height:300px;margin: 40px 30px" class="bc">
+          <img src="http://172.30.1.22:8080/?action=stream" alt="" style="width:400px; height:300px;">
+        </div>
         <div id = "KeyPad" style="display:flex" class="bc">
           <div >
             <div>1</div>
