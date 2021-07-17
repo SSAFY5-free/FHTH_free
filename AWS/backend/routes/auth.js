@@ -49,8 +49,18 @@ router.post("/getRobots", async (req,res) => {
 
 router.post("/getModules", async (req,res) => {
     const {robot_id} = req.body
+<<<<<<< HEAD
     // console.log("robot_id : ", robot_id)
     
+=======
+<<<<<<< HEAD
+    console.log("robot_id : ", robot_id)
+    console.log("!111")
+=======
+    // console.log("robot_id : ", robot_id)
+    
+>>>>>>> 6be2739f6086d652afbd5461ae99e565a5c567ce
+>>>>>>> 2e48aa95dbdb7b1e1e7594eb22b7092ab46946ae
     const {modules} = await Robot.findById(robot_id)
     const result = await modules.reduce (async(promise,cur) => {
         const acc = await promise.then()
