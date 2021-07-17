@@ -1,33 +1,16 @@
 <template>
   <el-card id="Robot" shadow="always" :body-style="{ padding: '20px' }">
     <div slot="header">
-      <el-dropdown
-        style="width: 100%"
-        split-button
-        type="primary"
-        trigger="click"
-        @command="selected"
-      >
-        {{ robots[cur.robot_idx].name }}
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item
-            v-for="(robot, idx) in lst.robots"
-            :key="robot.name"
-            :curRobot="idx"
-            >{{ robot.name }}</el-dropdown-item
-          >
-        </el-dropdown-menu>
-      </el-dropdown>
+      <el-select v-model="value" placeholder="Select" @change="selected(value)">
+        <el-option
+          v-for="(robot, idx) in lst.robots"
+          :key="robot.name"
+          :label="robot.name"
+          :value="idx"
+        >
+        </el-option>
+      </el-select>
     </div>
-    <!-- <el-select v-model="value" placeholder="Select">
-      <el-option
-        v-for="(robot, idx) in lst.robots"
-        :key="robot.name"
-        :label="robot.name"
-        :value="idx"
-      >
-      </el-option>
-    </el-select> -->
 
     <!-- card body -->
 
@@ -91,20 +74,19 @@ import { commandAPI } from "./../utils/axios";
 // import { baseURL, port } from "../utils/conf";
 // import io from "vue-socket.io";
 export default {
-  data() {
-    return {
-      curRobot: "",
-    };
-  },
   computed: {
     // ...mapGetters("mainInfo", ["GET_ROBOT_ID"]),
     ...mapState("mainInfo", ["robots", "cur", "lst"]),
     socket() {
       return this.$socket;
     },
+    curRobot_idx() {
+      return this.cur.robot_idx;
+    },
   },
   methods: {
     selected(idx) {
+      alert("here");
       this.cur.robot_idx = idx;
     },
     onClick(direction) {

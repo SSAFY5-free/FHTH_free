@@ -21,7 +21,7 @@ const mainInfo = {
       state, data;
       state.robots = data;
       state.lst.robots = state.robots.reduce((acc, cur) => {
-        acc.push({ id: cur.id, name: cur.name });
+        acc.push({ id: cur._id, name: cur.name });
         return acc;
       }, []);
     },
