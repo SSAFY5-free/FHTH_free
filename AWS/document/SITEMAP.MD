@@ -15,12 +15,16 @@
 │   ├── /addAccount => {result : 0 / 1}
 │   ├── /getAccessToken => {accessToken : accessToken / ""}
 │   ├── /verifyRobot => {result : 0 / 1}
+│   └── /setModule {module} => {}
+│   
 ├── /auth
-│   ├── /getRobot {} => {robot}
+│   ├── /getRobots {} => {robot}
 │   └── /getModules {robot_id} => {registedModule} 
+│   
 │    
 ├── /admin
 │   ├── /addModuleType {result : 1}
 │   ├── /addRegistedModule {result : 1}
 │   ├── /addAccount {result : 1}
 │   └── /addRobots {result : 1}
+ 

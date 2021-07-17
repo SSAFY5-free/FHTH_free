@@ -12,15 +12,20 @@ const sessionSchema = new mongoose.Schema( {
 
 const robotSchema = new mongoose.Schema({ 
    serial : String,
-   modules : [mongoose.Types.ObjectId]
+   modules : [mongoose.Types.ObjectId],
+   name : String
 })
 
 const registedModuleSchema = new mongoose.Schema( {
    serial : String,
    moduleType_id : mongoose.Types.ObjectId,
-   module_data : mongoose.Schema.Types.Mixed
+   module_data : mongoose.Schema.Types.Mixed,
+   name : String
    ,
+}, {
+   timestamps: true
 })
+
 const moduleTypeSchema = new mongoose.Schema( {
    name : String
 })
@@ -33,6 +38,7 @@ Session.createIndexes({
    expireAfterSeconds : 60*60 
 })
 const ModuleType = mongoose.model("ModuleType", moduleTypeSchema)
+const RegistedModule = mongoose.model("RegistedModule", registedModuleSchema, "RegistedModule")
 
-const RegistedModule = mongoose.model("RegistedModule", registedModuleSchema)
- module.exports = {User, Session, Robot, RegistedModule, ModuleType}
+
+module.exports = {User, Session, Robot, RegistedModule, ModuleType}

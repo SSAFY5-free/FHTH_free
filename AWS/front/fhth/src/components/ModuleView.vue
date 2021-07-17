@@ -1,36 +1,39 @@
 <template>
-  <div id="ModuleView">
-    <div id="ModuleContent" class="bc">
-    ModuleView
+  <el-card id="ModuleView" class="box-card">
+    <!-- <p>module : {{ module }}</p> -->
+    <!-- <p>modules : {{ modules }}</p> -->
+    <div slot="header">
+      <h1>{{ module.name }}</h1>
     </div>
-    {{ curModule[midx].type_id }}
-    <!-- {{this.$store.state.mainInfo.cur.module_idx}} -->
-    <dev1 v-if="curModule[midx].type_id == '60e16a243d78505adcf1de84'" v-bind:module = "curModule[midx]"></dev1>
-    <dev2 v-if="curModule[midx].type_id == '60e17160ba2b2c1d1405e233'" v-bind:module = "curModule[midx]"></dev2>
-  </div>
+    <!-- {{ this.$store.state.mainInfo.cur.module_idx }} -->
+    <dev1
+      v-if="module.type_id == '60ee76affa275a06227b3c4a'"
+      v-bind:module="module"
+    ></dev1>
+    <dev2
+      v-if="module.type_id == '60ee76a5fa275a06227b3c48'"
+      v-bind:module="module"
+    ></dev2>
+  </el-card>
 </template>
 <script>
-import dev1 from "./ModuleView/dev1.vue"
-import dev2 from "./ModuleView/dev2.vue"
+import dev1 from "./ModuleView/dev1.vue";
+import dev2 from "./ModuleView/dev2.vue";
+import { mapState } from "vuex";
+// import io from "socket.io-client";
+// import { baseURL, port } from "./utils/conf";
 export default {
   components: {
-    dev1,dev2
+    dev1,
+    dev2,
   },
   computed: {
-    curModule() {
-      return this.$store.state.mainInfo.robots[
-        this.$store.state.mainInfo.cur.robot_idx
-      ].modules
-    },
-    ridx() {
-      return this.$store.state.mainInfo.cur.robot_idx
-    },
-    midx() {
-      return this.$store.state.mainInfo.cur.module_idx
-    },
+    ...mapState("mainInfo", ["robots", "cur"]),
   },
-  methods: {},
-  mounted() {},
+  props: ["modules", "module"],
+  mounted() {
+    console.log("mounted");
+  },
 };
 </script>
 
