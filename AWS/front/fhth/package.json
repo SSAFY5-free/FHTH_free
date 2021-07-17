@@ -8,11 +8,10 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "css": "npx sass src/assets/scss:src/assets/css/",
-    "predeploy" : "vue-cli-service build",
+    "predeploy": "vue-cli-service build",
     "deploy": "gh-pages -d dist",
-    "clean":"gh-pages-clean",
-    "test:unit": " vue-cli-service test:unit",
-    "lint":"vue-cli-service lint"
+    "clean": "gh-pages-clean",
+    "test:unit": " vue-cli-service test:unit"
   },
   "dependencies": {
     "@vue/cli": "^4.5.13",
@@ -31,7 +30,7 @@
     "@vue/cli-plugin-eslint": "~4.5.13",
     "@vue/cli-plugin-router": "~4.5.13",
     "@vue/cli-plugin-vuex": "~4.5.13",
-    "@vue/cli-service": "~4.5.13",
+    "@vue/cli-service": "^4.5.13",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.30.0",
     "eslint-plugin-vue": "^7.13.0",

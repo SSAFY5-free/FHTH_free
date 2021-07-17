@@ -1,33 +1,24 @@
 <template>
-  <div id="main" class="bc" style="height: 100%">
-    <div id="nav"
-      class="bc"
-      style="display:flex;justify-content:space-between"
-    >
-      <!-- It is main vue -->
-      {{curModule}}
-      <div id="logo" class="bc">로고</div>
-      <div id="userInfo" style="display:flex" class="bc">
-        <div>유저 아이디</div>
-        <div>설정</div>
-        <div>로그아웃</div>
-      </div>
-    </div>
+  <div id="Main" class="bc" style="height: 100%">
+    <Nav></Nav>
+    <div id="sideBar">
       <robot></robot>
-    <div id="mainView" class="bc">
       <modules></modules>
-      <module-view class="bc" v-bind:module = curModule></module-view>
+    </div>
+    <div id="mainView">
+      <module-view :modules="modules" :module="module"></module-view>
     </div>
   </div>
 </template>
 <script>
 import Robot from "../../components/Robot.vue";
-// import Modules from "../../components/Modules.vue";
 import ModuleView from "../../components/ModuleView.vue";
 import { mapState } from "vuex";
-import Modules from '../../components/Modules.vue';
-// import io from "socket.io-client"
-
+import Modules from "../../components/Modules.vue";
+import Nav from "../../components/Nav.vue";
+// import User from "../../components/User.vue";
+import io from "socket.io-client";
+import { baseURL, port } from "../../utils/conf";
 
 export default {
   components: {
@@ -35,15 +26,46 @@ export default {
     // Modules,
     ModuleView,
     Modules,
+    Nav,
+    // User,
   },
   computed: {
-    ...mapState("mainInfo", ["robots", "cur"]),
-    curModule() {
-      return this.$store.state.mainInfo.robots[this.$store.state.mainInfo.cur.robot_idx].modules[this.$store.state.mainInfo.cur.module_idx];
-    }
+    ...mapState("mainInfo", ["robots", "cur", "lst"]),
+
+    modules() {
+      return this.$store.state.mainInfo.robots[
+        this.$store.state.mainInfo.cur.robot_idx
+      ].modules;
+    },
+    module() {
+      return this.$store.state.mainInfo.robots[
+        this.$store.state.mainInfo.cur.robot_idx
+      ].modules[this.$store.state.mainInfo.cur.module_idx];
+    },
+    socket() {
+      return this.$socket;
+    },
+  },
+  created() {
+    this.$store.dispatch("userInfo/SET_SOCKET");
+    this.$socket = io(baseURL + port.server, {
+      withCredentials: true,
+      extraHeaders: {
+        "my-custom-header": "abcd",
+      },
+    });
+    this.socket.on("module", (data) => {
+      const { module_data } = data;
+      this.$store.commit("mainInfo/SET_MODULE_DATA", { module_data });
+    });
+    setInterval(() => {
+      console.log("sock");
+      this.socket.emit("module", this.modules[this.cur.module_idx]);
+    }, 2000);
   },
   async mounted() {
-   this.$store.dispatch("mainInfo/GET_ROBOTS_FROM_SERVER")
-  }
-}
+    this.$store.dispatch("mainInfo/GET_ROBOTS_FROM_SERVER");
+    this.$store.dispatch("userInfo/GET_USER");
+  },
+};
 </script>
