@@ -4,8 +4,8 @@ const router = express.Router()
 require("../models")
 
 router.post("/addRobot", async (req, res) => {
-	const {serial,modules_id} = req.body
-	const result = await Robot.create({serial, modules:modules_id})
+	const {serial,modules_id, name} = req.body
+	const result = await Robot.create({serial, modules_id, name})
     console.log(result)
 
     if(!result) res.json({"result":0})
@@ -25,10 +25,8 @@ router.post("/addAccount", async(req,res) => {
     return res.send({"result" : 1})
 })
 
-router.get("/addModuleType/:id", async(req,res) => {
-    console.log("zz")
-    const name = req.params.id
-    ModuleType.create({name
+router.get("/addModuleType/:name", async(req,res) => {
+    ModuleType.create({...req.params
     }).then((data) =>{
         console.log(data)
         return res.send("ok")
@@ -38,8 +36,8 @@ router.get("/addModuleType/:id", async(req,res) => {
 
 })
 router.post("/addRegistedModule/", async(req,res) => {
-    const {serial, moduleType_id, module_data} = req.body
-    RegistedModule.create({serial,moduleType_id,module_data}).then((data) =>{
+    const {serial, type_id, data, name } = req.body
+    RegistedModule.create({serial,type_id,data, name}).then((data) =>{
         console.log(data)
     }).then((data) => {
         console.log(data)

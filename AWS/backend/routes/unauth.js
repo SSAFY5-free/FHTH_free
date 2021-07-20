@@ -8,7 +8,7 @@ const {User, RegistedModule, Robot, Session} = require("../models")
 
 router.post("/getAccessToken", async (req, res, next) => {
 	console.log(req.body)
-    const {email, pw, } = req.body
+    const {email, pw, name} = req.body
     const result = await User.findOne({email, pw})
     
     //로그인 실패 : 존재하지 않는 회원
@@ -24,9 +24,9 @@ router.post("/getAccessToken", async (req, res, next) => {
     })
     
     // 1. 세션 발급
-    console.log("new session : " , accessToken)
+    console.log("new session : " , accessToken, email)
     Session.create({accessToken:accessToken, user_id : result._id})
-    return res.json({accessToken : accessToken})
+    return res.json({accessToken, email, name})
 }
 )
 router.post("/addAccount", async(req,res) => {
@@ -40,10 +40,10 @@ router.post("/addAccount", async(req,res) => {
     return res.send({"result" : 1})
 })
 router.post("/setModule", async(req,res) => {
-    const {module_id, module_data} = req.body
+    const {_id, _data} = req.body
     console.log(module_data)
     try {
-        await RegistedModule.findByIdAndUpdate(module_id, {module_data})
+        await RegistedModule.findByIdAndUpdate(_id, {data})
         return res.send("ok")
     } catch(err) {
         return res.status(204).send("err")
