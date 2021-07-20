@@ -1,30 +1,32 @@
-const express = require("express")
-const app = express()
-const cors = require("cors")
+const express = require("express");
+const app = express();
+const cors = require("cors");
 
-
-const routes = require('./routes')
-const {RegistedModule} = require("./models")
+const routes = require("./routes");
 //dotenv
-const path = require("path")
-const dotenv = require('dotenv').config({})
+const path = require("path");
+const dotenv = require("dotenv").config({});
 
-
-const { PORT, MONGO_URI } = process.env
+const { PORT, MONGO_URI } = process.env;
 
 //db:mongo
-const mongoose = require("mongoose")
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, dbName: "fhth" })
-const db = mongoose.connection
+const mongoose = require("mongoose");
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  dbName: "fhth",
+});
+const db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'connection error'))
-db.once('open', () => { console.log("mongoDB connected") })
+db.on("error", console.error.bind(console, "connection error"));
+db.once("open", () => {
+  console.log("mongoDB connected");
+});
 
 //middleware
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors())
-
+app.use(cors());
 
 app.use("/", routes);
 
@@ -40,6 +42,7 @@ const https_server = require("https").createServer({
 
 
 //socket.io
+<<<<<<< HEAD
 const io = require('socket.io')(http_server, {
    cors: {
    origin: ["http://127.0.0.1:8081","http://ssafy5-free.github.io","https://ssafy5-free.github.io"],
@@ -92,3 +95,13 @@ https_server.listen(443,"::", function () {
 })
 
 
+=======
+const server = require("http").createServer(app);
+const io = require("./utils/socket")(server);
+
+//REST API
+app.use("/", routes);
+server.listen(PORT, function () {
+  console.log(PORT + " / FHTH.server is running");
+});
+>>>>>>> fbd286a19828ec7cef07203cfe203570e1718518

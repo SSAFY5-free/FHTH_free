@@ -62,6 +62,7 @@ export const userAPI = {
     const result = request.post("/unauth/getAccessToken", {
       email,
       pw,
+      name,
     });
     console.log(result);
     return result;
@@ -69,21 +70,31 @@ export const userAPI = {
   signup: (form) => {
     return request.post("/unauth/addAccount", form);
   },
+  getUser: () => {
+    console.log("robot_API_GET_USER");
+    return request.get("/auth/getUser");
+  },
 };
 
 export const robotAPI = {
-  getRobots_id: () => {
+  getRobots: () => {
     return request.post("/auth/getRobots");
   },
   verifyRobot: (form) => {
     return request.post("/unauth/verifyRobot", { form });
   },
-  getModules: (robot_id) => {
+  getModules: (_id) => {
     console.log("robotAPI _ GETMODULES : ");
-    return request.post("/auth/getModules", { robot_id });
+    return request.post("/auth/getModules", { _id });
   },
-  getModule: (module_id) => {
+  getModule: (_id) => {
     console.log("robotAPI _ GETMODULE : ");
-    return request.post("/auth/getModule", { module_id });
+    return request.post("/auth/getModule", { _id });
+  },
+};
+
+export const commandAPI = {
+  moveRobot: (direction) => {
+    alert(direction);
   },
 };
