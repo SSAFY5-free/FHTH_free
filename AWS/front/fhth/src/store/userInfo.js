@@ -13,6 +13,7 @@ const login = {
     accessToken: null,
     email: "",
     name: "",
+    socket: "aaa",
   },
   mutations: {
     //set User
@@ -83,10 +84,21 @@ const login = {
           });
       });
     },
-    SET_SOCKET: ({ state }) => {
+    SET_SOCKET: ({ state, commit }, params) => {
       state;
-      console.log("gger: ", state);
+      state.socket = params.socket;
+      state.socket.on("module", (data) => {
+        data;
+        const { module_data } = data;
+        commit("mainInfo/SET_MODULE_DATA", { module_data }, { root: true });
+      });
     },
+
+    EMIT_SOCKET: ({ state }, params) => {
+      const { namespace, data } = params;
+      state.socket.emit(namespace, data);
+    },
+
     // refreshToken: ({ commit }) => {
     //   // accessToken 재요청
     //   //accessToken 만료로 재발급 후 재요청시 비동기처리로는 제대로 처리가 안되서 promise로 처리함

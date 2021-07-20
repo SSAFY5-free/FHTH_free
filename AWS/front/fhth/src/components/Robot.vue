@@ -18,7 +18,7 @@
     <!-- <p>robots : {{ robots }}</p> -->
     <div style="display: flex"></div>
     <div id="screen" class="bc">
-      <img src="http://172.30.1.22:8080/?action=stream" alt="">
+      <img src="http://172.30.1.22:8080/?action=stream" alt="" />
     </div>
     <div id="keyPad">
       <div>
@@ -72,19 +72,20 @@
 <script>
 // import { mapGetters} from 'vuex'
 import { mapState } from "vuex";
-import { commandAPI } from "./../utils/axios";
 // import { baseURL, port } from "../utils/conf";
 // import io from "vue-socket.io";
 export default {
   computed: {
     // ...mapGetters("mainInfo", ["GET_ROBOT_ID"]),
     ...mapState("mainInfo", ["robots", "cur", "lst"]),
-    socket() {
-      return this.$socket;
-    },
     curRobot_idx() {
       return this.cur.robot_idx;
     },
+  },
+  data() {
+    return {
+      value: "",
+    };
   },
   methods: {
     selected(idx) {
@@ -92,13 +93,13 @@ export default {
       this.cur.robot_idx = idx;
     },
     onClick(direction) {
-      // this.socket.emit("command", { direction });
-      console.log(this.socket);
-      commandAPI.moveRobot(direction);
+      this.$store.dispatch("userInfo/EMIT_SOCKET", {
+        namespace: "command",
+        data: {
+          direction,
+        },
+      });
     },
-  },
-  created() {
-    console.log("here : ", this.$socket);
   },
 };
 </script>

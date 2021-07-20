@@ -42,25 +42,33 @@ export default {
         this.$store.state.mainInfo.cur.robot_idx
       ].modules[this.$store.state.mainInfo.cur.module_idx];
     },
-    socket() {
-      return this.$socket;
+    socket: {
+      //get
+      get: function () {
+        return this.$socket;
+      },
+      set: function (obj) {
+        this.$socket = obj;
+      },
     },
   },
   created() {
-    this.$store.dispatch("userInfo/SET_SOCKET");
-    this.$socket = io(baseURL + port.server, {
-      withCredentials: true,
-      extraHeaders: {
-        "my-custom-header": "abcd",
-      },
+    this.$store.dispatch("userInfo/SET_SOCKET", {
+      socket: io(baseURL + port.server, {
+        withCredentials: true,
+        extraHeaders: {
+          "my-custom-header": "abcd",
+        },
+      }),
     });
-    this.socket.on("module", (data) => {
-      const { module_data } = data;
-      this.$store.commit("mainInfo/SET_MODULE_DATA", { module_data });
-    });
+
     setInterval(() => {
-      console.log("sock");
-      this.socket.emit("module", this.modules[this.cur.module_idx]);
+      this.$store.dispatch("userInfo/EMIT_SOCKET", {
+        namespace: "module",
+        data: {
+          _id: this.modules[this.cur.module_idx]._id,
+        },
+      });
     }, 2000);
   },
   async mounted() {
