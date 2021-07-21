@@ -49,8 +49,8 @@ router.post('/getModule', function(req, res, next) {
         });
 });
 
-router.post('/3', function(req, res, next) {
-    axios.post('http://54.180.202.172:8080/unauth/setModule', {
+router.post('/setModule', function(req, res, next) {
+    axios.post('http://127.0.0.1:4500/unauth/setModule', {
             module_id : req.body.module_id,
             module_data : req.body.module_data
         })
@@ -62,21 +62,7 @@ router.post('/3', function(req, res, next) {
             console.log(error);
         });
 });
-// });
 
-// router.get('/angle', function(req, res, next) {
-//     connection.query('SELECT * FROM DB_15_08.sensing_08_1', function(err, result) {
-//         res.send(result)
-//     })
-
-// });
-
-// router.get('/temp', function(req, res, next) {
-//     connection.query('SELECT * FROM DB_15_08.sensing_08_1', function(err, result) {
-//         res.send(result)
-//     })
-
-// });
 
 
 module.exports = router;
