@@ -1,27 +1,15 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-
 const routes = require("./routes");
-//dotenv
 const path = require("path");
-const dotenv = require("dotenv").config({});
+require("dotenv").config({});
+require("./utils/mongodb");
 
-const { PORT, MONGO_URI } = process.env;
+const env = process.env;
 
 //db:mongo
-const mongoose = require("mongoose");
-mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  dbName: "fhth",
-});
-const db = mongoose.connection;
 
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", () => {
-  console.log("mongoDB connected");
-});
 
 //middleware
 app.use(express.urlencoded({ extended: true }));
@@ -42,13 +30,13 @@ const https_server = require("https").createServer({
 require("./utils/socket.js").createSocket(http_server, https_server)
 
 //server listen
-http_server.listen(PORT,"0.0.0.0",  function () {
-   console.log(PORT + " / FHTH.server is running")
+http_server.listen(env.NODEJS_HTTP_PORT,"0.0.0.0",  function () {
+   console.log(env.NODEJS_HTTP_PORT + " / FHTH.server is running")
 })
 
 
-https_server.listen(443,"::", function () {
-   console.log(443 + " / FHTH.server2 is running")
+https_server.listen(env.NODEJS_HTTPS_PORT,"::", function () {
+   console.log(env.NODEJS_HTTPS_PORT+ " / FHTH.server2 is running")
 })
 
 
