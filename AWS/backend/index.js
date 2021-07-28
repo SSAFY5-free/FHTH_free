@@ -13,23 +13,24 @@ app.use(cors());
 
 app.use("/", routes);
 
-const http_server= require('http').createServer(app);
-const https_server = require("https").createServer({
-//  ca: fs.readFileSync('/etc/letsencrypt/live/내블로그주소/fullchain.pem'),
-//  key: fs.readFileSync('/etc/letsencrypt/live/내블로그주소/privkey.pem'),
-//  cert: fs.readFileSync('/etc/letsencrypt/live/내블로그주소/cert.pem')
-},app);
-
+const http_server = require("http").createServer(app);
+const https_server = require("https").createServer(
+  {
+    //  ca: fs.readFileSync('/etc/letsencrypt/live/내블로그주소/fullchain.pem'),
+    //  key: fs.readFileSync('/etc/letsencrypt/live/내블로그주소/privkey.pem'),
+    //  cert: fs.readFileSync('/etc/letsencrypt/live/내블로그주소/cert.pem')
+  },
+  app
+);
 
 //socket.io
-require("./utils/socket.js").createSocket(http_server, https_server)
+require("./utils/socket.js").createSocket(http_server, https_server);
 
 //server listen
-http_server.listen(PORT,"0.0.0.0",  function () {
-   console.log(PORT + " / FHTH.server is running")
-})
+http_server.listen(env.HTTP_PORT, "0.0.0.0", function () {
+  console.log(env.HTTPS_PORT + " / FHTH.server is running");
+});
 
-
-https_server.listen(443,"::", function () {
-   console.log(443 + " / FHTH.server2 is running")
-})
+https_server.listen(443, "::", function () {
+  console.log(443 + " / FHTH.server2 is running");
+});

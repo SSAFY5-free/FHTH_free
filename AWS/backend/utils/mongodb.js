@@ -3,10 +3,10 @@ const env = process.env;
 
 module.exports = () => {
   const mongoose = require("mongoose");
-  mongoose.connect(env.MONGODB_HOST, {
+  mongoose.connect(env.MONGO_HOST, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    dbName: env.MONGODB_DB,
+    dbName: env.MONGO_DB,
   });
   const db = mongoose.connection;
   db.on("error", console.error.bind(console, "connection error"));
