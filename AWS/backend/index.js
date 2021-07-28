@@ -7,9 +7,19 @@ require("./utils/mongodb")();
 
 //middleware
 const cors = require("cors");
+var whitelist = ["http://127.0.0.1:8081", "http://localhost:8081"];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use("/", routes);
 
@@ -28,9 +38,9 @@ require("./utils/socket.js").createSocket(http_server, https_server);
 
 //server listen
 http_server.listen(env.HTTP_PORT, "0.0.0.0", function () {
-  console.log(env.HTTPS_PORT + " / FHTH.server is running");
+  console.log(env.HTTP_PORT + " / FHTH.server is running");
 });
 
-https_server.listen(443, "::", function () {
-  console.log(443 + " / FHTH.server2 is running");
+https_server.listen(env.HTTPS_PORT, "::", function () {
+  console.log(env.HTTPS_PORT + " / FHTH.server2 is running");
 });

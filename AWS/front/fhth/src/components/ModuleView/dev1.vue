@@ -17,12 +17,6 @@
           :percentage="module.data.value2"
           :color="colors"
         ></el-progress>
-        <div>
-          <el-button-group>
-            <el-button icon="el-icon-minus" @click="decrease"></el-button>
-            <el-button icon="el-icon-plus" @click="increase"></el-button>
-          </el-button-group>
-        </div>
 
         <p>
           <el-button type="primary" size="default" @click="onClick"

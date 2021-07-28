@@ -1,6 +1,6 @@
-export const baseURL = "http://13.124.30.182";
+export const baseURL = "http://127.0.0.1";
 export const port = {
-  server: ":8080",
+  server: ":8079",
   db: ":27017",
 };
 

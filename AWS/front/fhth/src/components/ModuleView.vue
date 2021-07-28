@@ -20,8 +20,6 @@
 import dev1 from "./ModuleView/dev1.vue";
 import dev2 from "./ModuleView/dev2.vue";
 import { mapState } from "vuex";
-// import io from "socket.io-client";
-// import { baseURL, port } from "./utils/conf";
 export default {
   components: {
     dev1,
