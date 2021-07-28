@@ -17,24 +17,23 @@ const VerifySession = async (req, res, next) => {
   if (!accessToken) {
     return res.json({ error: "로그인 토큰을 가지고 있지 않습니다" });
   }
-
   //2. 세션이 만료된 경우
   const result = await Session.findOne({ accessToken });
   req.data = result;
   if (!result) {
     return res.json({ error: "로그인 토큰이 만료되었습니다" });
   }
-
   next();
 };
 router.use(VerifySession);
 
+<<<<<<< HEAD
 
-router.post("/getRobots", async (req,res) => {
-    const accessToken = req.headers["x-access-token"]
-    const {user_id} = await Session.findOne({accessToken})
-    console.log("user_id", user_id)
 
+router.post("/getRobots", async (req, res) => {
+  const accessToken = req.headers["x-access-token"];
+  const { user_id } = await Session.findOne({ accessToken });
+  console.log("user_id", user_id);
     const {robots_id} = await User.findById(user_id)
 	const robots = await robots_id.reduce(async (promise,cur)=> {
 		const acc = await promise.then()
