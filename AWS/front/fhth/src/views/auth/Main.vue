@@ -42,15 +42,6 @@ export default {
         this.$store.state.mainInfo.cur.robot_idx
       ].modules[this.$store.state.mainInfo.cur.module_idx];
     },
-    socket: {
-      //get
-      get: function () {
-        return this.$socket;
-      },
-      set: function (obj) {
-        this.$socket = obj;
-      },
-    },
   },
   created() {
     this.$store.dispatch("userInfo/SET_SOCKET", {

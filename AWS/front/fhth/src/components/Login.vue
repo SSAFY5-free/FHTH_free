@@ -1,5 +1,5 @@
 <template>
-  <div id="Login" style="width: 400px; margin: auto">
+  <el-card id="Login" style="width: 400px; margin: auto">
     <img alt="Vue logo" src="../assets/logo.png" />
     <el-form :label-position="labelPosition" label-width="100px" :model="form">
       <el-form-item label="email">
@@ -10,10 +10,9 @@
       </el-form-item>
     </el-form>
     <span>
-      <el-button plain disabled>cancel</el-button>
       <el-button @click="login" type="primary">Login</el-button>
     </span>
-  </div>
+  </el-card>
 </template>
 
 <script>
@@ -62,13 +61,10 @@ export default {
   display: inline-block;
   margin: 0 10px;
 }
-.home {
+/* .home {
   border: 1px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-#Login {
-  border: 1px solid black;
-}
+} */
 </style>

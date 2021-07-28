@@ -1,16 +1,16 @@
 import axios from "axios";
 import { userAPI } from "../utils/axios";
 import { baseURL, port } from "../utils/conf";
-// import Vuex from "vuex";
-
+import createPersistedState from "vuex-persistedstate";
 import VueCookies from "vue-cookies";
 //로그인 처리 관련 저장소 모듈
 
 const login = {
+  plugins: [createPersistedState({})],
   namespaced: true,
   state: {
     host: baseURL + port,
-    accessToken: null,
+    // accessToken: null,
     email: "",
     name: "",
     socket: "aaa",
@@ -23,10 +23,9 @@ const login = {
       state.accessToken = payload.accessToken;
       state.email = payload.email;
     },
-    // removeToken() {
-    //   console.log("login/removeToken");
-    //   VueCookies.remove("accessToken");
-    // },
+    removeToken() {
+      VueCookies.remove("accessToken");
+    },
   },
   getters: {
     //쿠키에 저장된 토큰 가져오기

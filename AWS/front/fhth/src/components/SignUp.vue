@@ -1,24 +1,20 @@
 <template>
-  <div id="SignUp">
+  <el-card id="SignUp">
     <el-form
       :model="form"
       status-icon
       ref="ruleForm"
-      label-width="120px"
+      label-width="80px"
       class="demo-ruleForm"
     >
-      <el-form-item label="id">
+      <el-form-item label="아이디">
         <el-input type="id" v-model="form.email" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="pw">
+      <el-form-item label="비밀번호">
         <el-input type="id" v-model="form.pw" autocomplete="off"></el-input>
       </el-form-item>
-      <!-- <el-form-item label="deviceId">
-        <el-input v-model="form.deviceId"></el-input>
-      </el-form-item> -->
-
-      <el-form-item label="" size="normal">
-        <!-- <add-device :deviceList="list"></add-device> -->
+      <el-form-item label="비밀번호">
+        <el-input type="id" v-model="form.pw" autocomplete="off"></el-input>
       </el-form-item>
 
       <div id="registedDevices">
@@ -29,11 +25,7 @@
           :label="String(robot.validation)"
           size="normal"
         >
-          <add-Robot
-            
-            @update="validationCheck"
-            :form_id="robot.id"
-          ></add-Robot>
+          <add-Robot @update="validationCheck" :form_id="robot.id"></add-Robot>
         </el-form-item>
       </div>
 
@@ -43,7 +35,7 @@
         <!-- <el-button @click="resetForm('ruleForm')">Reset</el-button> -->
       </el-form-item>
     </el-form>
-  </div>
+  </el-card>
 </template>
 
 <script>

@@ -12,6 +12,11 @@ body,
 }
 
 /*# sourceMappingURL=all.css.map */
+#SignUp {
+  width: 400px;
+  margin: auto auto;
+}
+
 #Main > #nav {
   display: block;
   height: 80px;
