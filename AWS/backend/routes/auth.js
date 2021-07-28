@@ -17,20 +17,15 @@ const VerifySession = async (req, res, next) => {
   if (!accessToken) {
     return res.json({ error: "로그인 토큰을 가지고 있지 않습니다" });
   }
-
   //2. 세션이 만료된 경우
   const result = await Session.findOne({ accessToken });
   req.data = result;
   if (!result) {
     return res.json({ error: "로그인 토큰이 만료되었습니다" });
   }
-
   next();
 };
 router.use(VerifySession);
-
-// router.get("/mainInfo", VerifySession, async (req,res) => {
-//     const {email} = req.data
 
 router.post("/getRobots", async (req, res) => {
   const accessToken = req.headers["x-access-token"];
