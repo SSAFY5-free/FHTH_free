@@ -32,57 +32,14 @@ app.use("/", routes);
 
 const http_server= require('http').createServer(app);
 const https_server = require("https").createServer({
-
 //  ca: fs.readFileSync('/etc/letsencrypt/live/내블로그주소/fullchain.pem'),
-
 //  key: fs.readFileSync('/etc/letsencrypt/live/내블로그주소/privkey.pem'),
-
 //  cert: fs.readFileSync('/etc/letsencrypt/live/내블로그주소/cert.pem')
 },app);
 
 
 //socket.io
-<<<<<<< HEAD
-const io = require('socket.io')(http_server, {
-   cors: {
-   origin: ["http://127.0.0.1:8081","http://ssafy5-free.github.io","https://ssafy5-free.github.io"],
-
-      methods: ["GET", "POST"],
-      allowedHeaders: ["my-custom-header"],
-      transports: ['websocket', 'polling'],
-      credentials: true
-   }, allowEIO3: true
-});
-io.attach(https_server,{
-cors: {
-   origin: ["http://127.0.0.1:8081","http://ssafy5-free.github.io","https://ssafy5-free.github.io"],
-
-      methods: ["GET", "POST"],
-      allowedHeaders: ["my-custom-header"],
-      transports: ['websocket', 'polling'],
-      credentials: true
-   }, allowEIO3: true
-
-});
-
-
-
-io.on('connection', async(socket) => {
-   console.log('Connect from Client: ' + socket)
-   //Registedmodule에 있는 id들 조회
-   socket.on("module", async (data) => {
-      const {_id} = data
-      const result = await RegistedModule.findById(_id);
-      socket.emit("module",{
-         data : result.data
-      })
-
-      console.log("socket module : ", result)
-   }),
-		socket.on("command", (data) => {
-			console.log("command : " , data)
-		})
-})
+require("./utils/socket.js").createSocket(http_server, https_server)
 
 //server listen
 http_server.listen(PORT,"0.0.0.0",  function () {
@@ -95,13 +52,4 @@ https_server.listen(443,"::", function () {
 })
 
 
-=======
-const server = require("http").createServer(app);
-const io = require("./utils/socket")(server);
 
-//REST API
-app.use("/", routes);
-server.listen(PORT, function () {
-  console.log(PORT + " / FHTH.server is running");
-});
->>>>>>> fbd286a19828ec7cef07203cfe203570e1718518

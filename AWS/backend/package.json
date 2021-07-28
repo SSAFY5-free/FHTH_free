@@ -20,10 +20,11 @@
     "express-session": "^1.17.2",
     "jsonwebtoken": "^8.5.1",
     "mongodb-topology-manager": "^2.1.0",
-    "mongoose": "^5.13.0",
+    "mongoose": "^5.13.3",
     "mysql2": "^2.2.5",
-    "nodemon": "^2.0.8",
-    "sequelize": "^6.6.2",
+    "nodemon": "^2.0.12",
+    "pm2": "^5.1.0",
+    "sequelize": "^6.6.5",
     "sequelize-cli": "^6.2.0",
     "socket.io": "^4.1.3"
   }
