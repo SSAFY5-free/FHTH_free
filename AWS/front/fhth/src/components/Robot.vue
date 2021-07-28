@@ -70,13 +70,9 @@
 </template>
 
 <script>
-// import { mapGetters} from 'vuex'
 import { mapState } from "vuex";
-// import { baseURL, port } from "../utils/conf";
-// import io from "vue-socket.io";
 export default {
   computed: {
-    // ...mapGetters("mainInfo", ["GET_ROBOT_ID"]),
     ...mapState("mainInfo", ["robots", "cur", "lst"]),
     curRobot_idx() {
       return this.cur.robot_idx;
@@ -95,6 +91,7 @@ export default {
     onClick(direction) {
       this.$store.dispatch("userInfo/EMIT_SOCKET", {
         namespace: "command",
+        robot_id: this.robots[this.curRobot_idx],
         data: {
           direction,
         },

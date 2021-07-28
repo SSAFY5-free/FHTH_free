@@ -75,8 +75,8 @@ const login = {
     },
 
     EMIT_SOCKET: ({ state }, params) => {
-      const { namespace, data } = params;
-      state.socket.emit(namespace, data);
+      const { namespace, data, robot_id } = params;
+      state.socket.emit(namespace, data, robot_id);
     },
   },
 };
