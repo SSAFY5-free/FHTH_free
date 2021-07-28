@@ -1,29 +1,12 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
-
 const routes = require("./routes");
-//dotenv
-const path = require("path");
-const dotenv = require("dotenv").config({});
-
-const { PORT, MONGO_URI } = process.env;
-
-//db:mongo
-const mongoose = require("mongoose");
-mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  dbName: "fhth",
-});
-const db = mongoose.connection;
-
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", () => {
-  console.log("mongoDB connected");
-});
+const env = process.env;
+require("dotenv").config({});
+require("./utils/mongodb")();
 
 //middleware
+const cors = require("cors");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
@@ -34,6 +17,6 @@ const io = require("./utils/socket")(server);
 
 //REST API
 app.use("/", routes);
-server.listen(PORT, function () {
-  console.log(PORT + " / FHTH.server is running");
+server.listen(env.NODEJS_PORT, function () {
+  console.log(env.NODEJS_PORT + " / FHTH.server is running");
 });
