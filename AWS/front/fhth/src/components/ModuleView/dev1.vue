@@ -18,18 +18,24 @@
           :color="colors"
         ></el-progress>
 
-        <p>
-          <el-button type="primary" size="default" @click="onClick"
-            >밥주기</el-button
-          >
-        </p>
+        <async-btn
+          v-for="command in lstCommand"
+          :key="command.keyword"
+          :keyword="command.keyword"
+          :command="command.command"
+        ></async-btn>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import AsyncBtn from "./AsyncBtn.vue";
 export default {
+  components: { AsyncBtn },
+  componets: {
+    AsyncBtn,
+  },
   props: ["module"],
   data() {
     return {
@@ -40,15 +46,15 @@ export default {
         { color: "#1989fa", percentage: 80 },
         { color: "#6f7ad3", percentage: 100 },
       ],
+      lstCommand: [
+        {
+          keyword: "밥주기",
+          command: "feed",
+        },
+      ],
     };
   },
   methods: {
-    increase() {
-      //!todo
-    },
-    decrease() {
-      //!todo
-    },
     onClick() {},
   },
 };

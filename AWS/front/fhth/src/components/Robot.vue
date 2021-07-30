@@ -1,7 +1,7 @@
 <template>
   <el-card id="Robot" shadow="always" :body-style="{ padding: '20px' }">
     <div slot="header">
-      <el-select v-model="value" placeholder="Select" @change="selected(value)">
+      <el-select v-model="value" placeholder="Select" @change="onChange(value)">
         <el-option
           v-for="(robot, idx) in lst.robots"
           :key="robot.name"
@@ -84,15 +84,15 @@ export default {
     };
   },
   methods: {
-    selected(idx) {
-      alert("here");
+    onChange(idx) {
       this.cur.robot_idx = idx;
     },
     onClick(direction) {
+      const robot_id = this.robots[this.cur.robot_idx]._id;
       this.$store.dispatch("userInfo/EMIT_SOCKET", {
         namespace: "command",
-        robot_id: this.robots[this.curRobot_idx],
         data: {
+          robot_id,
           direction,
         },
       });

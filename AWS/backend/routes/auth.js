@@ -1,5 +1,6 @@
 const express = require("express");
-const { Session, Robot, User, RegistedModule } = require("../models");
+const jwt = require("jsonwebtoken");
+const { Robot, User, RegistedModule } = require("../models");
 const router = express.Router();
 const path = require("path");
 
@@ -9,34 +10,26 @@ require("dotenv").config({
   path: path.resolve(process.cwd(), ".env"),
 });
 
-//accessToken 소유시에만 데이터를 전송하는 미들웨어
-const VerifySession = async (req, res, next) => {
+const Verify = async (req, res, next) => {
   const accessToken = req.headers["x-access-token"];
   console.log(accessToken);
   //1. 토큰을 가지고 있지 않을 경우
   if (!accessToken) {
     return res.json({ error: "로그인 토큰을 가지고 있지 않습니다" });
   }
-  //2. 세션이 만료된 경우
-  const result = await Session.findOne({ accessToken });
-  req.data = result;
-  if (!result) {
-    return res.json({ error: "로그인 토큰이 만료되었습니다" });
-  }
   next();
 };
-router.use(VerifySession);
+router.use(Verify);
 
 router.post("/getRobots", async (req, res) => {
   const accessToken = req.headers["x-access-token"];
-  const { user_id } = await Session.findOne({ accessToken });
-  console.log("user_id", user_id);
+  console.log(jwt.decode(accessToken, "fhth"));
+  const user_id = jwt.decode(accessToken, "fhth")._id;
   const { robots_id } = await User.findById(user_id);
   const robots = await robots_id.reduce(async (promise, cur) => {
     const acc = await promise.then();
     const robot = await Robot.findById(cur);
     acc.push(robot);
-
     return Promise.resolve(acc);
   }, Promise.resolve([]));
   if (robots) return res.json(robots);
@@ -45,13 +38,12 @@ router.post("/getRobots", async (req, res) => {
 
 router.get("/getUser", async (req, res) => {
   const accessToken = req.headers["x-access-token"];
-  const { user_id } = await Session.findOne({ accessToken });
+  const user_id = jwt.decode(accessToken, "fhth")._id;
   const { email, name } = await User.findById(user_id);
   return res.json({ email, name });
 });
 router.post("/getModules", async (req, res) => {
   const { _id } = req.body;
-  console.log("here : ", _id);
 
   const { modules_id } = await Robot.findById(_id);
   const result = await modules_id.reduce(async (promise, cur) => {
@@ -80,4 +72,8 @@ router.post("/getModule", async (req, res) => {
   }
 });
 
+router.post("/commandModule", async (req, res) => {
+  console.log(req.body);
+  res.status(200).send("hi");
+});
 module.exports = router;

@@ -1,7 +1,7 @@
 $nav-height: 80px;
-$modules-width: 100px;
+$ModuleBar-width: 100px;
 $robot-width: 450px;
-$sideBar-width: #{$robot-width + $modules-width};
+$sideBar-width: #{$robot-width + $ModuleBar-width};
 .bc {
   border: 1px solid black;
 }
@@ -90,9 +90,9 @@ body,
         }
       }
     }
-    > #Modules {
+    > #ModuleBar {
       height: -webkit-calc(100%);
-      width: $modules-width;
+      width: $ModuleBar-width;
       margin-left: $robot-width;
     }
   }

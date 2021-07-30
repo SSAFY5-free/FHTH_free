@@ -1,5 +1,5 @@
 <template>
-  <div id="Modules">
+  <div id="ModuleBar">
     <!-- {{cur}} -->
     <el-button
       style="height: 100px; width: 100px; margin: 0px"

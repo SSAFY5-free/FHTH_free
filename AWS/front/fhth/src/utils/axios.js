@@ -69,8 +69,16 @@ export const robotAPI = {
   },
 };
 
-export const commandAPI = {
-  moveRobot: (direction) => {
-    alert(direction);
+export const moduleAPI = {
+  command: (data) => {
+    return request
+      .post("/auth/commandModule", {
+        data: data,
+        timeout: 3000,
+      })
+      .catch((error) => {
+        if (error.response.status == 404) alert("경로가 존재하지 않습니다");
+        return error.response.status;
+      });
   },
 };

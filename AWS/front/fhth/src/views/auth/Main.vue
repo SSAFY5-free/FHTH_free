@@ -3,7 +3,7 @@
     <Nav></Nav>
     <div id="sideBar">
       <robot></robot>
-      <modules></modules>
+      <module-bar></module-bar>
     </div>
     <div id="mainView">
       <module-view :modules="modules" :module="module"></module-view>
@@ -14,7 +14,7 @@
 import Robot from "../../components/Robot.vue";
 import ModuleView from "../../components/ModuleView.vue";
 import { mapState } from "vuex";
-import Modules from "../../components/Modules.vue";
+import ModuleBar from "../../components/ModuleBar.vue";
 import Nav from "../../components/Nav.vue";
 // import User from "../../components/User.vue";
 import io from "socket.io-client";
@@ -25,7 +25,7 @@ export default {
     Robot,
     // Modules,
     ModuleView,
-    Modules,
+    ModuleBar,
     Nav,
     // User,
   },

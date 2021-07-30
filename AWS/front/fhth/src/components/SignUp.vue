@@ -17,7 +17,7 @@
         <el-input type="id" v-model="form.pw" autocomplete="off"></el-input>
       </el-form-item>
 
-      <div id="registedDevices">
+      <div id="registedRobots">
         <!-- dynamic form -->
         <el-form-item
           v-for="robot in form.lstRobot"
@@ -75,7 +75,6 @@ export default {
         serial: "",
         validation: 0,
       });
-      // document.querySelector("#registedDevices").innerHTML += d
     },
     validationCheck(data) {
       console.log(data);
