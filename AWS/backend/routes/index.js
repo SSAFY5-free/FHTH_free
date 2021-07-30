@@ -2,6 +2,7 @@ const express = require("express");
 const unauthRouter = require("./unauth.js");
 const authRouter = require("./auth.js");
 const adminRouter = require("./admin.js");
+const rpiRouter = require("./rpi.js");
 
 const router = express.Router();
 router.use((req, res, next) => {
@@ -32,4 +33,5 @@ router.use((req, res, next) => {
 router.use("/admin", adminRouter);
 router.use("/unauth", unauthRouter);
 router.use("/auth", authRouter);
+router.use("/rpi", rpiRouter);
 module.exports = router;
