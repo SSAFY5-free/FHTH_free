@@ -1,66 +1,52 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
+const unauthService = require("../service/unauth");
 
 const jwt = require("jsonwebtoken");
 
 const { User, RegistedModule, Robot, Session } = require("../models");
 
-router.post("/getAccessToken", async (req, res, next) => {
-  console.log(req.body);
-  const { email, pw, name } = req.body;
-  const result = await User.findOne({ email, pw });
-
-  //로그인 실패 : 존재하지 않는 회원
-  if (!result) return res.json({ accessToken: "" });
-
-  //로그인 성공시
-  // 1. 세션 발급
-  const accessToken = jwt.sign(
-    {
-      _id: result._id,
-    },
-    "fhth",
-    {
-      expiresIn: "1h",
-    }
-  );
-  return res.json({ accessToken });
+router.post("/getAccessToken", async (req, res) => {
+  unauthService
+    .post_accessToken(req.body)
+    .then((data) => {
+      console.log(data);
+      return res.json(data);
+    })
+    .catch((error) => {
+      return res.status(500).json("error");
+    });
 });
 router.post("/addAccount", async (req, res) => {
-  const { email, pw, device } = req.body;
-  User.create(
-    {
-      email,
-      pw,
-      device,
-    },
-    function (err) {
-      console.log(err);
-    }
-  );
-  console.log("계정생성");
-  return res.send({ result: 1 });
+  unauthService
+    .post_account(req.body)
+    .then((data) => {
+      return res.status(200).json(data);
+    })
+    .catch((error) => {
+      return res.status(500).json("error");
+    });
 });
 router.post("/setModule", async (req, res) => {
-  const { _id, _data } = req.body;
-  console.log(module_data);
-  try {
-    await RegistedModule.findByIdAndUpdate(_id, { data });
-    return res.send("ok");
-  } catch (err) {
-    return res.status(204).send("err");
-  }
+  unauthService
+    .post_module(req.body)
+    .then(() => {
+      return res.send("ok");
+    })
+    .catch((error) => {
+      return res.status(500).send("errer");
+    });
 });
 
 router.post("/verifyRobot", async (req, res) => {
-  console.log(req.body);
-  const { serial } = req.body;
-  const result = await Robot.findOne({ serial });
-  console.log(result);
-
-  if (!result) res.send("ok");
-  else res.status(204).send("err");
-  return;
+  unauthService
+    .post_verifyRobot(req.body)
+    .then((data) => {
+      return res.send("ok");
+    })
+    .catch((error) => {
+      return res.status(500).send("error");
+    });
 });
 module.exports = router;
