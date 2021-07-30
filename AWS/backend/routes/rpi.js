@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+require("../utils/session")(router);
 const service = require("../service/rpi");
 router.post("/session", (req, res) => {
   service

@@ -10,6 +10,7 @@ const env = process.env;
 var store = new MongoDBStore({
   uri: env.mongo_HOST,
   databaseName: "fhth",
+  expires: 1000 * 10,
   collection: "mySessions",
 });
 

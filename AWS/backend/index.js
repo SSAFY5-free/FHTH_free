@@ -4,7 +4,6 @@ const routes = require("./routes");
 const env = process.env;
 require("dotenv").config({});
 require("./utils/mongodb")();
-require("./utils/session")(app);
 
 //middleware
 const cors = require("cors");
