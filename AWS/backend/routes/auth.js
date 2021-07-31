@@ -4,8 +4,9 @@ const { Robot, User, RegistedModule } = require("../models");
 
 const router = express.Router();
 const path = require("path");
-const authService = require("../service/auth");
+const service = require("../service/auth");
 const { rejects } = require("assert");
+const { RSA_NO_PADDING } = require("constants");
 require("../models");
 
 require("dotenv").config({
@@ -23,7 +24,7 @@ const Verify = async (req, res, next) => {
 router.use(Verify);
 
 router.post("/getRobots", async (req, res) => {
-  authService
+  service
     .get_robots(req)
     .then((data) => {
       res.send(data);
@@ -35,7 +36,7 @@ router.post("/getRobots", async (req, res) => {
 });
 
 router.get("/getUser", async (req, res) => {
-  authService
+  service
     .get_user(req)
     .then((data) => {
       return res.send(data);
@@ -46,7 +47,7 @@ router.get("/getUser", async (req, res) => {
     });
 });
 router.post("/getModule", async (req, res) => {
-  authService
+  service
     .get_module(req)
     .then((data) => {
       return res.send(data);
@@ -57,13 +58,19 @@ router.post("/getModule", async (req, res) => {
     });
 });
 
-router.post("/commandModule", async (req, res) => {
-  console.log(req.body);
-  res.status(200).send("hi");
+router.post("/module/command", async (req, res) => {
+  service
+    .post_module_command(req.body)
+    .then((data) => {
+      return res.status(200).send(data);
+    })
+    .catch((error) => {
+      return res.status(400).send("error");
+    });
 });
 
 router.post("/getModules", async (req, res) => {
-  authService
+  service
     .get_modules(req)
     .then((data) => {
       return res.send(data);

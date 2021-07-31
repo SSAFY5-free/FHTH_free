@@ -74,9 +74,10 @@ const login = {
       });
     },
 
-    EMIT_SOCKET: ({ state }, params) => {
-      const { namespace, data, robot_id } = params;
-      state.socket.emit(namespace, data, robot_id);
+    EMIT_SOCKET: ({ state, rootState }, params) => {
+      rootState;
+      const { namespace, data } = params;
+      state.socket.emit(namespace, data);
     },
   },
 };
