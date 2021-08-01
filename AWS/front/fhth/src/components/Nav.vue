@@ -5,11 +5,12 @@
     class="el-menu-demo"
     mode="horizontal"
     @select="handleSelect"
+    style="height: 100px; display:flex; align-items: center;"
   >
-    <el-menu-item id="img" style="margin-left: 50px">
-      <h1>FHTH</h1>
+    <el-menu-item id="img" style="margin-left: 50px; margin-right:50px; display:flex; align-items:center;">
+      <img src="../assets/logo_transparent.png" width="100px" height="100px"/>
     </el-menu-item>
-    <el-menu-item index="1">Hello, {{ email }}</el-menu-item>
+    <el-menu-item index="1" style="margin-left:auto">Hello, {{ email }}</el-menu-item>
     <!-- <el-submenu index="2">
         <template slot="title">Workspace</template>
         <el-menu-item index="2-1">item one</el-menu-item>
@@ -25,8 +26,7 @@
     <!-- <el-menu-item index="3" disabled>Info</el-menu-item> -->
     <el-button
       type="primary"
-      size="default"
-      style="margin: 5px 15px 5px auto"
+      style="margin: 5px 15px 5px 20px; height:60px;"
       @click="logout"
     >
       Logout</el-button
