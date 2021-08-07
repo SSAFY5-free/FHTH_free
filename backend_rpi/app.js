@@ -9,7 +9,7 @@ var app = express();
 // db.connect();
 
 var indexRouter = require('./routes/index');
-var testRouter = require('./routes/test');
+var petRouter = require('./routes/pet');
 
 
 
@@ -23,7 +23,7 @@ app.use(cors());
 
 
 app.use('/', indexRouter);
-app.use('/test', testRouter);
+app.use('/pet', petRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
