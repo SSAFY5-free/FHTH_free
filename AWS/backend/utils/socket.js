@@ -1,4 +1,3 @@
-//https://socket.io/docs/v4
 const { RegistedModule } = require("../models");
 module.exports.createSocket = function (http_server, https_server) {
   const io = require("socket.io")(http_server, {
@@ -31,43 +30,20 @@ module.exports.createSocket = function (http_server, https_server) {
     },
     allowEIO3: true,
   });
-
-  //web socket command
   io.on("connection", async (socket) => {
     console.log("Connect from Client: " + socket);
-
     //Registedmodule에 있는 id들 조회
     socket.on("module", async (data) => {
       const { _id } = data;
-
       const result = await RegistedModule.findById(_id);
-      if (!result) {
-        socket.emit("module", {
-          data: result.data,
-        });
-      }
+      socket.emit("module", {
+        data: result.data,
+      });
 
-      // console.log("socket module : ", result);
-    });
-    socket.on("command", (data) => {
-      console.log("command : ", data);
-    });
+      console.log("socket module : ", result);
+    }),
+      socket.on("command", (data) => {
+        console.log("command : ", data);
+      });
   });
-  //rpi socket command
-  // io.on("connection_rpi", async (socket) => {
-  //   console.log("Connect from RPI: " + socket);
-
-  //   socket.on("module", async (data) => {
-  //     const { _id } = data;
-  //     const result = await RegistedModule.findById(_id);
-  //     socket.emit("module", {
-  //       data: result.data,
-  //     });
-
-  //     console.log("socket module : ", result);
-  //   }),
-  //     socket.on("command", (data) => {
-  //       console.log("command : ", data);
-  //     });
-  // });
 };

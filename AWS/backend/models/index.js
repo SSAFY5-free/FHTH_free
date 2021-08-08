@@ -5,15 +5,10 @@ const userSchema = new mongoose.Schema({
   pw: String,
   robots_id: [mongoose.Types.ObjectId],
 });
-const sessionSchema = new mongoose.Schema(
-  {
-    expires: Date,
-    session: mongoose.Schema.Types.Mixed,
-  },
-  {
-    collection: "mySessions",
-  }
-);
+const sessionSchema = new mongoose.Schema({
+  accessToken: String,
+  user_id: mongoose.Types.ObjectId,
+});
 
 const robotSchema = new mongoose.Schema({
   serial: String,
@@ -46,6 +41,5 @@ const RegistedModule = mongoose.model(
   registedModuleSchema,
   "RegistedModule"
 );
-const Session = mongoose.model("MySession", sessionSchema);
 
-module.exports = { User, Robot, RegistedModule, ModuleType, Session };
+module.exports = { User, Robot, RegistedModule, ModuleType };
