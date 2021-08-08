@@ -1,0 +1,64 @@
+[33mcommit 4d81597a9114b57bb74e17c7e787a8ad2e221c85[m[33m ([m[1;36mHEAD -> [m[1;32mAWS[m[33m, [m[1;31morigin/AWS[m[33m)[m
+Merge: e1eaf49 9378c1d
+Author: bure5kzam <bure5kzam@gmail.com>
+Date:   Sun Jul 4 04:18:31 2021 +0000
+
+    Merge branch 'AWS' of https://github.com/SSAFY5-free/FHTH_free into AWS
+
+[33mcommit e1eaf49345fe522763800183fc2bcb09fdd4a7cb[m
+Author: bure5kzam <bure5kzam@gmail.com>
+Date:   Sun Jul 4 04:18:19 2021 +0000
+
+    RobotSchema set
+
+[33mcommit 9378c1d9059ab154f9f79479847c01b29b2c5e54[m
+Author: bure5kzam <bure5kzam@gmail.com>
+Date:   Thu Jul 1 08:44:07 2021 +0900
+
+    AWS README
+
+[33mcommit fcf55cf6737e5899d647adfbeec72016b1a41a27[m
+Author: bure5kzam <bure5kzam@gmail.com>
+Date:   Wed Jun 30 23:01:22 2021 +0000
+
+    add AWS READEM.MD
+
+[33mcommit 35d748961704fac9114eada5526a97191abb8bbb[m
+Author: bure5kzam <bure5kzam@gmail.com>
+Date:   Wed Jun 30 22:55:17 2021 +0000
+
+    potring for ubuntu 20.04
+
+[33mcommit be35f30f6c41e3d4f053289a3f066d466fe13110[m
+Author: bure5kzam <bure5kzam@gmail.com>
+Date:   Tue Jun 29 12:25:46 2021 +0900
+
+    cache clear
+
+[33mcommit e0a0f0525f2b539a82e69d0db5bfaaabf04308e4[m
+Author: bure5kzam <bure5kzam@gmail.com>
+Date:   Tue Jun 29 12:10:07 2021 +0900
+
+    add FHTH_front
+
+[33mcommit 0a980b62929f01e0b2c65d155b10199cd0a864fe[m
+Author: bure5kzam <bure5kzam@gmail.com>
+Date:   Tue Jun 29 08:47:11 2021 +0900
+
+    0629
+
+[33mcommit 9ae4805698a193b7cb876ac1c2514579a838cee2[m
+Author: bure5kzam <bure5kzam@gmail.com>
+Date:   Tue Jun 22 09:13:12 2021 +0900
+
+    AWS
+    -signup
+    -login
+    -device
+    -deviceadd
+
+[33mcommit e57de61213765c878cd50331c924c21c590712d2[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: Heejae_Lee <67852427+Heejae-Lee@users.noreply.github.com>
+Date:   Thu Jun 10 11:57:28 2021 +0900
+
+    Initial commit
