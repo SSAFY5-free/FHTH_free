@@ -426,5 +426,6 @@
 
 # if __name__ == '__main__':
 #     main()
-x = 1 + 1
-print(x)
+while True:
+    x = 1 + 1
+    print(x)
