@@ -1,0 +1,31 @@
+{
+  "name": "fhth",
+  "version": "1.0.0",
+  "description": "server for PROJECT_FHTH",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src",
+    "start:dev": "nodemon --watch src/ src/index.js"
+  },
+  "author": "Bure5kzam",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^4.4.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb-topology-manager": "^2.1.0",
+    "mongoose": "^5.13.3",
+    "mysql2": "^2.2.5",
+    "nodemon": "^2.0.12",
+    "pm2": "^5.1.0",
+    "sequelize": "^6.6.5",
+    "sequelize-cli": "^6.2.0",
+    "socket.io": "^4.1.3"
+  }
+}
