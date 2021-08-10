@@ -11,6 +11,6 @@ module.exports = () => {
   const db = mongoose.connection;
   db.on("error", console.error.bind(console, "connection error"));
   db.once("open", () => {
-    console.log("mongoDB connected");
+    console.log(`${env.MONGO_HOST} mongoDB connected`);
   });
 };

@@ -85,9 +85,14 @@ exports.post_account = (data) => {
 exports.post_module = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const { _id, _data } = data;
-      await RegistedModule.findByIdAndUpdate(_id, { _data });
-      resolve();
+      const { _id, module_data } = data;
+      const result = await RegistedModule.findByIdAndUpdate(
+        _id,
+        {$set:{module_data}},
+        {new: true} 
+      ).exec();
+      console.log("여기야")
+      resolve(result);
     } catch (error) {
       console.log(error);
       reject();

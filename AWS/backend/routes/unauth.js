@@ -29,9 +29,11 @@ router.post("/addAccount", async (req, res) => {
     });
 });
 router.post("/setModule", async (req, res) => {
+  console.log(req.body)
   unauthService
     .post_module(req.body)
     .then(() => {
+      console.log("ok")
       return res.send("ok");
     })
     .catch((error) => {
