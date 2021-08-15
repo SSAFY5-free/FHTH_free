@@ -17,7 +17,11 @@ router.post("/foodeat", async function (req, res, next) {
   res.json(req.body);
   await axios
     .post("http://127.0.0.1:8079/unauth/setModule", {
+<<<<<<< HEAD
       module_id: "610f5e8711295f42cce34000",
+=======
+      module_id: req.body.module_id,
+>>>>>>> f026e94629ec4c14fd1260aaa8639b8c5687edf2
       data: {
         iseaten: req.body.data.EATEN,
         left: req.body.data.LEFT,
