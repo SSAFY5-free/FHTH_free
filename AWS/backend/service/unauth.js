@@ -63,12 +63,12 @@ exports.post_accessToken = (data) => {
 exports.post_account = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const { email, pw, device } = data;
+      const { email, pw, robot } = data;
       User.create(
         {
           email,
           pw,
-          device,
+          robot,
         },
         function (err) {
           console.log(err);

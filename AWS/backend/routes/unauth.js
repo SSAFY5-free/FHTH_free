@@ -35,7 +35,7 @@ router.post("/setModule", async (req, res) => {
       return res.send("ok");
     })
     .catch((error) => {
-      return res.status(500).send("errer");
+      return res.status(500).send("error");
     });
 });
 

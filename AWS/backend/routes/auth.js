@@ -30,7 +30,7 @@ router.post("/getRobots", async (req, res) => {
     })
     .catch((error) => {
       console.log(error);
-      res.send(error);
+      res.json("error");
     });
 });
 
@@ -38,39 +38,40 @@ router.get("/getUser", async (req, res) => {
   authService
     .get_user(req)
     .then((data) => {
-      return res.send(data);
+      return res.json(data);
     })
     .catch((error) => {
       console.log(error);
-      return res.send("error");
+      return res.json("error");
     });
 });
 router.post("/getModule", async (req, res) => {
   authService
     .get_module(req)
     .then((data) => {
-      return res.send(data);
+      return res.json(data);
     })
     .catch((error) => {
       console.log(error);
-      return res.send("error");
+      return res.json("error");
     });
 });
 
 router.post("/commandModule", async (req, res) => {
+  //todo rpi로 커맨드 전송
   console.log(req.body);
-  res.status(200).send("hi");
+  res.status(200).json("hi");
 });
 
 router.post("/getModules", async (req, res) => {
   authService
     .get_modules(req)
     .then((data) => {
-      return res.send(data);
+      return res.json(data);
     })
     .catch((error) => {
       console.log(error);
-      return res.send("error");
+      return res.json("error");
     });
 });
 
