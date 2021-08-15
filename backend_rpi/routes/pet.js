@@ -8,21 +8,21 @@ router.get("/", function (req, res, next) {
   res.send("HELLO JBJ");
 });
 
-// 밥 먹은거
+// 밥 먹은거  타임 스탬프 추가해야함
 router.post("/foodeat", async function (req, res, next) {
-  //   PythonShell.run("./BLE_Client.py", null, function (err) {
-  //     if (err) throw err;
-  //     console.log("finished");
-  //   });
+    PythonShell.run("./BLE_Client.py", null, function (err) {
+      if (err) throw err;
+      console.log("finished");
+    });
   res.json(req.body);
   await axios
     .post("http://127.0.0.1:8079/unauth/setModule", {
-      _id: "60f8403e4d4fee39fe4a96d2",
-      module_data: {
-        iseaten: req.body.EATEN,
-        left: req.body.LEFT,
-        drink: req.body.DRINK,
-        water: req.body.WATER_LACK,
+      module_id: "610f5e8711295f42cce34000",
+      data: {
+        iseaten: req.body.data.EATEN,
+        left: req.body.data.LEFT,
+        drink: req.body.data.DRINK,
+        water: req.body.data.WATER_LACK,
       },
     })
     .then((response) => {
