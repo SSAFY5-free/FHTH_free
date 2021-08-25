@@ -8,27 +8,27 @@ const request = axios.create({
   baseURL: conf.baseURL + conf.port.server,
 });
 request.interceptors.request.use(
-  async function(config) {
+  async function (config) {
     config.timeout = 10000;
     config.headers["x-access-token"] = VueCookies.get("accessToken");
     config.headers["Content-Type"] = "application/json";
     return config;
   },
-  function(error) {
+  function (error) {
     console.log("axios request error : ", error);
     return Promise.reject(error);
   }
 );
 
 request.interceptors.response.use(
-  function(response) {
+  function (response) {
     try {
       return response;
     } catch (err) {
       console.error("[axios.interceptors.response] response : ", err.message);
     }
   },
-  async function(error) {
+  async function (error) {
     return Promise.reject(error);
   }
 );
@@ -59,13 +59,13 @@ export const robotAPI = {
   verifyRobot: (form) => {
     return request.post("/unauth/verifyRobot", { form });
   },
-  getModules: (_id) => {
+  getModules: (id) => {
     console.log("robotAPI _ GETMODULES : ");
-    return request.post("/auth/getModules", { _id });
+    return request.post("/auth/getModules", { id });
   },
-  getModule: (_id) => {
+  getModule: (id) => {
     console.log("robotAPI _ GETMODULE : ");
-    return request.post("/auth/getModule", { _id });
+    return request.post("/auth/getModule", { id });
   },
 };
 
