@@ -3,7 +3,6 @@ const app = express();
 const routes = require("./routes");
 const env = process.env;
 require("dotenv").config({});
-require("./utils/mongodb")();
 
 //middleware
 const cors = require("cors");

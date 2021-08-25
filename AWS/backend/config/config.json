@@ -1,23 +1,31 @@
 {
   "development": {
-    "username": "root",
-    "password": "djsejfejC2@",
-    "database": "FHTH",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "database": {
+      "url": "mongodb://localhost/FHTH_dev",
+      "options": {
+        "useNewUrlParser": true
+      }
+    }
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "database": {
+      "url": "mongodb://localhost/FHTH_test",
+      "options": {
+        "useNewUrlParser": true
+      }
+    }
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "database": {
+      "protocol": "mongodb",
+      "username": "root",
+      "password": "password",
+      "name": "FHTH_production",
+      "host": "localhost",
+      "port": "27017",
+      "options": {
+        "useNewUrlParser": true
+      }
+    }
   }
 }
