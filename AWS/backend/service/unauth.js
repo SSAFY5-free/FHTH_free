@@ -82,11 +82,13 @@ exports.post_account = (data) => {
   });
 };
 
-exports.post_module = (data) => {
+exports.post_module = (payload) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const { _id, _data } = data;
-      await RegistedModule.findByIdAndUpdate(_id, { _data });
+      const { module_id, data } = payload;
+      // console.log(data);
+
+      await RegistedModule.findByIdAndUpdate(module_id, { data });
       resolve();
     } catch (error) {
       console.log(error);
