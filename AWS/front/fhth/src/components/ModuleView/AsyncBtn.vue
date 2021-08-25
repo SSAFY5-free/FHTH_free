@@ -29,18 +29,8 @@ export default {
       const robot_id = robot._id;
       const module_id = robot.modules_id[this.cur.module_idx];
       const command = this.command;
-
-      // this.$store.dispatch("userInfo/EMIT_SOCKET", {
-      //   namespace: "command",
-      //   data: {
-      //     robot_id,
-      //     module_id,
-      //     command,
-      //   },
-      // });
-      // console.log(robot_id, module_id);
+      console.log(robot_id, module_id);
       console.log(await moduleAPI.command({ robot_id, module_id, command }));
-
       this.isLoading = false;
     },
   },

@@ -10,7 +10,7 @@ const env = process.env;
 var store = new MongoDBStore({
   uri: env.mongo_HOST,
   databaseName: "fhth",
-  expires: 1000 * 60 * 60,
+  expires: 1000 * 10,
   collection: "mySessions",
 });
 
@@ -24,7 +24,7 @@ module.exports = (app) => {
     require("express-session")({
       secret: "This is a secret",
       cookie: {
-        maxAge: 1000 * 60 * 60, // 1 week
+        maxAge: 1000 * 10, // 1 week
       },
       store: store,
       resave: true,
