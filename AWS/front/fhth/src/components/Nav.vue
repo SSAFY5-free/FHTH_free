@@ -9,7 +9,7 @@
     <el-menu-item id="img" style="margin-left: 50px">
       <h1>FHTH</h1>
     </el-menu-item>
-    <el-menu-item index="1">Hello, {{ email }}</el-menu-item>
+    <el-menu-item index="1">Hello, {{email}}</el-menu-item>
     <!-- <el-submenu index="2">
         <template slot="title">Workspace</template>
         <el-menu-item index="2-1">item one</el-menu-item>
@@ -46,6 +46,7 @@ export default {
     return {
       activeIndex: "1",
       activeIndex2: "1",
+      email: sessionStorage.getItem("email")
     };
   },
   methods: {
