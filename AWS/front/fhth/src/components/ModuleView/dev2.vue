@@ -1,15 +1,12 @@
 <template>
-  <div id="dev2">
-      dev2 {{module.module_data.value1}}
-    </div>
+  <div id="dev2">dev2 {{ module.data.value1 }}</div>
 </template>
 
 <script>
 export default {
-    props:["module"]
-}
+  props: ["module"],
+};
 </script>
 
 <style>
-
 </style>
