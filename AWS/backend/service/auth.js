@@ -22,7 +22,6 @@ exports.get_robots = (req) => {
         return Promise.resolve(acc);
       }, Promise.resolve([]));
 
-
       console.log("user robots : ", robots)
       if (robots) resolve(robots);
       else resolve("");
