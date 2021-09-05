@@ -88,7 +88,7 @@ export default {
       this.cur.robot_idx = idx;
     },
     onClick(direction) {
-      const robot_id = this.robots[this.cur.robot_idx]._id;
+      const robot_id = this.robots[this.cur.robot_idx].id;
       this.$store.dispatch("userInfo/EMIT_SOCKET", {
         namespace: "command",
         data: {

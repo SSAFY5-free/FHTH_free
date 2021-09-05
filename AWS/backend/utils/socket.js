@@ -1,9 +1,12 @@
-const { RegistedModule } = require("../models");
+const db = require("../models").default
+
 module.exports.createSocket = function (http_server, https_server) {
   const io = require("socket.io")(http_server, {
     cors: {
       origin: [
+        //! origin 상관없이 처리되도록 
         "http://127.0.0.1:8081",
+        "http://127.0.0.1:8281",
         "http://ssafy5-free.github.io",
         "https://ssafy5-free.github.io",
       ],
@@ -19,6 +22,7 @@ module.exports.createSocket = function (http_server, https_server) {
     cors: {
       origin: [
         "http://127.0.0.1:8081",
+        "http://127.0.0.1:8281",
         "http://ssafy5-free.github.io",
         "https://ssafy5-free.github.io",
       ],
@@ -34,8 +38,8 @@ module.exports.createSocket = function (http_server, https_server) {
     console.log("Connect from Client: " + socket);
     //Registedmodule에 있는 id들 조회
     socket.on("module", async (data) => {
-      const { _id } = data;
-      const result = await RegistedModule.findById(_id);
+      const { id } = data;
+      const result = await db["registedModules"].findOne({ id });
       socket.emit("module", {
         data: result.data,
       });

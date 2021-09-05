@@ -17,8 +17,8 @@ import { mapState } from "vuex";
 import ModuleBar from "../../components/ModuleBar.vue";
 import Nav from "../../components/Nav.vue";
 // import User from "../../components/User.vue";
-// import io from "socket.io-client";
-// import { baseURL, port } from "../../utils/conf";
+import io from "socket.io-client";
+import { baseURL, port } from "../../utils/conf";
 
 export default {
   components: {
@@ -42,22 +42,22 @@ export default {
     },
   },
   created() {
-    // this.$store.dispatch("userInfo/SET_SOCKET", {
-    //   socket: io(baseURL + port.server, {
-    //     withCredentials: true,
-    //     extraHeaders: {
-    //       "my-custom-header": "abcd",
-    //     },
-    //   }),
-    // });
-    // setInterval(() => {
-    //   this.$store.dispatch("userInfo/EMIT_SOCKET", {
-    //     namespace: "module",
-    //     data: {
-    //       _id: this.modules[this.cur.module_idx]._id,
-    //     },
-    //   });
-    // }, 2000);
+    this.$store.dispatch("userInfo/SET_SOCKET", {
+      socket: io(baseURL + port.server, {
+        withCredentials: true,
+        extraHeaders: {
+          "my-custom-header": "abcd",
+        },
+      }),
+    });
+    setInterval(() => {
+      this.$store.dispatch("userInfo/EMIT_SOCKET", {
+        namespace: "module",
+        data: {
+          id: this.modules[this.cur.module_idx].id,
+        },
+      });
+    }, 2000);
   },
   async mounted() {
     this.$store.dispatch("mainInfo/GET_ROBOTS_FROM_SERVER");
