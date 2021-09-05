@@ -1,4 +1,11 @@
 
+backend_rpi/node_modules
+node_modules
+dist/*
+*.log
+
+
+
 
 #-----------------------------------nodejs------------------------------------------
 # Created by https://www.toptal.com/developers/gitignore/api/node
@@ -125,3 +132,4 @@ dist
 .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/node
+>>>>>>> 7e11ea85b8ddb2c0e43efae8fb42bce0ecb8f16d
