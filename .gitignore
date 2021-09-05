@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 backend_rpi/node_modules
-=======
-<<<<<<< HEAD
-node_modules/
-=======
 node_modules
->>>>>>> d214e2162424519b9d21baae29304efc504e7576
 dist/*
 *.log
->>>>>>> ac3d4a6ec430ad2def0b15a7ff3ea1fd4492a006
-=======
+
+
 
 
 #-----------------------------------nodejs------------------------------------------
@@ -138,4 +131,8 @@ dist
 .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/node
+<<<<<<< HEAD
 >>>>>>> AWS-backend-rpi-session
+=======
+>>>>>>> 7e11ea85b8ddb2c0e43efae8fb42bce0ecb8f16d
+>>>>>>> be1339e5f63fb0620ede05ffa206ba81128978ed

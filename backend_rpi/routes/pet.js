@@ -16,12 +16,12 @@ router.post("/foodeat", async function (req, res, next) {
     });
   await axios
     .post("http://127.0.0.1:8079/unauth/setModule", {
-      _id: req.body._id,
-      _data: {
-        iseaten: req.body._data.EATEN,
-        left: req.body._data.LEFT,
-        drink: req.body._data.DRINK,
-        water: req.body._data.WATER_LACK,
+        module_id: req.body.module_id,
+        data: {
+        iseaten: req.body.data.EATEN,
+        left: req.body.data.LEFT,
+        drink: req.body.data.DRINK,
+        water: req.body.data.WATER_LACK,
       },
     })
     .then((response) => {
