@@ -40,7 +40,7 @@ export const userAPI = {
       pw,
       name,
     });
-    console.log(result);
+    // console.log(result);
     return result;
   },
   signup: (form) => {
