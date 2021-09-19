@@ -11,7 +11,7 @@ exports.post_accessToken = (data) => {
       const { email, pw, name } = data;
       const result = await db["users"].findOne({ email, pw });
       //검색 결과가 없으면
-      console.log(result);
+      // console.log(result);
       if (!result) resolve();
       else {
         //accessToken 발급
@@ -24,7 +24,7 @@ exports.post_accessToken = (data) => {
             expiresIn: "1h",
           }
         );
-        console.log(result);
+        // console.log(result);
         return resolve({ accessToken });
       }
     } catch (error) {
