@@ -1,7 +1,7 @@
 <template>
   <el-card id="Robot" shadow="always" :body-style="{ padding: '20px' }">
     <div slot="header">
-      <el-select v-model="value" placeholder="select robot" @change="onChange(value)" >
+      <el-select v-model="value" placeholder="Select" @change="onChange(value)">
         <el-option
           v-for="(robot, idx) in lst.robots"
           :key="robot.name"
@@ -16,7 +16,7 @@
 
     <!-- <p>robot_id : {{ lst }}</p> -->
     <!-- <p>robots : {{ robots }}</p> -->
-    <!-- <div style="display: flex"></div> -->
+    <div style="display: flex"></div>
     <div id="screen" class="bc">
       <img src="http://172.30.1.22:8080/?action=stream" alt="" />
     </div>

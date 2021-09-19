@@ -57,7 +57,7 @@ export default {
           id: this.modules[this.cur.module_idx].id,
         },
       });
-    }, 60000);
+    }, 2000);
   },
   async mounted() {
     this.$store.dispatch("mainInfo/GET_ROBOTS_FROM_SERVER");

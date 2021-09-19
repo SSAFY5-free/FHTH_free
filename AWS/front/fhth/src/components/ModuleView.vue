@@ -6,24 +6,23 @@
       <h1>{{ module.name }}</h1>
     </div>
     <!-- {{ this.$store.state.mainInfo.cur.module_idx }} -->
-    <dev1
-      v-if="module.type_id == '60ee76affa275a06227b3c4a'"
-      v-bind:module="module"
-    ></dev1>
-    <dev2
-      v-if="module.type_id == '60ee76a5fa275a06227b3c48'"
-      v-bind:module="module"
-    ></dev2>
+    <div id="moduleStatus">
+      <dev1 v-if="module.type_id == '1'" v-bind:module="module"></dev1>
+      <dev2 v-if="module.type_id == '2'" v-bind:module="module"></dev2>
+    </div>
+    <history id="moduleHistory"></history>
   </el-card>
 </template>
 <script>
 import dev1 from "./ModuleView/dev1.vue";
 import dev2 from "./ModuleView/dev2.vue";
+import history from "./ModuleView/history.vue";
 import { mapState } from "vuex";
 export default {
   components: {
     dev1,
     dev2,
+    history,
   },
   computed: {
     ...mapState("mainInfo", ["robots", "cur"]),

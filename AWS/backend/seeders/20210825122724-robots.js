@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = {
-  up: (models, mongoose) => {
-    return models["robots"].create([
+  up: async (models, mongoose) => {
+    return await models["robots"].create([
       {
         serial: "123123",
         modules_id: [1, 2],
