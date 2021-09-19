@@ -10,18 +10,18 @@ router.get("/", function (req, res, next) {
 
 // 밥 먹은거  타임 스탬프 추가해야함
 router.post("/foodeat", async function (req, res, next) {
-    PythonShell.run("./BLE_Client.py", null, function (err) {
-      if (err) throw err;
-      console.log("finished");
-    });
+    // PythonShell.run("./BLE_Client.py", null, function (err) {
+    //   if (err) throw err;
+    //   console.log("finished");
+    // });
   await axios
     .post("http://127.0.0.1:8079/unauth/setModule", {
-        module_id: req.body.module_id,
+        module_id: "6118a19503d5ee4cb407a694",
         data: {
         iseaten: req.body.data.EATEN,
-        left: req.body.data.LEFT,
-        drink: req.body.data.DRINK,
-        water: req.body.data.WATER_LACK,
+        left: 0,
+        drink: false,
+        water: false
       },
     })
     .then((response) => {
@@ -39,21 +39,27 @@ router.post("/foodeat", async function (req, res, next) {
 // 밥 남은거
 router.post("/foodleft", async function (req, res, next) {
   res.json(req.body);
-  //   await axios
-  //     .post("http://127.0.0.1:8079/unauth/getAccessToken", {
-  //       email: req.body.email,
-  //       pw: req.body.pw,
-  //     })
-  //     .then((response) => {
-  //       res.send(response.data);
-  //       console.log(response.data);
-  //       console.log(22222);
-  //     })
-  //     .catch(function (error) {
-  //       res.send(error);
-  //       console.log(11111);
-  //       console.log(error);
-  //     });
+  await axios
+  .post("http://127.0.0.1:8079/unauth/setModule", {
+      module_id: "6118a19503d5ee4cb407a694",
+      data: {
+      iseaten: false,
+      left: req.body.data.LEFT,
+      drink: false,
+      water: false
+    },
+  })
+  .then((response) => {
+    console.log(req.body._data)
+    res.send(response.data);
+    console.log(response.data);
+    console.log(22222);
+  })
+  .catch(function (error) {
+    res.send(error);
+    console.log(11111);
+    console.log(error);
+  });
 });
 
 // 물 먹었는지
