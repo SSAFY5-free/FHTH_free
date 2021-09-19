@@ -7,7 +7,7 @@ module.exports = {
         name: "급식기"
       }
       , {
-        type: "급수기"
+        name: "급수기"
       }]).then(res => {
         console.log(res.insertedCount);
       });
