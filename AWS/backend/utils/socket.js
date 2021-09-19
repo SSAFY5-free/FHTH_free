@@ -48,7 +48,8 @@ module.exports.createSocket = function (http_server, https_server) {
 
       console.log("socket module : ", result);
     }),
-      socket.on("command", (data) => {
+      socket.on("command", (msg) => {
+        const { data } = msg
         console.log("command : ", data);
       });
   });
