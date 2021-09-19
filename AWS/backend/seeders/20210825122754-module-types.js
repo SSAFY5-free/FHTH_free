@@ -4,10 +4,10 @@ module.exports = {
   up: (models, mongoose) => {
     return models["moduleTypes"].create([
       {
-        type: "급식기"
+        name: "급식기"
       }
       , {
-        type: "급수기"
+        name: "급수기"
       }]).then(res => {
         console.log(res.insertedCount);
       });
