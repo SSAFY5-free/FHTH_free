@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "development": {
     "username": "root",
@@ -21,3 +22,36 @@
     "dialect": "mysql"
   }
 }
+=======
+{
+  "development": {
+    "database": {
+      "url": "mongodb://127.0.0.1/FHTH_dev",
+      "options": {
+        "useNewUrlParser": true
+      }
+    }
+  },
+  "test": {
+    "database": {
+      "url": "mongodb://127.0.0.1/FHTH_test",
+      "options": {
+        "useNewUrlParser": true
+      }
+    }
+  },
+  "production": {
+    "database": {
+      "protocol": "mongodb",
+      "username": "root",
+      "password": "password",
+      "name": "FHTH_production",
+      "host": "127.0.0.1",
+      "port": "27017",
+      "options": {
+        "useNewUrlParser": true
+      }
+    }
+  }
+}
+>>>>>>> b14368bb82ab1c606c0652e58603bfb43c301d47

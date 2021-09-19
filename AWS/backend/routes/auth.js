@@ -1,12 +1,9 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const { Robot, User, RegistedModule } = require("../models");
 
 const router = express.Router();
 const path = require("path");
 const authService = require("../service/auth");
-const { rejects } = require("assert");
-require("../models");
 
 require("dotenv").config({
   path: path.resolve(process.cwd(), ".env"),
