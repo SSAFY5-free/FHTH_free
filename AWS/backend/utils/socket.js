@@ -6,6 +6,7 @@ module.exports.createSocket = function (http_server, https_server) {
       origin: [
         //! origin 상관없이 처리되도록 
         "http://127.0.0.1:8081",
+        "http://127.0.0.1:8080",
         "http://127.0.0.1:8281",
         "http://ssafy5-free.github.io",
         "https://ssafy5-free.github.io",
@@ -40,6 +41,7 @@ module.exports.createSocket = function (http_server, https_server) {
     socket.on("module", async (data) => {
       const { id } = data;
       const result = await db["registedModules"].findOne({ id });
+      console.log(result)
       socket.emit("module", {
         data: result.data,
       });

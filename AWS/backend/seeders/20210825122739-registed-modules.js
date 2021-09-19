@@ -6,19 +6,19 @@ module.exports = {
       {
         serial: "970121",
         type_id: 1,
-        data: {},
+        data: { iseaten: false, left: 0, drink: false, water: false },
         name: "module1"
       },
       {
         serial: "970232",
         type_id: 2,
-        data: {},
+        data: { iseaten: false, left: 0, drink: false, water: false },
         name: "module2"
       },
       {
         serial: "970343",
         type_id: 3,
-        data: {},
+        data: { iseaten: false, left: 0, drink: false, water: false },
         name: "module3"
       }
     ]).then(res => {

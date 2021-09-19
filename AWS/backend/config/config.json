@@ -1,7 +1,7 @@
 {
   "development": {
     "database": {
-      "url": "mongodb://localhost/FHTH_dev",
+      "url": "mongodb://127.0.0.1/FHTH_dev",
       "options": {
         "useNewUrlParser": true
       }
@@ -9,7 +9,7 @@
   },
   "test": {
     "database": {
-      "url": "mongodb://localhost/FHTH_test",
+      "url": "mongodb://127.0.0.1/FHTH_test",
       "options": {
         "useNewUrlParser": true
       }
@@ -21,7 +21,7 @@
       "username": "root",
       "password": "password",
       "name": "FHTH_production",
-      "host": "localhost",
+      "host": "127.0.0.1",
       "port": "27017",
       "options": {
         "useNewUrlParser": true
