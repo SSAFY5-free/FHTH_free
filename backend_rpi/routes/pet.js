@@ -16,18 +16,18 @@ router.post("/foodeat", async function (req, res, next) {
     // });
   await axios
     .post("http://127.0.0.1:8079/unauth/setModule", {
-        module_id: "6118a19503d5ee4cb407a694",
+        module_id: 2,
         data: {
-        iseaten: req.body.data.EATEN,
-        left: 0,
-        drink: false,
-        water: false
+          iseaten: req.body.data.ISEATEN,
+          left: req.body.data.LEFT,
+          drink: req.body.data.DRINK,
+          water: req.body.data.WATER_LACK
       },
     })
     .then((response) => {
-      console.log(req.body._data)
+      // console.log(req.body.data)
       res.send(response.data);
-      console.log(response.data);
+      // console.log(response.data);
       console.log(22222);
     })
     .catch(function (error) {
@@ -41,18 +41,18 @@ router.post("/foodleft", async function (req, res, next) {
   res.json(req.body);
   await axios
   .post("http://127.0.0.1:8079/unauth/setModule", {
-      module_id: "6118a19503d5ee4cb407a694",
+      module_id: 2,
       data: {
-      iseaten: false,
-      left: req.body.data.LEFT,
-      drink: false,
-      water: false
+        iseaten: req.body.data.ISEATEN,
+        left: req.body.data.LEFT,
+        drink: req.body.data.DRINK,
+        water: req.body.data.WATER_LACK
     },
   })
   .then((response) => {
-    console.log(req.body._data)
+    // console.log(req.body.data)
     res.send(response.data);
-    console.log(response.data);
+    // console.log(response.data);
     console.log(22222);
   })
   .catch(function (error) {
@@ -65,41 +65,53 @@ router.post("/foodleft", async function (req, res, next) {
 // 물 먹었는지
 router.post("/waterdrink", async function (req, res, next) {
   res.json(req.body);
-  //   await axios
-  //     .post("http://127.0.0.1:8079/unauth/getAccessToken", {
-  //       email: req.body.email,
-  //       pw: req.body.pw,
-  //     })
-  //     .then((response) => {
-  //       res.send(response.data);
-  //       console.log(response.data);
-  //       console.log(22222);
-  //     })
-  //     .catch(function (error) {
-  //       res.send(error);
-  //       console.log(11111);
-  //       console.log(error);
-  //     });
+  await axios
+  .post("http://127.0.0.1:8079/unauth/setModule", {
+      module_id: 1,
+      data: {  
+        iseaten: req.body.data.ISEATEN,
+        left: req.body.data.LEFT,
+        drink: req.body.data.DRINK,
+        water: req.body.data.WATER_LACK
+    },
+  })
+  .then((response) => {
+    // console.log(req.body.data)
+    res.send(response.data);
+    // console.log(response.data);
+    console.log(22222);
+  })
+  .catch(function (error) {
+    res.send(error);
+    console.log(11111);
+    console.log(error);
+  });
 });
 
 // 물 부족한지
 router.post("/waterlack", async function (req, res, next) {
   res.json(req.body);
-  //   await axios
-  //     .post("http://127.0.0.1:8079/unauth/getAccessToken", {
-  //       email: req.body.email,
-  //       pw: req.body.pw,
-  //     })
-  //     .then((response) => {
-  //       res.send(response.data);
-  //       console.log(response.data);
-  //       console.log(22222);
-  //     })
-  //     .catch(function (error) {
-  //       res.send(error);
-  //       console.log(11111);
-  //       console.log(error);
-  //     });
+  await axios
+  .post("http://127.0.0.1:8079/unauth/setModule", {
+      module_id: 1,
+      data: {
+      iseaten: req.body.data.ISEATEN,
+      left: req.body.data.LEFT,
+      drink: req.body.data.DRINK,
+      water: req.body.data.WATER_LACK
+    },
+  })
+  .then((response) => {
+    // console.log(req.body.data)
+    res.send(response.data);
+    // console.log(response.data);
+    console.log(22222);
+  })
+  .catch(function (error) {
+    res.send(error);
+    console.log(11111);
+    console.log(error);
+  });
 });
 router.post("/getAccessToken", function (req, res, next) {
   console.log(req.headers["x-access-token"]);

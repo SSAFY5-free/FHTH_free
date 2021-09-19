@@ -1,7 +1,7 @@
 # MongoDB initial Data
 ```bash
 # npm 모듈 설치
-npm i mongoosejs.cli
+npm i mongoosejs-cli
 
 # seed data 생성
 npx mongoosejs-cli db:seed:all

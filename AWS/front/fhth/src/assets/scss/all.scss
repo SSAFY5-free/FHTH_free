@@ -60,6 +60,7 @@ body,
     > #Robot {
       width: $robot_width;
       height: 100%;
+      overflow: auto;
       // background-color: #f56c6c;
       > .el-card__body {
         display: flex;
