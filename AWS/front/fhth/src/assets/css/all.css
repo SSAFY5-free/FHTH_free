@@ -54,6 +54,7 @@ body,
 #Main > #sideBar > #Robot {
   width: 450px;
   height: 100%;
+  overflow: auto;
 }
 #Main > #sideBar > #Robot > .el-card__body {
   display: flex;

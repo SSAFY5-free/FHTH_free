@@ -5,11 +5,22 @@
 # try:
 #   from gi.repository import GLib
 # except ImportError:
-#   import gobject as GObject
+#   import gobject as GObject<template>
+  <el-card id="Robot" shadow="always" :body-style="{ padding: '20px' }">
+    <div slot="header">
+      <el-select v-model="value" placeholder="Select" @change="onChange(value)">
+        <el-option
+          v-for="(robot, idx) in lst.robots"
+          :key="robot.name"
+          :label="robot.name"
+          :value="idx"
+        >
+        </el-option>
+      </el-select>
 # import sys
 # import threading
 # import requests
-
+# from datetime import datetime
 # from dbus.mainloop.glib import DBusGMainLoop
 
 # bus = None
@@ -58,6 +69,20 @@
 # service_list = [food_service, drink_service]
 # device_list = [food_device, drink_device]
 # dev_name_list = ["FHTH_FOOD","FHTH_DRINK"]
+
+# def get_timestamp():
+#     timestamp = datetime.now()
+#     time = [timestamp.year,
+#             timestamp.month,
+#             timestamp.day,
+#             timestamp.hour,
+#             timestamp.minute,
+#             timestamp.second]
+#     for i,v in enumerate(time):
+#         if v < 10:
+#             time[i] = '{0:02d}'.format(v) 
+
+#     return f"{time[0]}{time[1]}{time[2]} {time[3]}:{time[4]}:{time[5]}"
 
 # def post_data(data):
 #     try:
@@ -151,7 +176,8 @@
 #     if CUR_STATE != None:
 #         if xor(FOOD_EATEN, CUR_STATE):
 #             FOOD_EATEN = CUR_STATE
-#             data = {'EATEN': FOOD_EATEN}
+#             timestamp = get_timestamp()
+#             data = {'EATEN': FOOD_EATEN, 'DATE': timestamp}
 #             post_data(data)
 
 # # 남은 음식 양 notify 올 때마다 바로 POST
@@ -177,7 +203,8 @@
 #     #     post_data(data)
 #     left = ord(strr[0])
 #     print(strr[0], left)
-#     data = {"LEFT": left}
+#     timestamp = get_timestamp()
+#     data = {"LEFT": left, 'DATE': timestamp}
 #     post_data(data)
 
 # # 마셨는지 notify 올 때마다 POST
@@ -197,7 +224,8 @@
 #     strr = [bytes([v]).decode() for v in value]
 #     # 마셨을 때만 post
 #     if strr[0] == '1':
-#         data = {'DRINK': True}
+#         timestamp = get_timestamp()
+#         data = {'DRINK': True, 'DATE': timestamp}
 #         post_data(data)
 
 # # 물 부족 신호가 오면 계속 알림
@@ -217,15 +245,16 @@
 
 #     print("decoded value: %s" % [bytes([v]).decode() for v in value])
 #     strr = [bytes([v]).decode() for v in value]
+#     timestamp = get_timestamp()
 
 #     if strr[0] == '1':
 #         WATER_LACK = True
-#         data = {'WATER_LACK': True}
+#         data = {'WATER_LACK': True, 'DATE': timestamp}
 #         post_data(data)
 #     else:
 #         if WATER_LACK:
 #             WATER_LACK = False
-#             data = {'WATER_LACK': False}
+#             data = {'WATER_LACK': False, 'DATE': timestamp}
 #             post_data(data)
 
 # # 값 임시로 읽는 콜백. 쓸 일은 없고 그냥 값 제대로 읽어오는지 테스트용
@@ -426,5 +455,5 @@
 
 # if __name__ == '__main__':
 #     main()
-x = 1 + 1
-print(x)
+
+print("갇혔어...")

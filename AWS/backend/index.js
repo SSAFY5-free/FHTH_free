@@ -9,11 +9,11 @@ const cors = require("cors");
 var whitelist = ["http://127.0.0.1:8081", "http://127.0.0.1:8080", "http://127.0.0.1:8079"];
 var corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    // if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
+    // } else {
+      // callback(new Error("Not allowed by CORS"));
+    // }
   },
 };
 

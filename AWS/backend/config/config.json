@@ -19,7 +19,7 @@
     "database": {
       "protocol": "mongodb",
       "username": "root",
-      "password": "password",
+      "password": "qjawls0501",
       "name": "FHTH_production",
       "host": "127.0.0.1",
       "port": "27017",
