@@ -17,7 +17,7 @@ module.exports = {
       },
       {
         serial: "970343",
-        type_id: 3,
+        type_id: 1,
         data: { iseaten: false, left: 0, drink: false, water: false },
         name: "module3"
       }

@@ -4,7 +4,7 @@ module.exports = {
   up: (models, mongoose) => {
     return models["moduleTypes"].create([
       {
-        type: "급식기"
+        name: "급식기"
       }
       , {
         type: "급수기"
