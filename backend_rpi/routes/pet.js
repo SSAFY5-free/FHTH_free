@@ -11,6 +11,18 @@ router.get("/", function (req, res, next) {
 });
 
 //robot 제어
+router.post("/feedcontrol", async function (req, res, next) {
+  bus.getInterface("food.fhth","/fhth/food/Test", "food.fhth.TestInterface", function(err, iface) {
+    if(err){
+      console.log(err)
+    }
+    iface.set_amount(req.body.payload)
+    console.log("success")
+    res.send(req.body)
+  })
+});
+
+//robot 제어
 router.post("/control", async function (req, res, next) {
   bus.getInterface("motor.fhth","/fhth/motor/Test", "motor.fhth.TestInterface", function(err, iface) {
     if(err){
