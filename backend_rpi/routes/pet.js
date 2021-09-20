@@ -1,4 +1,6 @@
 var express = require("express");
+var DBus = require("dbus");
+var bus = DBus.getBus("session");
 var router = express.Router();
 const axios = require("axios");
 var fs = require("fs");
@@ -8,20 +10,42 @@ router.get("/", function (req, res, next) {
   res.send("HELLO JBJ");
 });
 
+//robot 제어
+router.post("/control", async function (req, res, next) {
+  bus.getInterface("motor.fhth","/fhth/motor/Test", "motor.fhth.TestInterface", function(err, iface) {
+    if(err){
+      console.log(err)
+    }
+    iface.activate_motor(req.body.payload)
+    console.log("success")
+    res.send(req.body)
+  })
+});
+
+
+// 밥주기 예약 및 밥 주기
+router.post("/servefood", async function (req, res, next) {
+  bus.getInterface("food.fhth","/fhth/food/Test", "food.fhth.TestInterface", function(err, iface) {
+    if(err){
+      console.log(err)
+    }
+    iface.activate_action()
+    console.log("success")
+    res.send("success")
+  })
+});
+
 // 밥 먹은거  타임 스탬프 추가해야함
 router.post("/foodeat", async function (req, res, next) {
-    // PythonShell.run("./BLE_Client.py", null, function (err) {
-    //   if (err) throw err;
-    //   console.log("finished");
-    // });
+
   await axios
     .post("http://127.0.0.1:8079/unauth/setModule", {
-        module_id: 2,
-        data: {
-          iseaten: req.body.data.ISEATEN,
-          left: req.body.data.LEFT,
-          drink: req.body.data.DRINK,
-          water: req.body.data.WATER_LACK
+      module_id: 2,
+      data: {
+        iseaten: req.body.data.ISEATEN,
+        left: req.body.data.LEFT,
+        drink: req.body.data.DRINK,
+        water: req.body.data.WATER_LACK
       },
     })
     .then((response) => {
@@ -40,78 +64,78 @@ router.post("/foodeat", async function (req, res, next) {
 router.post("/foodleft", async function (req, res, next) {
   res.json(req.body);
   await axios
-  .post("http://127.0.0.1:8079/unauth/setModule", {
+    .post("http://127.0.0.1:8079/unauth/setModule", {
       module_id: 2,
       data: {
         iseaten: req.body.data.ISEATEN,
         left: req.body.data.LEFT,
         drink: req.body.data.DRINK,
         water: req.body.data.WATER_LACK
-    },
-  })
-  .then((response) => {
-    // console.log(req.body.data)
-    res.send(response.data);
-    // console.log(response.data);
-    console.log(22222);
-  })
-  .catch(function (error) {
-    res.send(error);
-    console.log(11111);
-    console.log(error);
-  });
+      },
+    })
+    .then((response) => {
+      // console.log(req.body.data)
+      res.send(response.data);
+      // console.log(response.data);
+      console.log(22222);
+    })
+    .catch(function (error) {
+      res.send(error);
+      console.log(11111);
+      console.log(error);
+    });
 });
 
 // 물 먹었는지
 router.post("/waterdrink", async function (req, res, next) {
   res.json(req.body);
   await axios
-  .post("http://127.0.0.1:8079/unauth/setModule", {
+    .post("http://127.0.0.1:8079/unauth/setModule", {
       module_id: 1,
-      data: {  
+      data: {
         iseaten: req.body.data.ISEATEN,
         left: req.body.data.LEFT,
         drink: req.body.data.DRINK,
         water: req.body.data.WATER_LACK
-    },
-  })
-  .then((response) => {
-    // console.log(req.body.data)
-    res.send(response.data);
-    // console.log(response.data);
-    console.log(22222);
-  })
-  .catch(function (error) {
-    res.send(error);
-    console.log(11111);
-    console.log(error);
-  });
+      },
+    })
+    .then((response) => {
+      // console.log(req.body.data)
+      res.send(response.data);
+      // console.log(response.data);
+      console.log(22222);
+    })
+    .catch(function (error) {
+      res.send(error);
+      console.log(11111);
+      console.log(error);
+    });
 });
 
 // 물 부족한지
 router.post("/waterlack", async function (req, res, next) {
   res.json(req.body);
   await axios
-  .post("http://127.0.0.1:8079/unauth/setModule", {
+    .post("http://127.0.0.1:8079/unauth/setModule", {
       module_id: 1,
       data: {
-      iseaten: req.body.data.ISEATEN,
-      left: req.body.data.LEFT,
-      drink: req.body.data.DRINK,
-      water: req.body.data.WATER_LACK
-    },
-  })
-  .then((response) => {
-    // console.log(req.body.data)
-    res.send(response.data);
-    // console.log(response.data);
-    console.log(22222);
-  })
-  .catch(function (error) {
-    res.send(error);
-    console.log(11111);
-    console.log(error);
-  });
+        iseaten: req.body.data.ISEATEN,
+        left: req.body.data.LEFT,
+        drink: req.body.data.DRINK,
+        water: req.body.data.WATER_LACK
+      },
+    })
+    .then((response) => {
+      // console.log(req.body.data)
+      res.send(response.data);
+      // console.log(response.data);
+      console.log(22222);
+    })
+    .catch(function (error) {
+      res.send(error);
+      console.log(11111);
+      console.log(error);
+    });
 });
 router.post("/getAccessToken", function (req, res, next) {
   console.log(req.headers["x-access-token"]);
@@ -153,8 +177,10 @@ router.post("/getModule", function (req, res, next) {
   axios
     .post("http://127.0.0.1:8079/auth/getModule", {
       module_id: req.body.module_id
-      },{headers: {
-        "x-access-token": req.headers["x-access-token"]}
+    }, {
+      headers: {
+        "x-access-token": req.headers["x-access-token"]
+      }
     })
     .then((response) => {
       res.send(response.data);

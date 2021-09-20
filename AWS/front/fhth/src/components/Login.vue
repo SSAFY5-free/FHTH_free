@@ -37,7 +37,6 @@ export default {
       //서버에 로그인 요청
       await userAPI.login(email, pw).then((res) => {
         const { data } = res;
-        sessionStorage.setItem("email", email)
         if (data.accessToken) {
           // 토큰을 쿠키에 저장
           this.$store.commit("userInfo/loginToken", {
@@ -49,7 +48,7 @@ export default {
           alert("이메일과 비밀번호를 다시 입력해주세요");
           this.form.pw = "";
         }
-      })
+      });
 
       //로그인 성공시
     },
