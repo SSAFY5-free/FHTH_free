@@ -10,16 +10,34 @@ router.get("/", function (req, res, next) {
   res.send("HELLO JBJ");
 });
 
+//robot 제어
+router.post("/control", async function (req, res, next) {
+  bus.getInterface("motor.fhth","/fhth/motor/Test", "motor.fhth.TestInterface", function(err, iface) {
+    if(err){
+      console.log(err)
+    }
+    iface.activate_motor(req.body.payload)
+    console.log("success")
+    res.send(req.body)
+  })
+});
+
+
+// 밥주기 예약 및 밥 주기
+router.post("/servefood", async function (req, res, next) {
+  bus.getInterface("food.fhth","/fhth/food/Test", "food.fhth.TestInterface", function(err, iface) {
+    if(err){
+      console.log(err)
+    }
+    iface.activate_action()
+    console.log("success")
+    res.send("success")
+  })
+});
+
 // 밥 먹은거  타임 스탬프 추가해야함
 router.post("/foodeat", async function (req, res, next) {
- bus.getInterface("food.fhth","/fhth/food/Test", "food.fhth.TestInterface", function(err, iface) {
-   if(err){
-     console.log(err)
-   }
-   iface.activate_action()
-   iface.set_amount("300")
-   console.log("success")
- })
+
   await axios
     .post("http://127.0.0.1:8079/unauth/setModule", {
       module_id: 2,
