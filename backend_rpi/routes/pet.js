@@ -54,10 +54,11 @@ router.post("/foodeat", async function (req, res, next) {
     .post("http://127.0.0.1:8079/unauth/setModule", {
       module_id: 2,
       data: {
-        iseaten: req.body.data.ISEATEN,
+        iseaten: req.body.data.EATEN,
         left: req.body.data.LEFT,
         drink: req.body.data.DRINK,
-        water: req.body.data.WATER_LACK
+        water: req.body.data.WATER_LACK,
+        time: req.body.data.DATE
       },
     })
     .then((response) => {
@@ -79,10 +80,11 @@ router.post("/foodleft", async function (req, res, next) {
     .post("http://127.0.0.1:8079/unauth/setModule", {
       module_id: 2,
       data: {
-        iseaten: req.body.data.ISEATEN,
+        iseaten: req.body.data.EATEN,
         left: req.body.data.LEFT,
         drink: req.body.data.DRINK,
-        water: req.body.data.WATER_LACK
+        water: req.body.data.WATER_LACK,
+        time: req.body.data.DATE
       },
     })
     .then((response) => {
@@ -105,10 +107,11 @@ router.post("/waterdrink", async function (req, res, next) {
     .post("http://127.0.0.1:8079/unauth/setModule", {
       module_id: 1,
       data: {
-        iseaten: req.body.data.ISEATEN,
+        iseaten: req.body.data.EATEN,
         left: req.body.data.LEFT,
         drink: req.body.data.DRINK,
-        water: req.body.data.WATER_LACK
+        water: req.body.data.WATER_LACK,
+        time: req.body.data.DATE
       },
     })
     .then((response) => {
@@ -131,10 +134,11 @@ router.post("/waterlack", async function (req, res, next) {
     .post("http://127.0.0.1:8079/unauth/setModule", {
       module_id: 1,
       data: {
-        iseaten: req.body.data.ISEATEN,
+        iseaten: req.body.data.EATEN,
         left: req.body.data.LEFT,
         drink: req.body.data.DRINK,
-        water: req.body.data.WATER_LACK
+        water: req.body.data.WATER_LACK,
+        time: req.body.data.DATE
       },
     })
     .then((response) => {
