@@ -4,7 +4,8 @@ module.exports = mongoose => {
   const newSchema = new mongoose.Schema({
     serial: String,
     modules_id: [Number],
-    name: String
+    name: String,
+    ip: String,
   })
   autoIdSetter(newSchema, mongoose, 'robots', 'id');
   const robots = mongoose.model('robots', newSchema);

@@ -1,15 +1,13 @@
 import axios from "axios";
-// import store from "../store"
 import VueCookies from "vue-cookies";
 import conf from "../utils/conf";
-//request 설정
 
 const request = axios.create({
   baseURL: conf.baseURL + conf.port.server,
+  timeout: 3000
 });
 request.interceptors.request.use(
   async function (config) {
-    config.timeout = 10000;
     config.headers["x-access-token"] = VueCookies.get("accessToken");
     config.headers["Content-Type"] = "application/json";
     return config;
@@ -70,15 +68,19 @@ export const robotAPI = {
 };
 
 export const moduleAPI = {
-  command: (data) => {
-    return request
-      .post("/auth/commandModule", {
+  command: async (data) => {
+    const res = await request
+      .post("/auth/moduleCmd",
         data,
-        // timeout: 3000,
+      ).then((data) => {
+        console.log("zz : ", data)
+        return data
       })
       .catch((error) => {
-        if (error.response.status == 404) alert("경로가 존재하지 않습니다");
+        // alert(error);
+        console.log("gg : ", error)
         return error.response.status;
       });
+    return res
   },
 };

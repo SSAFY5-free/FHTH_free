@@ -6,12 +6,14 @@ module.exports = {
       {
         serial: "123123",
         modules_id: [1, 2],
-        name: "robot1"
+        name: "robot1",
+        ip: ""
       },
       {
         serial: "212212",
         modules_id: [3],
-        name: "robot2"
+        name: "robot2",
+        ip: ""
       }
     ]).then(res => {
       console.log(res.insertedCount);

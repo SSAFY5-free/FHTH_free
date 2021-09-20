@@ -1,3 +1,4 @@
+const { robotAPI } = require("../utils/axios")
 const db = require("../models").default
 
 module.exports.createSocket = function (http_server, https_server) {
@@ -41,16 +42,23 @@ module.exports.createSocket = function (http_server, https_server) {
     socket.on("module", async (data) => {
       const { id } = data;
       const result = await db["registedModules"].findOne({ id });
-      // console.log(result)
       socket.emit("module", {
         data: result.data,
       });
 
-      console.log("socket module : ", result);
+      // console.log("socket module : ", result);
     }),
-      socket.on("command", (msg) => {
-        const { data } = msg
-        console.log("command : ", data);
+      socket.on("command", async (msg) => {
+        // const { data } = msg
+        // console.log("command : ", msg);
+        const { robot_id, direction } = msg
+        const { ip } = await db["robots"].findOne({ id: robot_id })
+
+
+        const payload = { command: "move", payload: direction }
+        await robotAPI.sendMoveCmd(ip, payload).catch((error) => {
+          console.log("jbjbjbjb: ", error)
+        })
       });
   });
 };
