@@ -56,6 +56,21 @@ module.exports.robotAPI = {
             throw new Error(error)
         })
     },
+    sendModuleAmount: async (robot_ip, payload) => {
+
+        // 로직 1. url + path = 로봇 ip 주소
+        const domain = "http://" + robot_ip
+        const path = "/pet/feedcontrol"
+        const url = domain + path
+
+        await request.post(url + path, payload
+        ).then((data) => {
+            // console.log(`[Success] sendModuleCmd ${url}`)
+        }).catch((error) => {
+            // console.log(`[Error] sendModuleCmd ${url}`)
+            throw new Error(error)
+        })
+    },
     //todo 로직 2-2.로봇 이동 커맨드 전송
     sendMoveCmd: async (robot_ip, payload) => {
 

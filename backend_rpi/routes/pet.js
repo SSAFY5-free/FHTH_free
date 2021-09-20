@@ -10,7 +10,7 @@ router.get("/", function (req, res, next) {
   res.send("HELLO JBJ");
 });
 
-//robot 제어
+//set_amount 제어
 router.post("/feedcontrol", async function (req, res, next) {
   bus.getInterface("food.fhth","/fhth/food/Test", "food.fhth.TestInterface", function(err, iface) {
     if(err){
