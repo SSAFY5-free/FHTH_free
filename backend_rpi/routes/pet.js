@@ -11,15 +11,16 @@ router.get("/", function (req, res, next) {
 });
 
 //robot 제어
-// router.post("/servefood", async function (req, res, next) {
-//   bus.getInterface("food.fhth","/fhth/food/Test", "food.fhth.TestInterface", function(err, iface) {
-//     if(err){
-//       console.log(err)
-//     }
-//     iface.activate_action()
-//     console.log("success")
-//   })
-// });
+router.post("/control", async function (req, res, next) {
+  bus.getInterface("food.fhth","/fhth/food/Test", "food.fhth.TestInterface", function(err, iface) {
+    if(err){
+      console.log(err)
+    }
+    iface.activate_motor()
+    console.log("success")
+    res.send(req.body)
+  })
+});
 
 
 // 밥주기 예약 및 밥 주기
@@ -30,6 +31,7 @@ router.post("/servefood", async function (req, res, next) {
     }
     iface.activate_action()
     console.log("success")
+    res.send("success")
   })
 });
 
