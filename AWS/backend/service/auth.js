@@ -119,6 +119,18 @@ exports.post_moduleCmd = (req) => {
             return resolve({ status: -1, message: error.message })
           })
       }
+      else if (command == "amount") {
+
+        await robotAPI.sendModuleAmount(ip, { command, payload })
+          .then((data) => {
+            console.log("[Success] post_moduleCmd", data)
+            return resolve(data)
+          })
+          .catch((error) => {
+            const msg = `[Error] post_modCODEuleCmd" ${error}`
+            return resolve(error)
+          })
+      }
     } catch (error) {
       return reject({ status: -1, msg: "post_moduleCmd" });
     }
