@@ -28,7 +28,7 @@
             type="primary"
             size="default"
             icon="el-icon-caret-top"
-            @click="onClick('top')"
+            @click="onClick('go')"
           ></el-button>
         </div>
 
@@ -43,7 +43,14 @@
             @click="onClick('left')"
           ></el-button>
         </div>
-        <div></div>
+        <div>
+          <el-button
+            type="primary"
+            size="default"
+            icon="el-icon-caret-right"
+            @click="onClick('stop')"
+          ></el-button>
+        </div>
         <div>
           <el-button
             type="primary"
@@ -54,13 +61,20 @@
         </div>
       </div>
       <div>
-        <div></div>
+        <div>
+          <el-button
+            type="primary"
+            size="default"
+            icon="el-icon-caret-right"
+            @click="onClick('middle')"
+          ></el-button>
+        </div>
         <div>
           <el-button
             type="primary"
             size="default"
             icon="el-icon-caret-bottom"
-            @click="onClick('bottom')"
+            @click="onClick('back')"
           ></el-button>
         </div>
         <div></div>

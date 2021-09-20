@@ -1,5 +1,6 @@
 <template>
   <div class="block">
+    <!-- {{ actions }} -->
     <div class="radio">
       Order:
       <el-radio-group v-model="reverse">
@@ -7,10 +8,10 @@
         <el-radio :label="false">ascending</el-radio>
       </el-radio-group>
     </div>
-
+    <!-- {{ actions }} -->
     <el-timeline :reverse="reverse">
       <el-timeline-item
-        v-for="(activity, index) in activities"
+        v-for="(activity, index) in actions"
         :key="index"
         :timestamp="activity.timestamp"
       >
@@ -22,23 +23,10 @@
 
 <script>
 export default {
+  props: ["actions"],
   data() {
     return {
       reverse: true,
-      activities: [
-        {
-          content: "Event start",
-          timestamp: "2018-04-15",
-        },
-        {
-          content: "Approved",
-          timestamp: "2018-04-13",
-        },
-        {
-          content: "Success",
-          timestamp: "2018-04-11",
-        },
-      ],
     };
   },
 };

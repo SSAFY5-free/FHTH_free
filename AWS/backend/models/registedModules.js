@@ -5,8 +5,8 @@ module.exports = mongoose => {
     serial: String,
     type_id: Number,
     data: mongoose.Schema.Types.Mixed,
-    // reservation: [Date],
     reservation: Date,
+    actions: [],
     name: String
     ,
   }, {

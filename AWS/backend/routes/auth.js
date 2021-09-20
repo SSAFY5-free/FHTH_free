@@ -55,7 +55,6 @@ router.post("/getModule", async (req, res) => {
 });
 
 router.post("/moduleCmd", async (req, res) => {
-  //todo rpi로 커맨드 전송
   console.log(req.body);
   await authService.post_moduleCmd(req)
     .then((data) => {

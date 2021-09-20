@@ -1,6 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const db = require("../models").default;
+const db_connected = require("../models")
 const { robotAPI } = require("../utils/axios")
 
 //.env파일에서 파라미터 호출. process.env.
@@ -100,13 +101,16 @@ exports.post_moduleCmd = (req) => {
       //로직 1. 로봇의 ip 조회
       const { robot_id, module_id, command, payload } = req.body
       const { ip } = await db["robots"].findOne({ id: robot_id })
-      console.log(ip)
 
-      //로직 2. 커맨드에 따라 TCP 통신 핸들링
+
+
+      //로직 3. 커맨드에 따라 TCP 통신 핸들링
       if (command == "feed") {
 
         await robotAPI.sendModuleCmd(ip, { command, payload })
           .then((data) => {
+            //로직 2. 해당 모듈에 조작 이력 추가
+            addAction(module_id, { timestamp: new Date(), content: command })
             console.log("[Success] post_moduleCmd", data)
             return resolve({ status: 1, message: "" })
           })
@@ -117,6 +121,20 @@ exports.post_moduleCmd = (req) => {
       }
     } catch (error) {
       return reject({ status: -1, msg: "post_moduleCmd" });
+    }
+  })
+}
+
+async function addAction(module_id, contents) {
+  //module의 action 추가 로직
+  //todo 최적화
+  const { actions } = await db["registedModules"].findOne({ id: module_id })
+  console.log("before : ", actions)
+  actions.push(contents)
+  console.log("after : ", actions)
+  await db["registedModules"].update({ id: module_id }, {
+    $set: {
+      actions
     }
   })
 }

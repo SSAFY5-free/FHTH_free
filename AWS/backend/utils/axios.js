@@ -48,7 +48,7 @@ module.exports.robotAPI = {
         const path = "/pet/servefood"
         const url = domain + path
 
-        await request.post(url + path, payload
+        await request.post(url, payload
         ).then((data) => {
             console.log(`[Success] sendModuleCmd ${data}`)
         }).catch((error) => {

@@ -19,6 +19,10 @@ module.exports = {
         data: { isEaten: false, timeEaten: moment().format(), numEaten: 30, timeWater: null, isWater: null },
         // reservation: [moment().add(1, "day"), moment().add(1, "minute")],
         reservation: moment(),
+        actions: [{
+          content: "Event start",
+          timestamp: new Date(),
+        }],
         name: "module1"
       })
     await models["registedModules"].create({
@@ -26,6 +30,10 @@ module.exports = {
       type_id: 2,
       data: { isEaten: null, timeEaten: null, numEaten: null, timeWater: moment().format(), isWater: true },
       // reservation: [moment().add(1, "day"), moment().add(1, "minute")],
+      actions: [{
+        content: "Event start",
+        timestamp: new Date(),
+      }],
       name: "module2"
     })
     return await models["registedModules"].create(
@@ -35,6 +43,10 @@ module.exports = {
         data: { isEaten: true, timeEaten: moment().format(), numEaten: 90, timeWater: null, isWater: null },
         // reservation: [moment().add(1, "day"), moment().add(1, "minute")],
         reservation: moment(),
+        actions: [{
+          content: "Event start",
+          timestamp: new Date(),
+        }],
         name: "module3"
       }
     ).then((res) => {

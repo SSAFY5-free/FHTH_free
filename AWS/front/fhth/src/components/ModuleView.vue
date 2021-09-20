@@ -10,7 +10,7 @@
       <dev1 v-if="module.type_id == '1'" v-bind:module="module"></dev1>
       <dev2 v-if="module.type_id == '2'" v-bind:module="module"></dev2>
     </div>
-    <history id="moduleHistory"></history>
+    <history id="moduleHistory" :actions="module.actions"></history>
   </el-card>
 </template>
 <script>
