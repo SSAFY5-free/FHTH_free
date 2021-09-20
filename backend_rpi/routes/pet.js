@@ -11,15 +11,15 @@ router.get("/", function (req, res, next) {
 });
 
 //robot 제어
-router.post("/servefood", async function (req, res, next) {
-  bus.getInterface("food.fhth","/fhth/food/Test", "food.fhth.TestInterface", function(err, iface) {
-    if(err){
-      console.log(err)
-    }
-    iface.activate_action()
-    console.log("success")
-  })
-});
+// router.post("/servefood", async function (req, res, next) {
+//   bus.getInterface("food.fhth","/fhth/food/Test", "food.fhth.TestInterface", function(err, iface) {
+//     if(err){
+//       console.log(err)
+//     }
+//     iface.activate_action()
+//     console.log("success")
+//   })
+// });
 
 
 // 밥주기 예약 및 밥 주기
@@ -35,7 +35,7 @@ router.post("/servefood", async function (req, res, next) {
 
 // 밥 먹은거  타임 스탬프 추가해야함
 router.post("/foodeat", async function (req, res, next) {
- 
+
   await axios
     .post("http://127.0.0.1:8079/unauth/setModule", {
       module_id: 2,
