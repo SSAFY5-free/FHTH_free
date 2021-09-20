@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
 import dbus
+import dbus.service
 try:
   from gi.repository import GLib
 except ImportError:
@@ -46,13 +47,10 @@ drink_service = None
 drink_drink_chrc = None
 drink_water_chrc = None
 
+EATEN_CHANGED_TRG = False
 FOOD_EATEN = True
 FOOD_LEFT = 0
 WATER_LACK = False
-
-# PORT = 3000
-# API = 'pet/foodeat'
-# url = 'http://localhost:{PORT}/{API}'.format(PORT=PORT, API=API)
 
 # index: SVC number
 uuid_list = [FOOD_SVC_UUID, DRINK_SVC_UUID]
@@ -73,6 +71,70 @@ def get_timestamp():
             time[i] = '{0:02d}'.format(v)
 
     return f"{time[0]}{time[1]}{time[2]} {time[3]}:{time[4]}:{time[5]}"
+
+# ===================================================
+SERVICE_PATH = '/fhth/food/Test'
+SERVICE_IFACE = 'food.fhth.TestInterface'
+SERVICE_DOMAIN = 'food.fhth'
+
+def dbus_test(amount):
+    print(type(amount), "amount: ", amount)
+
+def amount_changed_cb(iface, changed_props, invalidated_props):
+    print(changed_props)
+    dbus_test(changed_props['amount'])
+    write_food_amount(changed_props['amount'])
+
+def action_activated_cb():
+    print("action callback")
+    if food_action_chrc is not None:
+        write_food_action()
+
+
+class WebCommService(dbus.service.Object):
+    def __init__(self, bus_name, object_path):
+        dbus.service.Object.__init__(self, bus_name, object_path)
+
+    @dbus.service.method(SERVICE_IFACE)
+    def activate_action(self):
+        print("action method activated")
+        self.ActionActivated()
+        return 'action'
+
+    @dbus.service.method(SERVICE_IFACE, in_signature='s')
+    def set_amount(self, amount):
+        print("amount method activated")
+        print(amount)
+        self.AmountChanged(SERVICE_IFACE, {'amount': amount}, [])
+        return 'amount'
+
+    @dbus.service.signal(SERVICE_IFACE,signature='sa{sv}as')
+    def AmountChanged(self, interface, changed, invalidated):
+        print(changed)
+        print(changed['amount'])
+
+    @dbus.service.signal(SERVICE_IFACE)
+    def ActionActivated(self):
+        print("action signal")
+
+
+
+def catchall_handler(*args, **kwargs):
+    """Catch all handler.
+
+    Catch and print information about all singals.
+    """
+    print('---- Caught signal ----')
+    print('%s:%s\n' % (kwargs['dbus_interface'], kwargs['member']))
+
+    print('Arguments:')
+    for arg in args:
+        print('* %s' % str(arg))
+
+    print("\n")
+
+
+# ===================================================
 
 def post_data(data, api):
     PORT = 3000
@@ -143,18 +205,21 @@ def write_food_action():
         FOOD_EATEN = False
 
 def write_food_amount(amount):
+
     print("write")
     # write는 string으로 보냄
-    str_value = bytes(str(amount).encode())
+    # str_value = bytes(str(amount).encode())
+    str_value = bytes(amount.encode())
     food_amount_chrc[0].WriteValue(str_value, {}, reply_handler=write_cb,
                                      error_handler=generic_error_cb,
                                      dbus_interface=GATT_CHRC_IFACE)
+
 
 # notify callbacks
 # 음식 먹었는지 여부 notify 오면 해당 값 전역 변수에 저장
 # 나중에 action 값 쓸 때 해당 변수가 True 일 때만 action 보냄
 def food_eaten_changed_cb(iface, changed_props, invalidated_props):
-    global FOOD_EATEN
+    global FOOD_EATEN, EATEN_CHANGED_TRG
     print("eaten notify callback")
     if iface != GATT_CHRC_IFACE:
         return
@@ -166,10 +231,6 @@ def food_eaten_changed_cb(iface, changed_props, invalidated_props):
     if not value:
         return
 
-    # strr = [chr for chr in value]
-    # print('notify value: ',value)
-    # print(strr)
-    # print("value:%s" % [bytes([v]) for v in value])
     print("decoded value: %s" % [bytes([v]).decode() for v in value])
     strr = [bytes([v]).decode() for v in value]
     CUR_STATE = None
@@ -179,17 +240,31 @@ def food_eaten_changed_cb(iface, changed_props, invalidated_props):
     elif strr[0] == '1':
         CUR_STATE = True
 
-    # 먹었는지 안 먹었는지 여부도 DB에 보냈던가?? 몰라 일단 보내
+    # if CUR_STATE != None:
+    #     if xor(FOOD_EATEN, CUR_STATE):
+    #         if not FOOD_EATEN:
+    #             FOOD_EATEN = CUR_STATE
+    #         timestamp = get_timestamp()
+    #         data = {'EATEN': FOOD_EATEN, 'DATE': timestamp}
+    #         post_data(data,'pet/foodeat')
+    # print("FOOD:",FOOD_EATEN)
+
     if CUR_STATE != None:
-        if xor(FOOD_EATEN, CUR_STATE):
-            FOOD_EATEN = CUR_STATE
+        if xor(EATEN_CHANGED_TRG, CUR_STATE):
             timestamp = get_timestamp()
-            data = {'EATEN': FOOD_EATEN, 'DATE': timestamp}
+            data = {'EATEN': CUR_STATE, 'DATE': timestamp}
             post_data(data,'pet/foodeat')
+            if EATEN_CHANGED_TRG:
+                EATEN_CHANGED_TRG = False
+            else:
+                EATEN_CHANGED_TRG = True
+                if not FOOD_EATEN:
+                    FOOD_EATEN = CUR_STATE
+
     print("FOOD:",FOOD_EATEN)
 
 # 남은 음식 양 notify 올 때마다 바로 POST
-# string으로 받음
+# int가 아니라 uint8 4바이트가 와서 일단 맨 앞 인덱스만 POST하게 해 둠
 def food_left_changed_cb(iface, changed_props, invalidated_props):
     print("left notify callback")
     if iface != GATT_CHRC_IFACE:
@@ -319,10 +394,6 @@ def start_client():
                                         error_handler=generic_error_cb,
                                         dbus_interface=GATT_CHRC_IFACE)
 
-        # test writing
-        # write_food_amount(300)
-        #write_food_action()
-
 
         # Listen to PropertiesChanged signals
         food_left_prop_iface = dbus.Interface(food_left_chrc[0], DBUS_PROP_IFACE)
@@ -380,12 +451,6 @@ def start_client():
 
     else:
         print("no drink chrc")
-
-    # write_food_action()
-    # if food_left_chrc is not None:
-    #     write_food_action()
-    # else:
-    #     print("no food")
 
 def temp_write_timer():
     print("write activate")
@@ -471,6 +536,25 @@ def main():
     DBusGMainLoop(set_as_default=True)
     global bus
     bus = dbus.SystemBus()
+
+    # ==============================================================
+    sebus = dbus.SessionBus()
+    bus_name = dbus.service.BusName(SERVICE_DOMAIN, bus=sebus)
+
+    obj = WebCommService(bus_name, SERVICE_PATH)
+
+    sebus.add_signal_receiver(catchall_handler,
+                            interface_keyword='dbus_interface',
+                            member_keyword='member')
+    sebus.add_signal_receiver(amount_changed_cb,
+                            dbus_interface=SERVICE_IFACE,
+                            signal_name='AmountChanged')
+    sebus.add_signal_receiver(action_activated_cb,
+                            dbus_interface=SERVICE_IFACE,
+                            signal_name='ActionActivated')
+
+# ==============================================================
+
     global mainloop
     mainloop = GLib.MainLoop()
 
@@ -524,8 +608,10 @@ def main():
 
     try:
         start_client()
-        temp_write_timer()
-        write_food_amount(300)
+        # temp_write_timer()
+        # write_food_amount(300)
+        write_food_action()
+
         mainloop.run()
     except KeyboardInterrupt:
         print("keyboard")
