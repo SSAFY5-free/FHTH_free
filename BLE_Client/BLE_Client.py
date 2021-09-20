@@ -188,7 +188,7 @@ def food_eaten_changed_cb(iface, changed_props, invalidated_props):
     print("FOOD:",FOOD_EATEN)
 
 # 남은 음식 양 notify 올 때마다 바로 POST
-# int가 아니라 uint8 4바이트가 와서 일단 맨 앞 인덱스만 POST하게 해 둠
+# string으로 받음
 def food_left_changed_cb(iface, changed_props, invalidated_props):
     print("left notify callback")
     if iface != GATT_CHRC_IFACE:
@@ -203,13 +203,9 @@ def food_left_changed_cb(iface, changed_props, invalidated_props):
 
     print("decoded value: %s" % [bytes([v]).decode() for v in value])
     strr = [bytes([v]).decode() for v in value]
-    # for char in strr:
-    #     print(type(char), char)
-    #     print(ord(char))
-    #     data = {"LEFT": ord(char)}
-    #     post_data(data)
-    left = ord(strr[0])
-    print(strr[0], left)
+
+    left = "".join(strr)
+    print(left)
     timestamp = get_timestamp()
     data = {"LEFT": left, 'DATE': timestamp}
     post_data(data, 'pet/foodleft')
@@ -263,7 +259,7 @@ def drink_drink_changed_cb(iface, changed_props, invalidated_props):
     print("decoded value: %s" % [bytes([v]).decode() for v in value])
     strr = [bytes([v]).decode() for v in value]
     # 마셨을 때만 post
-    if strr[0] == '1':
+    if strr[0] == '0':
         timestamp = get_timestamp()
         data = {'DRINK': True, 'DATE': timestamp}
         post_data(data)
@@ -287,7 +283,7 @@ def drink_water_changed_cb(iface, changed_props, invalidated_props):
     strr = [bytes([v]).decode() for v in value]
     timestamp = get_timestamp()
 
-    if strr[0] == '1':
+    if strr[0] == '0':
         WATER_LACK = True
         data = {'WATER_LACK': True, 'DATE': timestamp}
         post_data(data)
