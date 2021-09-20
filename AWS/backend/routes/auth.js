@@ -61,8 +61,8 @@ router.post("/moduleCmd", async (req, res) => {
     .then((data) => {
       return res.status(200).json(data)
     }).catch((error) => {
-      console.log(error)
-      res.status(500).json({ status: 500, command: req.body.command });
+      // console.log("response : ", error.message)
+      res.status(500).json({ message: error.message });
     })
 });
 

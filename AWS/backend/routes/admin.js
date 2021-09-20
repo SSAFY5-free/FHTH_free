@@ -6,7 +6,7 @@ require("../models");
 router.post("/addRobot", async (req, res) => {
   const { serial, modules_id, name } = req.body;
   const result = await db["robots"].create({ serial, modules_id, name });
-  console.log(result);
+  // console.log(result);
 
   if (!result) res.json({ result: 0 });
   else res.json({ result: 1 });

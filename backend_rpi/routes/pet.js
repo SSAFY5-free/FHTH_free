@@ -1,4 +1,6 @@
 var express = require("express");
+var DBus = require("dbus");
+var bus = DBus.getBus("session");
 var router = express.Router();
 const axios = require("axios");
 var fs = require("fs");
@@ -10,10 +12,14 @@ router.get("/", function (req, res, next) {
 
 // 밥 먹은거  타임 스탬프 추가해야함
 router.post("/foodeat", async function (req, res, next) {
-  // PythonShell.run("./BLE_Client.py", null, function (err) {
-  //   if (err) throw err;
-  //   console.log("finished");
-  // });
+ bus.getInterface("food.fhth","/fhth/food/Test", "food.fhth.TestInterface", function(err, iface) {
+   if(err){
+     console.log(err)
+   }
+   iface.activate_action()
+   iface.set_amount("300")
+   console.log("success")
+ })
   await axios
     .post("http://127.0.0.1:8079/unauth/setModule", {
       module_id: 2,

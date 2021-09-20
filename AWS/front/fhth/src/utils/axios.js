@@ -73,13 +73,14 @@ export const moduleAPI = {
       .post("/auth/moduleCmd",
         data,
       ).then((data) => {
-        console.log("zzz", data)
+        console.log("zz : ", data)
+        return data
       })
       .catch((error) => {
-        if (error.response.status == 404) alert("경로가 존재하지 않습니다");
+        // alert(error);
+        console.log("gg : ", error)
         return error.response.status;
       });
-    console.log("data ", res)
     return res
   },
 };

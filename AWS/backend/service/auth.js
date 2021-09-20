@@ -99,22 +99,24 @@ exports.post_moduleCmd = (req) => {
     try {
       //로직 1. 로봇의 ip 조회
       const { robot_id, module_id, command, payload } = req.body
-      const robot_ip = await db["robots"].findOne({ id: robot_id })
+      const { ip } = await db["robots"].findOne({ id: robot_id })
+      console.log(ip)
 
       //로직 2. 커맨드에 따라 TCP 통신 핸들링
       if (command == "feed") {
 
-        await robotAPI.sendModuleCmd(robot_ip, { command, payload })
+        await robotAPI.sendModuleCmd(ip, { command, payload })
           .then((data) => {
             console.log("[Success] post_moduleCmd", data)
+            return resolve(data)
           })
           .catch((error) => {
-            const msg = `[Error] post_moduleCmd" ${error}`
-            throw new Error(msg)
+            const msg = `[Error] post_modCODEuleCmd" ${error}`
+            return resolve(error)
           })
       }
     } catch (error) {
-      return reject(error);
+      return reject({ status: -1, msg: "post_moduleCmd" });
     }
   })
 }
