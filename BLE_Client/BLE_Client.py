@@ -3,6 +3,7 @@
 
 import dbus
 import dbus.service
+from dbus.mainloop.glib import DBusGMainLoop
 try:
   from gi.repository import GLib
 except ImportError:
@@ -11,11 +12,11 @@ import sys
 import threading
 import requests
 from datetime import datetime
-
-from dbus.mainloop.glib import DBusGMainLoop
+import rpi_motor
 
 bus = None
 mainloop = None
+motor = None
 
 BLUEZ_SERVICE_NAME = 'org.bluez'
 DBUS_OM_IFACE =      'org.freedesktop.DBus.ObjectManager'
@@ -73,9 +74,13 @@ def get_timestamp():
     return f"{time[0]}{time[1]}{time[2]} {time[3]}:{time[4]}:{time[5]}"
 
 # ===================================================
-SERVICE_PATH = '/fhth/food/Test'
-SERVICE_IFACE = 'food.fhth.TestInterface'
-SERVICE_DOMAIN = 'food.fhth'
+FOOD_SERVICE_PATH = '/fhth/food/Test'
+FOOD_SERVICE_IFACE = 'food.fhth.TestInterface'
+FOOD_SERVICE_DOMAIN = 'food.fhth'
+
+MOTOR_SERVICE_PATH = '/fhth/motor/Test'
+MOTOR_SERVICE_IFACE = 'motor.fhth.TestInterface'
+MOTOR_SERVICE_DOMAIN = 'motor.fhth'
 
 def dbus_test(amount):
     print(type(amount), "amount: ", amount)
@@ -90,33 +95,68 @@ def action_activated_cb():
     if food_action_chrc is not None:
         write_food_action()
 
+def cmd_handler(iface, changed_props, invalidated_props):
+    print("cmd handler")
+    print(changed_props['cmd'])
+    try:
+        if changed_props['cmd'] == 'go':
+            motor.go()
+        elif changed_props['cmd'] == 'stop':
+            motor.stop()
+        elif changed_props['cmd'] == 'back':
+            motor.back()
+        elif changed_props['cmd'] == 'left':
+            motor.left()
+        elif changed_props['cmd'] == 'right':
+            motor.right()
+        elif changed_props['cmd'] == 'middle':
+            motor.middle()
+    except Exception as e:
+        print(e)
+
 
 class WebCommService(dbus.service.Object):
     def __init__(self, bus_name, object_path):
         dbus.service.Object.__init__(self, bus_name, object_path)
 
-    @dbus.service.method(SERVICE_IFACE)
+    @dbus.service.method(FOOD_SERVICE_IFACE)
     def activate_action(self):
         print("action method activated")
         self.ActionActivated()
         return 'action'
 
-    @dbus.service.method(SERVICE_IFACE, in_signature='s')
+    @dbus.service.method(FOOD_SERVICE_IFACE, in_signature='s')
     def set_amount(self, amount):
         print("amount method activated")
         print(amount)
-        self.AmountChanged(SERVICE_IFACE, {'amount': amount}, [])
+        self.AmountChanged(FOOD_SERVICE_IFACE, {'amount': amount}, [])
         return 'amount'
 
-    @dbus.service.signal(SERVICE_IFACE,signature='sa{sv}as')
+    @dbus.service.signal(FOOD_SERVICE_IFACE,signature='sa{sv}as')
     def AmountChanged(self, interface, changed, invalidated):
         print(changed)
         print(changed['amount'])
 
-    @dbus.service.signal(SERVICE_IFACE)
+    @dbus.service.signal(FOOD_SERVICE_IFACE)
     def ActionActivated(self):
         print("action signal")
 
+class MotorService(dbus.service.Object):
+    def __init__(self, bus_name, object_path):
+        """Initialize the DBUS service object."""
+        dbus.service.Object.__init__(self, bus_name, object_path)
+
+    @dbus.service.method(MOTOR_SERVICE_IFACE, in_signature='s')
+    def activate_motor(self, cmd):
+        print("motor command input")
+        print(cmd)
+        self.MotorCommand(MOTOR_SERVICE_IFACE, {'cmd': cmd}, [])
+        return 'motor'
+
+    @dbus.service.signal(MOTOR_SERVICE_IFACE,signature='sa{sv}as')
+    def MotorCommand(self, interface, changed, invalidated):
+        print(changed)
+        print(changed['cmd'])
 
 
 def catchall_handler(*args, **kwargs):
@@ -188,6 +228,7 @@ def write_cb():
 ## write 함수는 AWS->RPi Backend 에서 값을 받아서 write해야 되는 상황
 # 항상 True('1') 값만 보내 하드웨어 동작하게 함
 def write_food_action():
+    global FOOD_EATEN
     # 테스트용 코드: 먹었든 먹지 않았든 일단 write 되는 것 확인용
     # print("write")
     # str_value = bytes('1'.encode())
@@ -534,24 +575,30 @@ def process_service(service_path, chrc_paths):
 def main():
     # Set up the main loop.
     DBusGMainLoop(set_as_default=True)
-    global bus
+    global bus, motor
     bus = dbus.SystemBus()
+    motor = rpi_motor.MotorControl(2)
 
     # ==============================================================
     sebus = dbus.SessionBus()
-    bus_name = dbus.service.BusName(SERVICE_DOMAIN, bus=sebus)
+    web_bus_name = dbus.service.BusName(FOOD_SERVICE_DOMAIN, bus=sebus)
+    motor_bus_name = dbus.service.BusName(MOTOR_SERVICE_DOMAIN, bus=sebus)
 
-    obj = WebCommService(bus_name, SERVICE_PATH)
+    webComm = WebCommService(web_bus_name, FOOD_SERVICE_PATH)
+    motorSvc = MotorService(motor_bus_name, MOTOR_SERVICE_PATH)
 
     sebus.add_signal_receiver(catchall_handler,
                             interface_keyword='dbus_interface',
                             member_keyword='member')
     sebus.add_signal_receiver(amount_changed_cb,
-                            dbus_interface=SERVICE_IFACE,
+                            dbus_interface=FOOD_SERVICE_IFACE,
                             signal_name='AmountChanged')
     sebus.add_signal_receiver(action_activated_cb,
-                            dbus_interface=SERVICE_IFACE,
+                            dbus_interface=FOOD_SERVICE_IFACE,
                             signal_name='ActionActivated')
+    sebus.add_signal_receiver(cmd_handler,
+                            dbus_interface=MOTOR_SERVICE_IFACE,
+                            signal_name='MotorCommand')
 
 # ==============================================================
 
@@ -610,7 +657,7 @@ def main():
         start_client()
         # temp_write_timer()
         # write_food_amount(300)
-        write_food_action()
+        # write_food_action()
 
         mainloop.run()
     except KeyboardInterrupt:
