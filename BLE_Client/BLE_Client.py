@@ -9,7 +9,7 @@ except ImportError:
 import sys
 import threading
 import requests
-from datetime import datetime
+
 from dbus.mainloop.glib import DBusGMainLoop
 
 bus = None
@@ -49,9 +49,9 @@ FOOD_EATEN = True
 FOOD_LEFT = 0
 WATER_LACK = False
 
-PORT = 3000
-API = ''
-url = 'http://localhost:{PORT}/{API}'.format(PORT=PORT, API=API)
+# PORT = 3000
+# API = 'pet/foodeat'
+# url = 'http://localhost:{PORT}/{API}'.format(PORT=PORT, API=API)
 
 # index: SVC number
 uuid_list = [FOOD_SVC_UUID, DRINK_SVC_UUID]
@@ -69,11 +69,13 @@ def get_timestamp():
             timestamp.second]
     for i,v in enumerate(time):
         if v < 10:
-            time[i] = '{0:02d}'.format(v) 
+            time[i] = '{0:02d}'.format(v)
 
     return f"{time[0]}{time[1]}{time[2]} {time[3]}:{time[4]}:{time[5]}"
 
-def post_data(data):
+def post_data(data, api):
+    PORT = 3000
+    url = 'http://localhost:{PORT}/{API}'.format(PORT=PORT, API=api)
     try:
         res = requests.post(url, json=data, headers={})
         print("Server status: ", res.status_code)
@@ -104,6 +106,12 @@ def food_left_start_notify_cb():
 def food_eaten_start_notify_cb():
     print('FOOD-EATEN notifications enabled')
 
+def food_amount_start_notify_cb():
+    print('FOOD-AMOUNT notifications enabled')
+
+def food_action_start_notify_cb():
+    print('FOOD-ACTION notifications enabled')
+
 def drink_drink_start_notify_cb():
     print('DRINK-DRINK notifications enabled')
 
@@ -117,12 +125,21 @@ def write_cb():
 ## write 함수는 AWS->RPi Backend 에서 값을 받아서 write해야 되는 상황
 # 항상 True('1') 값만 보내 하드웨어 동작하게 함
 def write_food_action():
+    # 테스트용 코드: 먹었든 먹지 않았든 일단 write 되는 것 확인용
+    # print("write")
+    # str_value = bytes('1'.encode())
+    # food_action_chrc[0].WriteValue(str_value, {}, reply_handler=write_cb,
+    #                                  error_handler=generic_error_cb,
+    #                                  dbus_interface=GATT_CHRC_IFACE)
+
+    # FOOD를 먹었을 경우에만 새로 급식
     if FOOD_EATEN:
         print("write")
         str_value = bytes('1'.encode())
         food_action_chrc[0].WriteValue(str_value, {}, reply_handler=write_cb,
                                          error_handler=generic_error_cb,
                                          dbus_interface=GATT_CHRC_IFACE)
+        FOOD_EATEN = False
 
 def write_food_amount(amount):
     print("write")
@@ -156,9 +173,9 @@ def food_eaten_changed_cb(iface, changed_props, invalidated_props):
     strr = [bytes([v]).decode() for v in value]
     CUR_STATE = None
 
-    if strr[0] == 'F':
+    if strr[0] == '0':
         CUR_STATE = False
-    elif strr[0] == 'T':
+    elif strr[0] == '1':
         CUR_STATE = True
 
     # 먹었는지 안 먹었는지 여부도 DB에 보냈던가?? 몰라 일단 보내
@@ -167,7 +184,8 @@ def food_eaten_changed_cb(iface, changed_props, invalidated_props):
             FOOD_EATEN = CUR_STATE
             timestamp = get_timestamp()
             data = {'EATEN': FOOD_EATEN, 'DATE': timestamp}
-            post_data(data)
+            post_data(data,'pet/foodeat')
+    print("FOOD:",FOOD_EATEN)
 
 # 남은 음식 양 notify 올 때마다 바로 POST
 # int가 아니라 uint8 4바이트가 와서 일단 맨 앞 인덱스만 POST하게 해 둠
@@ -194,7 +212,40 @@ def food_left_changed_cb(iface, changed_props, invalidated_props):
     print(strr[0], left)
     timestamp = get_timestamp()
     data = {"LEFT": left, 'DATE': timestamp}
-    post_data(data)
+    post_data(data, 'pet/foodleft')
+
+# notify test
+def food_amount_changed_cb(iface, changed_props, invalidated_props):
+    print("amount notify callback")
+    if iface != GATT_CHRC_IFACE:
+        return
+
+    if not len(changed_props):
+        return
+
+    value = changed_props.get('Value', None)
+    if not value:
+        return
+
+    print("decoded value: %s" % [bytes([v]).decode() for v in value])
+    strr = [bytes([v]).decode() for v in value]
+
+# notify test
+def food_action_changed_cb(iface, changed_props, invalidated_props):
+    print("action notify callback")
+    if iface != GATT_CHRC_IFACE:
+        return
+
+    if not len(changed_props):
+        return
+
+    value = changed_props.get('Value', None)
+    if not value:
+        return
+
+    print("decoded value: %s" % [bytes([v]).decode() for v in value])
+    strr = [bytes([v]).decode() for v in value]
+
 
 # 마셨는지 notify 올 때마다 POST
 def drink_drink_changed_cb(iface, changed_props, invalidated_props):
@@ -253,57 +304,100 @@ def temp_cb(value):
 
 
 def start_client():
-    # test reading
-    food_left_chrc[0].ReadValue({}, reply_handler=temp_cb,
+    print("start client")
+    if food_left_chrc is not None:
+
+        # test reading
+        food_left_chrc[0].ReadValue({}, reply_handler=temp_cb,
+                                        error_handler=generic_error_cb,
+                                        dbus_interface=GATT_CHRC_IFACE)
+
+        food_eaten_chrc[0].ReadValue({}, reply_handler=temp_cb,
+                                        error_handler=generic_error_cb,
+                                        dbus_interface=GATT_CHRC_IFACE)
+        food_amount_chrc[0].ReadValue({}, reply_handler=temp_cb,
+                                        error_handler=generic_error_cb,
+                                        dbus_interface=GATT_CHRC_IFACE)
+        food_action_chrc[0].ReadValue({}, reply_handler=temp_cb,
+                                        error_handler=generic_error_cb,
+                                        dbus_interface=GATT_CHRC_IFACE)
+
+        # test writing
+        # write_food_amount(300)
+        #write_food_action()
+
+
+        # Listen to PropertiesChanged signals
+        food_left_prop_iface = dbus.Interface(food_left_chrc[0], DBUS_PROP_IFACE)
+        food_left_prop_iface.connect_to_signal("PropertiesChanged",
+                                              food_left_changed_cb)
+
+        food_eaten_prop_iface = dbus.Interface(food_eaten_chrc[0], DBUS_PROP_IFACE)
+        food_eaten_prop_iface.connect_to_signal("PropertiesChanged",
+                                              food_eaten_changed_cb)
+
+        food_amount_prop_iface = dbus.Interface(food_amount_chrc[0], DBUS_PROP_IFACE)
+        food_amount_prop_iface.connect_to_signal("PropertiesChanged",
+                                              food_amount_changed_cb)
+
+        food_action_prop_iface = dbus.Interface(food_action_chrc[0], DBUS_PROP_IFACE)
+        food_action_prop_iface.connect_to_signal("PropertiesChanged",
+                                              food_action_changed_cb)
+
+        # Subscribe to notifications.
+        food_left_chrc[0].StartNotify(reply_handler=food_left_start_notify_cb,
+                                     error_handler=generic_error_cb,
+                                     dbus_interface=GATT_CHRC_IFACE)
+
+        food_eaten_chrc[0].StartNotify(reply_handler=food_eaten_start_notify_cb,
+                                     error_handler=generic_error_cb,
+                                     dbus_interface=GATT_CHRC_IFACE)
+
+        food_amount_chrc[0].StartNotify(reply_handler=food_amount_start_notify_cb,
+                                     error_handler=generic_error_cb,
+                                     dbus_interface=GATT_CHRC_IFACE)
+
+        food_action_chrc[0].StartNotify(reply_handler=food_action_start_notify_cb,
+                                     error_handler=generic_error_cb,
+                                     dbus_interface=GATT_CHRC_IFACE)
+
+    else:
+        print("no food chrc")
+
+    if drink_drink_chrc is not None:
+
+        drink_drink_prop_iface = dbus.Interface(drink_drink_chrc[0], DBUS_PROP_IFACE)
+        drink_drink_prop_iface.connect_to_signal("PropertiesChanged",
+                                              drink_drink_changed_cb)
+
+        drink_water_prop_iface = dbus.Interface(drink_water_chrc[0], DBUS_PROP_IFACE)
+        drink_water_prop_iface.connect_to_signal("PropertiesChanged",
+                                             drink_water_changed_cb)
+
+        drink_drink_chrc[0].StartNotify(reply_handler=drink_drink_start_notify_cb,
+                                     error_handler=generic_error_cb,
+                                     dbus_interface=GATT_CHRC_IFACE)
+        drink_water_chrc[0].StartNotify(reply_handler=drink_water_start_notify_cb,
                                     error_handler=generic_error_cb,
                                     dbus_interface=GATT_CHRC_IFACE)
 
-    food_eaten_chrc[0].ReadValue({}, reply_handler=temp_cb,
-                                    error_handler=generic_error_cb,
-                                    dbus_interface=GATT_CHRC_IFACE)
-    food_amount_chrc[0].ReadValue({}, reply_handler=temp_cb,
-                                    error_handler=generic_error_cb,
-                                    dbus_interface=GATT_CHRC_IFACE)
-    food_action_chrc[0].ReadValue({}, reply_handler=temp_cb,
-                                    error_handler=generic_error_cb,
-                                    dbus_interface=GATT_CHRC_IFACE)
+    else:
+        print("no drink chrc")
 
-    # test writing
-    write_food_amount(300)
+    # write_food_action()
+    # if food_left_chrc is not None:
+    #     write_food_action()
+    # else:
+    #     print("no food")
 
-
-    # Listen to PropertiesChanged signals
-    food_left_prop_iface = dbus.Interface(food_left_chrc[0], DBUS_PROP_IFACE)
-    food_left_prop_iface.connect_to_signal("PropertiesChanged",
-                                          food_left_changed_cb)
-
-    food_eaten_prop_iface = dbus.Interface(food_eaten_chrc[0], DBUS_PROP_IFACE)
-    food_eaten_prop_iface.connect_to_signal("PropertiesChanged",
-                                          food_eaten_changed_cb)
-
-    drink_drink_prop_iface = dbus.Interface(drink_drink_chrc[0], DBUS_PROP_IFACE)
-    drink_drink_prop_iface.connect_to_signal("PropertiesChanged",
-                                          drink_drink_changed_cb)
-
-    drink_water_prop_iface = dbus.Interface(drink_water_chrc[0], DBUS_PROP_IFACE)
-    drink_water_prop_iface.connect_to_signal("PropertiesChanged",
-                                         drink_water_changed_cb)
-
-    # # Subscribe to notifications.
-    food_left_chrc[0].StartNotify(reply_handler=food_left_start_notify_cb,
-                                 error_handler=generic_error_cb,
-                                 dbus_interface=GATT_CHRC_IFACE)
-
-    food_eaten_chrc[0].StartNotify(reply_handler=food_eaten_start_notify_cb,
-                                 error_handler=generic_error_cb,
-                                 dbus_interface=GATT_CHRC_IFACE)
-
-    drink_drink_chrc[0].StartNotify(reply_handler=drink_drink_start_notify_cb,
-                                 error_handler=generic_error_cb,
-                                 dbus_interface=GATT_CHRC_IFACE)
-    drink_water_chrc[0].StartNotify(reply_handler=drink_water_start_notify_cb,
-                                error_handler=generic_error_cb,
-                                dbus_interface=GATT_CHRC_IFACE)
+def temp_write_timer():
+    print("write activate")
+    if food_left_chrc is not None:
+        write_food_action()
+    else:
+        print("why Noneeeeee")
+    timer = threading.Timer(30, temp_write_timer)
+    timer.start()
 
 
 def process_chrc(chrc_path, svc_no):
@@ -433,6 +527,8 @@ def main():
 
     try:
         start_client()
+        temp_write_timer()
+        write_food_amount(300)
         mainloop.run()
     except KeyboardInterrupt:
         print("keyboard")
