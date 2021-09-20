@@ -38,13 +38,18 @@ export default {
       this.isLoading = true;
       await moduleAPI
         .command({ robot_id, module_id, command, payload })
-        .then((data) => {
-          console.log("동작 : ", data);
+        .then((res) => {
+          const { data } = res;
+          if (data.status == -1) {
+            alert(data.message);
+          } else {
+            //todo 모듈 동작상태 저장하는 axios 생성
+          }
         })
         .catch((error) => {
           error;
-          alert("통신에 문제가 생겼습니다");
-          console.log("에러 : ", error);
+          console.log(error);
+          // console.log("에러 : ", error);
         });
       this.isLoading = false;
     },

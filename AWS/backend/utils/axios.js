@@ -50,9 +50,9 @@ module.exports.robotAPI = {
 
         await request.post(url + path, payload
         ).then((data) => {
-            // console.log(`[Success] sendModuleCmd ${url}`)
+            console.log(`[Success] sendModuleCmd ${data}`)
         }).catch((error) => {
-            // console.log(`[Error] sendModuleCmd ${url}`)
+            console.log(`[Error] sendModuleCmd ${error}`)
             throw new Error(error)
         })
     },

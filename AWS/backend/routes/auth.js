@@ -59,10 +59,11 @@ router.post("/moduleCmd", async (req, res) => {
   console.log(req.body);
   await authService.post_moduleCmd(req)
     .then((data) => {
+      console.log("[Success] routes /moduleCmd ", data)
       return res.status(200).json(data)
     }).catch((error) => {
       // console.log("response : ", error.message)
-      res.status(500).json({ message: error.message });
+      return res.status(500).json({ message: error.message });
     })
 });
 
