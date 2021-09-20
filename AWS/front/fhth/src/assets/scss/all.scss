@@ -77,6 +77,9 @@ body,
           flex-direction: column;
           // flex-direction: column;
           // justify-content: center;
+          button {
+            font-size: 30px;
+          }
           > div {
             display: flex;
             > div {

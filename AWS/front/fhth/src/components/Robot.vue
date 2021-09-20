@@ -47,8 +47,8 @@
           <el-button
             type="primary"
             size="default"
-            icon="el-icon-caret-right"
-            @click="onClick('stop')"
+            icon="el-icon-circle-close"
+            @click="onClickmiddle('middle')"
           ></el-button>
         </div>
         <div>
@@ -61,14 +61,7 @@
         </div>
       </div>
       <div>
-        <div>
-          <el-button
-            type="primary"
-            size="default"
-            icon="el-icon-caret-right"
-            @click="onClick('middle')"
-          ></el-button>
-        </div>
+        <div></div>
         <div>
           <el-button
             type="primary"
@@ -77,7 +70,14 @@
             @click="onClick('back')"
           ></el-button>
         </div>
-        <div></div>
+        <div>
+          <el-button
+            type="primary"
+            size="default"
+            @click="onClick('stop')"
+            icon="el-icon-d-caret"
+          ></el-button>
+        </div>
       </div>
     </div>
   </el-card>
