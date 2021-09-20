@@ -41,12 +41,11 @@ module.exports.createSocket = function (http_server, https_server) {
     socket.on("module", async (data) => {
       const { id } = data;
       const result = await db["registedModules"].findOne({ id });
-      // console.log(result)
       socket.emit("module", {
         data: result.data,
       });
 
-      console.log("socket module : ", result);
+      // console.log("socket module : ", result);
     }),
       socket.on("command", (msg) => {
         const { data } = msg

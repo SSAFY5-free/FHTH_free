@@ -1,3 +1,5 @@
+//mongodb에 incremental identifier를 부여시켜주는코드
+
 const { Schema, Mongoose } = require('mongoose');
 const AutoIncrementFactory = require('mongoose-sequence');
 

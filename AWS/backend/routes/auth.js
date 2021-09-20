@@ -11,7 +11,6 @@ require("dotenv").config({
 
 const Verify = async (req, res, next) => {
   const accessToken = req.headers["x-access-token"];
-  //1. 토큰을 가지고 있지 않을 경우
   if (!accessToken) {
     return res.json({ error: "로그인 토큰을 가지고 있지 않습니다" });
   }
@@ -20,7 +19,7 @@ const Verify = async (req, res, next) => {
 router.use(Verify);
 
 router.post("/getRobots", async (req, res) => {
-  authService
+  await authService
     .get_robots(req)
     .then((data) => {
       res.send(data);
@@ -32,8 +31,9 @@ router.post("/getRobots", async (req, res) => {
 });
 
 router.get("/getUser", async (req, res) => {
-  authService
+  await authService
     .get_user(req)
+
     .then((data) => {
       return res.json(data);
     })
@@ -43,7 +43,7 @@ router.get("/getUser", async (req, res) => {
     });
 });
 router.post("/getModule", async (req, res) => {
-  authService
+  await authService
     .get_module(req)
     .then((data) => {
       return res.json(data);
@@ -54,14 +54,20 @@ router.post("/getModule", async (req, res) => {
     });
 });
 
-router.post("/commandModule", async (req, res) => {
+router.post("/moduleCmd", async (req, res) => {
   //todo rpi로 커맨드 전송
   console.log(req.body);
-  res.status(200).json("hi");
+  await authService.post_moduleCmd(req)
+    .then((data) => {
+      return res.status(200).json(data)
+    }).catch((error) => {
+      console.log(error)
+      res.status(500).json({ status: 500, command: req.body.command });
+    })
 });
 
 router.post("/getModules", async (req, res) => {
-  authService
+  await authService
     .get_modules(req)
     .then((data) => {
       return res.json(data);
