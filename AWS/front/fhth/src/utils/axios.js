@@ -73,13 +73,11 @@ export const moduleAPI = {
       .post("/auth/moduleCmd",
         data,
       ).then((data) => {
-        console.log("zz : ", data)
         return data
       })
       .catch((error) => {
         // alert(error);
-        console.log("gg : ", error)
-        return error.response.status;
+        return error;
       });
     return res
   },
