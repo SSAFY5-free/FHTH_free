@@ -12,11 +12,11 @@ router.get("/", function (req, res, next) {
 
 //robot 제어
 router.post("/control", async function (req, res, next) {
-  bus.getInterface("food.fhth","/fhth/food/Test", "food.fhth.TestInterface", function(err, iface) {
+  bus.getInterface("motor.fhth","/fhth/motor/Test", "motor.fhth.TestInterface", function(err, iface) {
     if(err){
       console.log(err)
     }
-    iface.activate_motor()
+    iface.activate_motor(req.body.payload)
     console.log("success")
     res.send(req.body)
   })
