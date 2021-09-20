@@ -12,26 +12,28 @@
     <!-- <p>{{ value.numEaten }}</p> -->
     <!-- {{ value.numEaten }} -->
 
-    <div id="info">
-      <h1>Info</h1>
-      <div>
-        <div id="eatTime">
-          <span class="demonstration">먹은 시간</span>
-          <p>
-            {{ module.data.timeEaten }}
-          </p>
-        </div>
-        <div id="remain">
-          <el-progress
-            :percentage="module.data.numEaten"
-            :color="colors"
-            type="circle"
-          ></el-progress>
-        </div>
+    <el-card class="box-card" id="info">
+      <div slot="header" class="clearfix header">
+        <b>Info</b>
       </div>
-    </div>
-    <div id="controll">
-      <h1>Controll</h1>
+      <div id="eatTime">
+        <!-- <span class="demonstration">먹은 시간</span> -->
+        <p>
+          {{ module.data.timeEaten }}
+        </p>
+      </div>
+      <div id="remain">
+        <el-progress
+          :percentage="module.data.numEaten"
+          :color="colors"
+          type="circle"
+        ></el-progress>
+      </div>
+    </el-card>
+    <el-card class="box-card" id="control">
+      <div slot="header" class="clearfix header">
+        <b>Control</b>
+      </div>
       <div style="display: flex; justify-content: center">
         <date-time-picker></date-time-picker>
         <!-- <async-btn
@@ -41,7 +43,7 @@
           :command="command.command"
         ></async-btn> -->
       </div>
-    </div>
+    </el-card>
   </div>
 </template>
 

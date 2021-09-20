@@ -39,9 +39,8 @@ export default {
         const { data } = res;
         if (data.accessToken) {
           // 토큰을 쿠키에 저장
-          this.$store.commit("userInfo/loginToken", {
-            ...data,
-          });
+          console.log(data);
+          this.$store.commit("userInfo/loginToken", data);
           this.$router.push("/main");
         } else {
           // 로그인 실패

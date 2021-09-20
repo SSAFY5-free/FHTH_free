@@ -52,6 +52,7 @@ export default {
           // console.log("에러 : ", error);
         });
       this.isLoading = false;
+      window.location.href = "/FHTH_free/main";
     },
   },
 };

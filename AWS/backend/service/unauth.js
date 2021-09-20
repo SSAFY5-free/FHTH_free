@@ -18,6 +18,7 @@ exports.post_accessToken = (data) => {
         const accessToken = jwt.sign(
           {
             email: result.email,
+            user_id: result.id
           },
           "fhth",
           {
@@ -25,7 +26,9 @@ exports.post_accessToken = (data) => {
           }
         );
         // console.log(result);
-        return resolve({ accessToken });
+        return resolve({
+          accessToken, email: "Zz"
+        });
       }
     } catch (error) {
       console.log(error);
@@ -63,8 +66,8 @@ exports.post_module = (payload) => {
       console.log(module_id, data);
 
       await db["registedModules"].findOneAndUpdate({
-          id:module_id
-      },{data});
+        id: module_id
+      }, { data });
       return resolve();
     } catch (error) {
       console.log(error);

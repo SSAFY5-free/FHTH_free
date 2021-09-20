@@ -33,7 +33,6 @@ router.post("/getRobots", async (req, res) => {
 router.get("/getUser", async (req, res) => {
   await authService
     .get_user(req)
-
     .then((data) => {
       return res.json(data);
     })

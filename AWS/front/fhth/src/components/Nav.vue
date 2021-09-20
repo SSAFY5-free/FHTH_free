@@ -41,13 +41,12 @@ import VueCookies from "vue-cookies";
 import { mapState } from "vuex";
 export default {
   computed: {
-    ...mapState("userInfo", ["name", "email"]),
+    ...mapState("userInfo", ["name", "host", "accessToken", "email"]),
   },
   data() {
     return {
       activeIndex: "1",
       activeIndex2: "1",
-      email: sessionStorage.getItem("email"),
     };
   },
   methods: {

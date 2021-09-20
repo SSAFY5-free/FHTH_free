@@ -2,15 +2,20 @@
   <el-card id="ModuleView" class="box-card">
     <!-- <p>module : {{ module }}</p> -->
     <!-- <p>modules : {{ modules }}</p> -->
-    <div slot="header">
-      <h1>{{ module.name }}</h1>
+    <div slot="header" class="header">
+      <b>{{ module.name }}</b>
     </div>
     <!-- {{ this.$store.state.mainInfo.cur.module_idx }} -->
     <div id="moduleStatus">
       <dev1 v-if="module.type_id == '1'" v-bind:module="module"></dev1>
       <dev2 v-if="module.type_id == '2'" v-bind:module="module"></dev2>
     </div>
-    <history id="moduleHistory" :actions="module.actions"></history>
+    <el-card class="box-card">
+      <div slot="header" class="clearfix">
+        <h1>History</h1>
+      </div>
+      <history id="moduleHistory" :actions="module.actions"></history>
+    </el-card>
   </el-card>
 </template>
 <script>

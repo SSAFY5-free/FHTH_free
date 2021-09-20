@@ -43,11 +43,12 @@ exports.get_user = (req) => {
     try {
       //로직 1. user_id = 유저 id를 토큰에서 추출
       const accessToken = req.headers["x-access-token"];
-      const user_id = jwt.decode(accessToken, "fhth").id;
+      const user_id = jwt.decode(accessToken, "fhth").user_id;
 
       //로직 2. email, name = 조회한 유저 데이터
-      const { email, name } = await db["users"].findById(user_id);
-      return resolve(res.json({ email, name }));
+      console.log(user_id)
+      const { email, name } = await db["users"].findOne({ id: user_id });
+      return resolve({ email, name });
 
     } catch (error) {
       return reject(error);

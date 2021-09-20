@@ -105,47 +105,67 @@ body,
 }
 #Main > #mainView > #ModuleView {
   padding: 40px;
+  padding-bottom: 80px;
+}
+#Main > #mainView > #ModuleView > .header {
+  font-size: 40px;
 }
 #Main > #mainView > #ModuleView > .el-card__header {
-  height: 110px;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #Main > #mainView > #ModuleView > .el-card__body {
   display: flex;
-  height: -webkit-calc(100% - 110px);
+  height: -webkit-calc(100% - 80px);
   justify-content: space-evenly;
 }
 #Main > #mainView > #ModuleView > .el-card__body > #moduleStatus {
   width: 80%;
   flex: 1;
 }
+#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > * > * > .el-card__header {
+  font-size: 25px;
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > * > * > .el-card__body {
+  display: flex;
+  align-items: center;
+  height: -webkit-calc(100% - 80px);
+}
 #Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev1 {
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 #Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev1 > #info {
+  flex: 1;
   padding-bottom: 30px;
 }
-#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev1 > #info > div {
-  display: flex;
-}
-#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev1 > #info > div > #eatTime {
+#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev1 > #info > .el-card__body > #eatTime {
   display: flex;
   flex-direction: column;
   flex: 1;
   justify-content: center;
   align-items: center;
 }
-#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev1 > #info > div > #remain {
+#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev1 > #info > .el-card__body > #remain {
   flex: 1;
 }
+#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev1 > #info > .el-card__body > #remain > .header {
+  font-size: 25px;
+}
 #Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev1 > #control {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-}
-#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev1 > #control > * {
-  width: 80%;
+  align-items: center;
 }
 #Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev2 {
   height: 100%;
