@@ -45,4 +45,14 @@ router.post("/verifyRobot", async (req, res) => {
       return res.status(500).send(error);
     });
 });
+router.post("/action", async (req, res) => {
+  unauthService
+    .post_action(req)
+    .then((data) => {
+      return res.send("ok");
+    })
+    .catch((error) => {
+      return res.status(500).send(error);
+    });
+});
 module.exports = router;

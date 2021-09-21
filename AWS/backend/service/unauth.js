@@ -88,3 +88,32 @@ exports.post_verifyRobot = (data) => {
     }
   });
 };
+
+async function addAction(module_id, content, timestamp = new Date()) {
+  /*
+  module의 action 추가 로직
+  */
+  //todo 최적화
+  const { actions } = await db["registedModules"].findOne({ id: module_id })
+  actions.push({ content, timestamp })
+  await db["registedModules"].update({ id: module_id }, {
+    $set: {
+      actions
+    }
+  })
+}
+
+exports.post_action = (req) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      // 로직 1. module_id와 contents 추출
+      const { module_id, content, timestamp } = req.body
+      addAction(module_id, content, timestamp)
+      // 로직 2. registedModules에 저장
+      return resolve()
+    }
+    catch {
+      return reject()
+    }
+  })
+}

@@ -138,13 +138,13 @@ exports.post_moduleCmd = (req) => {
   })
 }
 
-async function addAction(module_id, contents) {
-  //module의 action 추가 로직
+async function addAction(module_id, content, timestamp = new Date()) {
+  /*
+  module의 action 추가 로직
+  */
   //todo 최적화
   const { actions } = await db["registedModules"].findOne({ id: module_id })
-  console.log("before : ", actions)
-  actions.push(contents)
-  console.log("after : ", actions)
+  actions.push({ content, timestamp })
   await db["registedModules"].update({ id: module_id }, {
     $set: {
       actions
