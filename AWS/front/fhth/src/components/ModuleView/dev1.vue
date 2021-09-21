@@ -14,7 +14,13 @@
 
     <el-card class="box-card" id="info">
       <div slot="header" class="clearfix header">
-        <b>Info</b>
+        <el-tooltip
+          effect="light"
+          content="급식기의 정보를 나타냅니다"
+          placement="top-start"
+        >
+          <b>Info</b>
+        </el-tooltip>
       </div>
 
       <el-form
@@ -23,29 +29,51 @@
         label-width="120px"
         label-position="left"
       >
-        <el-form-item label="Last time">
-          <el-date-picker
-            type="datetime"
-            placeholder="동작 내역이 없습니다"
-            :value="module.data.timeEaten"
-            :readonly="true"
-          >
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="Remain feed">
-          <el-progress
-            :percentage="module.data.numEaten"
-            :color="colors"
-          ></el-progress>
-        </el-form-item>
+        <el-tooltip
+          effect="light"
+          content="급식기의 정보를 나타냅니다"
+          placement="left-start"
+        >
+          <el-form-item label="Last time">
+            <el-date-picker
+              type="datetime"
+              placeholder="동작 내역이 없습니다"
+              :value="module.data.timeEaten"
+              :readonly="true"
+            >
+            </el-date-picker>
+          </el-form-item>
+        </el-tooltip>
+        <el-tooltip
+          effect="light"
+          content="급식기에 남은 잔여 사료양입니다"
+          placement="left-start"
+        >
+          <el-form-item label="Remain">
+            <el-progress
+              :percentage="module.data.numEaten"
+              :color="colors"
+            ></el-progress>
+          </el-form-item>
+        </el-tooltip>
       </el-form>
     </el-card>
     <el-card class="box-card" id="control">
       <div slot="header" class="clearfix header">
-        <b>Control</b>
+        <el-tooltip effect="light" placement="top-start">
+          <div slot="content">급식기의 명령 인터페이스입니다.</div>
+          <b>Control</b>
+        </el-tooltip>
       </div>
       <div style="display: flex; justify-content: center">
-        <date-time-picker></date-time-picker>
+        <el-tooltip
+          effect="light"
+          content="동작할 시간을 설정합니다."
+          placement="left-start"
+        >
+          <!--todo 예약 목록 인터페이스 추가 -->
+          <date-time-picker></date-time-picker>
+        </el-tooltip>
       </div>
     </el-card>
   </div>

@@ -13,7 +13,13 @@
     <div id="moduleHistory">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <b>History</b>
+          <el-tooltip
+            effect="light"
+            content="모듈 동작 / 이벤트를 보여줍니다."
+            placement="top"
+          >
+            <b>History</b>
+          </el-tooltip>
         </div>
         <history :actions="module.actions"></history>
       </el-card>
