@@ -107,8 +107,11 @@ body,
   padding: 40px;
   padding-bottom: 80px;
 }
-#Main > #mainView > #ModuleView > .header {
+#Main > #mainView > #ModuleView > .el-card__header {
   font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #Main > #mainView > #ModuleView > .el-card__header {
   font-size: 40px;
@@ -146,7 +149,7 @@ body,
 }
 #Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev1 > #info {
   flex: 1;
-  padding-bottom: 30px;
+  margin-bottom: 20px;
 }
 #Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev1 > #info > .el-card__body > #eatTime {
   display: flex;
@@ -188,6 +191,25 @@ body,
 #Main > #mainView > #ModuleView > .el-card__body > #moduleHistory {
   width: 80%;
   flex: 1;
+}
+#Main > #mainView > #ModuleView > .el-card__body > #moduleHistory > .el-card {
+  height: 100%;
+}
+#Main > #mainView > #ModuleView > .el-card__body > #moduleHistory > .el-card > .el-card__header {
+  font-size: 25px;
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#Main > #mainView > #ModuleView > .el-card__body > #moduleHistory > .el-card > .el-card__body {
+  display: flex;
+  align-items: center;
+  height: -webkit-calc(100% - 80px);
+}
+#Main > #mainView > #ModuleView > .el-card__body > #moduleHistory > .el-card > .el-card__body > div {
+  width: 100%;
 }
 
 /*# sourceMappingURL=all.css.map */

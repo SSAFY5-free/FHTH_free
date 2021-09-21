@@ -118,12 +118,12 @@ body,
     > #ModuleView {
       padding: 40px;
       padding-bottom: 80px;
-      > .header {
+      > .el-card__header {
         font-size: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
-      // > .el-card__header {
-      // height: $moduleView_card_header_height;
-      // }
       > .el-card__header {
         font-size: 40px;
         display: flex;
@@ -159,7 +159,7 @@ body,
 
             > #info {
               flex: 1;
-              padding-bottom: 30px;
+              margin-bottom: 20px;
 
               > .el-card__body {
                 > #eatTime {
@@ -210,6 +210,27 @@ body,
         > #moduleHistory {
           width: 80%;
           flex: 1;
+          > .el-card {
+            height: 100%;
+          }
+
+          > .el-card > .el-card__header {
+            font-size: 25px;
+            height: 80px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          > .el-card > .el-card__body {
+            display: flex;
+            align-items: center;
+            height: -webkit-calc(100% - 80px);
+            > div {
+              width: 100%;
+            }
+          }
         }
       }
     }
