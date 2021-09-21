@@ -22,20 +22,32 @@
 
       <div>
         <div>
-          <span class="demonstration">마신 시간</span>
-          <el-date-picker
-            v-model="data.timeWater"
-            type="datetime"
-            placeholder="Select date and time"
+          <el-tooltip
+            effect="light"
+            content="급수기를 이용한 시간을 나타냅니다"
+            placement="top"
           >
-          </el-date-picker>
+            <!-- <span class="demonstration">last time</span> -->
+            <el-date-picker
+              v-model="data.timeWater"
+              type="datetime"
+              placeholder="예약할 시간"
+            >
+            </el-date-picker>
+          </el-tooltip>
         </div>
         <div style="flex: 1">
-          <el-progress
-            :percentage="data.left"
-            :color="colors"
-            type="circle"
-          ></el-progress>
+          <el-tooltip
+            effect="light"
+            content="급수기에 남은 물 양을 true/false 나타냅니다."
+            placement="top"
+          >
+            <el-progress
+              :percentage="data.isWater ? 100 : 0"
+              :color="colors"
+              type="circle"
+            ></el-progress>
+          </el-tooltip>
         </div>
       </div>
     </el-card>

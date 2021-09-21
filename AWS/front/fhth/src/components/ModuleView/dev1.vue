@@ -122,7 +122,6 @@ export default {
     },
   },
   updated() {
-    console.log("hihi");
     this.value = this.module.data.timeEaten;
   },
 };

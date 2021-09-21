@@ -15,7 +15,7 @@
         <div slot="header" class="clearfix">
           <el-tooltip
             effect="light"
-            content="모듈 동작 / 이벤트를 보여줍니다."
+            content="모듈 동작 이벤트를 보여줍니다."
             placement="top"
           >
             <b>History</b>

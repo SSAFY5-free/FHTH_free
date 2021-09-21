@@ -111,6 +111,9 @@ export default {
         },
       });
     },
+    created() {
+      this.onChange(0);
+    },
   },
 };
 </script>
