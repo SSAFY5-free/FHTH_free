@@ -16,19 +16,29 @@
       <div slot="header" class="clearfix header">
         <b>Info</b>
       </div>
-      <div id="eatTime">
-        <!-- <span class="demonstration">먹은 시간</span> -->
-        <p>
-          {{ module.data.timeEaten }}
-        </p>
-      </div>
-      <div id="remain">
-        <el-progress
-          :percentage="module.data.numEaten"
-          :color="colors"
-          type="circle"
-        ></el-progress>
-      </div>
+
+      <el-form
+        ref="form"
+        :model="form"
+        label-width="120px"
+        label-position="left"
+      >
+        <el-form-item label="Last time">
+          <el-date-picker
+            type="datetime"
+            placeholder="동작 내역이 없습니다"
+            :value="module.data.timeEaten"
+            :readonly="true"
+          >
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="Remain feed">
+          <el-progress
+            :percentage="module.data.numEaten"
+            :color="colors"
+          ></el-progress>
+        </el-form-item>
+      </el-form>
     </el-card>
     <el-card class="box-card" id="control">
       <div slot="header" class="clearfix header">
@@ -36,12 +46,6 @@
       </div>
       <div style="display: flex; justify-content: center">
         <date-time-picker></date-time-picker>
-        <!-- <async-btn
-          v-for="command in lstCommand"
-          :key="command.keyword"
-          :keyword="command.keyword"
-          :command="command.command"
-        ></async-btn> -->
       </div>
     </el-card>
   </div>
@@ -79,7 +83,8 @@ export default {
           command: "feed",
         },
       ],
-      value: "",
+      value: " ",
+      form: {},
     };
   },
   methods: {
@@ -89,7 +94,8 @@ export default {
     },
   },
   updated() {
-    this.value = this.module.data;
+    console.log("hihi");
+    this.value = this.module.data.timeEaten;
   },
 };
 </script>

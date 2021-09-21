@@ -1,6 +1,6 @@
 <template>
   <el-card id="Login" style="width: 400px; margin: auto">
-    <img alt="Vue logo" src="../assets/logo.png" />
+    <img alt="Vue logo" src="../assets/logo(1).png" />
     <el-form :label-position="labelPosition" label-width="100px" :model="form">
       <el-form-item label="email">
         <el-input v-model="form.email"></el-input>
