@@ -113,12 +113,6 @@ body,
   justify-content: center;
   align-items: center;
 }
-#Main > #mainView > #ModuleView > .el-card__header {
-  font-size: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 #Main > #mainView > #ModuleView > .el-card__body {
   display: flex;
   height: -webkit-calc(100% - 80px);
@@ -127,6 +121,12 @@ body,
 #Main > #mainView > #ModuleView > .el-card__body > #moduleStatus {
   width: 80%;
   flex: 1;
+}
+#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > * {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 #Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > * > * > .el-card__header {
   font-size: 25px;
@@ -139,12 +139,7 @@ body,
 #Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > * > * > .el-card__body {
   display: flex;
   height: -webkit-calc(100% - 80px - 20px);
-}
-#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev1 {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 20px 40px 40px 40px;
 }
 #Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev1 > #info {
   flex: 1;
@@ -185,21 +180,32 @@ body,
   justify-content: center;
   align-items: center;
 }
-#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev2 {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
 #Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev2 > #info {
-  padding-bottom: 30px;
+  margin-bottom: 20px;
 }
-#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev2 > #info > div {
+#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev2 > #info > .el-card__body {
+  height: -webkit-calc(100% - 80px - 40px);
+}
+#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev2 > #info > .el-card__body > div {
   display: flex;
+  flex-direction: row;
+  width: 100%;
 }
-#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev2 > #info > div > div {
+#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev2 > #info > .el-card__body > div > div {
   display: flex;
   flex-direction: column;
   flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev2 > #control {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#Main > #mainView > #ModuleView > .el-card__body > #moduleStatus > #dev2 > #control > .el-card__body {
+  display: flex;
   justify-content: center;
   align-items: center;
 }

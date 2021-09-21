@@ -9,9 +9,18 @@
 
     <!-- 모듈 이름 -->
     <!-- <p>status of {{ module.name }}</p> -->
-    <div id="info">
-      <h1>Info</h1>
-      <div style="display: flex">
+    <el-card class="box-card" id="info">
+      <div slot="header" class="clearfix header">
+        <el-tooltip
+          effect="light"
+          content="급식기의 정보를 나타냅니다"
+          placement="top-start"
+        >
+          <b>Info</b>
+        </el-tooltip>
+      </div>
+
+      <div>
         <div>
           <span class="demonstration">마신 시간</span>
           <el-date-picker
@@ -29,7 +38,25 @@
           ></el-progress>
         </div>
       </div>
-    </div>
+    </el-card>
+    <el-card class="box-card" id="control">
+      <div slot="header" class="clearfix header">
+        <el-tooltip effect="light" placement="top-start">
+          <div slot="content">급식기의 명령 인터페이스입니다.</div>
+          <b>Control</b>
+        </el-tooltip>
+      </div>
+      <div style="display: flex; justify-content: center">
+        <el-tooltip
+          effect="light"
+          content="동작할 시간을 설정합니다."
+          placement="left-start"
+        >
+          <!--todo 예약 목록 인터페이스 추가 -->
+          <h1 style="color: #e5e4e2">Blank</h1>
+        </el-tooltip>
+      </div>
+    </el-card>
   </div>
 </template>
 
