@@ -234,6 +234,8 @@ body,
         }
         > #moduleHistory {
           width: 80%;
+          display: flex;
+          justify-content: center;
           flex: 1;
           > .el-card {
             height: 100%;
