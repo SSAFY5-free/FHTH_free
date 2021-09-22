@@ -106,7 +106,7 @@ async function addAction(module_id, content, timestamp = new Date()) {
 exports.post_action = (req) => {
   return new Promise(async (resolve, reject) => {
     try {
-      // 로직 1. module_id와 contents 추출
+      // 로직 1. module_id와 contents, timestamp 추출
       const { module_id, content, timestamp } = req.body
       addAction(module_id, content, timestamp)
       // 로직 2. registedModules에 저장
