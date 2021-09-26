@@ -63,7 +63,7 @@ exports.post_module = (payload) => {
   return new Promise(async (resolve, reject) => {
     try {
       const { module_id, data } = payload;
-      console.log(module_id, data);
+      // console.log(module_id, data);
 
       await db["registedModules"].findOneAndUpdate({
         id: module_id

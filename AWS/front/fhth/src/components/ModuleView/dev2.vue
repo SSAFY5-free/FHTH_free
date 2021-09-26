@@ -13,7 +13,7 @@
       <div slot="header" class="clearfix header">
         <el-tooltip
           effect="light"
-          content="급식기의 정보를 나타냅니다"
+          content="급수기의 정보를 나타냅니다"
           placement="top-start"
         >
           <b>Info</b>
@@ -21,20 +21,12 @@
       </div>
 
       <div>
-        <div>
-          <el-tooltip
-            effect="light"
-            content="급수기를 이용한 시간을 나타냅니다"
-            placement="top"
-          >
-            <!-- <span class="demonstration">last time</span> -->
-            <el-date-picker
-              v-model="data.timeWater"
-              type="datetime"
-              placeholder="예약할 시간"
-            >
-            </el-date-picker>
-          </el-tooltip>
+        <div style="flex:1">
+
+          <el-form-item label="Isdrink">
+            {{module.data.water}}
+          </el-form-item>
+
         </div>
         <div style="flex: 1">
           <el-tooltip
@@ -43,7 +35,7 @@
             placement="top"
           >
             <el-progress
-              :percentage="data.isWater ? 100 : 0"
+              :percentage="data.drink ? 0 : 100"
               :color="colors"
               type="circle"
             ></el-progress>

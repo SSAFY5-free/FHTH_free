@@ -31,17 +31,11 @@
       >
         <el-tooltip
           effect="light"
-          content="급식기의 정보를 나타냅니다"
+          content="마지막으로 밥을 먹은 시간을 나타냅니다"
           placement="left-start"
         >
           <el-form-item label="Last time">
-            <el-date-picker
-              type="datetime"
-              placeholder="동작 내역이 없습니다"
-              :value="module.data.timeEaten"
-              :readonly="true"
-            >
-            </el-date-picker>
+            {{module.data.time}}
           </el-form-item>
         </el-tooltip>
         <el-tooltip
@@ -51,9 +45,18 @@
         >
           <el-form-item label="Remain">
             <el-progress
-              :percentage="module.data.numEaten"
+              :percentage="module.data.left"
               :color="colors"
             ></el-progress>
+          </el-form-item>
+        </el-tooltip>
+        <el-tooltip
+          effect="light"
+          content="밥을 먹었는지 아닌지를 True/False로 알려줍니다."
+          placement="left-start"
+        >
+          <el-form-item label="Iseat">
+            {{module.data.iseaten}}
           </el-form-item>
         </el-tooltip>
       </el-form>

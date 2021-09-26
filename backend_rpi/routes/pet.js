@@ -53,7 +53,11 @@ router.post("/servefood", async function (req, res, next) {
 router.post("/foodeat", async function (req, res, next) {
   iseaten = req.body.EATEN
   await axios
+<<<<<<< HEAD
     .post("http://192.168.35.149:8079/unauth/setModule", {
+=======
+    .post("http://127.0.0.1:8079/unauth/setModule", {
+>>>>>>> 190328e77c40d4145183746e115f18d92af83790
       module_id: 1,
       data: {
         iseaten: iseaten,
@@ -78,7 +82,11 @@ router.post("/foodleft", async function (req, res, next) {
   left = req.body.LEFT
   res.json(req.body);
   await axios
+<<<<<<< HEAD
     .post("http://192.168.35.149:8079/unauth/setModule", {
+=======
+    .post("http://127.0.0.1:8079/unauth/setModule", {
+>>>>>>> 190328e77c40d4145183746e115f18d92af83790
       module_id: 1,
       data: {
         iseaten: iseaten,
@@ -106,8 +114,13 @@ router.post("/waterdrink", async function (req, res, next) {
   res.json(req.body);
 
   await axios
+<<<<<<< HEAD
     .post("http://192.168.35.149:8079/unauth/setModule", {
       module_id: 2,
+=======
+    .post("http://127.0.0.1:8079/unauth/setModule", {
+      module_id:2,
+>>>>>>> 190328e77c40d4145183746e115f18d92af83790
       data: {
         drink: drink,
         water: water,
@@ -132,7 +145,11 @@ router.post("/waterlack", async function (req, res, next) {
   water = req.body.WATER_LACK
   res.json(req.body);
   await axios
+<<<<<<< HEAD
     .post("http://192.168.35.149:8079/unauth/setModule", {
+=======
+    .post("http://127.0.0.1:8079/unauth/setModule", {
+>>>>>>> 190328e77c40d4145183746e115f18d92af83790
       module_id: 2,
       data: {
         drink: drink,

@@ -50,9 +50,9 @@ module.exports.robotAPI = {
 
         await request.post(url, payload
         ).then((data) => {
-            console.log(`[Success] sendModuleCmd ${data}`)
+            // console.log(`[Success] sendModuleCmd ${data}`)
         }).catch((error) => {
-            console.log(`[Error] sendModuleCmd ${error}`)
+            // console.log(`[Error] sendModuleCmd ${error}`)
             throw new Error(error)
         })
     },
@@ -81,9 +81,9 @@ module.exports.robotAPI = {
 
         await request.post(url, payload
         ).then((data) => {
-            console.log(`[Success] sendMoveCmd ${url}`)
+            // console.log(`[Success] sendMoveCmd ${url}`)
         }).catch((error) => {
-            console.log(`[Error] sendMoveCmd ${url}`)
+            // console.log(`[Error] sendMoveCmd ${url}`)
             throw new Error(error)
         })
     }
