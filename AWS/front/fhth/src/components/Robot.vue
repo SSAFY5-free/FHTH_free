@@ -18,7 +18,7 @@
     <!-- <p>robots : {{ robots }}</p> -->
     <div style="display: flex"></div>
     <div id="screen" class="bc">
-      <img src="http://172.30.1.7:8091/stream.mjpg" alt="" />
+      <img src="http://172.30.1.7:8091/stream.mjpg" alt="" width="400px" height="300px" style="transform:rotate(180deg)"/>
     </div>
     <div id="keyPad">
       <div>
@@ -48,7 +48,7 @@
             type="primary"
             size="default"
             icon="el-icon-circle-close"
-            @click="onClickmiddle('middle')"
+            @click="onClick('stop')"
           ></el-button>
         </div>
         <div>
@@ -74,7 +74,7 @@
           <el-button
             type="primary"
             size="default"
-            @click="onClick('stop')"
+            @click="onClick('middle')"
             icon="el-icon-d-caret"
           ></el-button>
         </div>

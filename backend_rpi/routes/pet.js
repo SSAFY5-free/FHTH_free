@@ -49,7 +49,7 @@ router.get("/", function (req, res, next) {
 //   })
 // });
 
-// 밥 먹은거  타임 스탬프 추가해야함
+// 밥 먹은거 
 router.post("/foodeat", async function (req, res, next) {
   iseaten = req.body.data.EATEN
   await axios

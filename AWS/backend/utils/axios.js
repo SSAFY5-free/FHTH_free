@@ -44,7 +44,7 @@ module.exports.robotAPI = {
     sendModuleCmd: async (robot_ip, payload) => {
 
         // 로직 1. url + path = 로봇 ip 주소
-        const domain = "http://" + robot_ip
+        const domain = "http://172.30.1.7:3000"
         const path = "/pet/servefood"
         const url = domain + path
 
@@ -59,7 +59,7 @@ module.exports.robotAPI = {
     sendModuleAmount: async (robot_ip, payload) => {
 
         // 로직 1. url + path = 로봇 ip 주소
-        const domain = "http://" + robot_ip
+        const domain = "http://172.30.1.7:3000"
         const path = "/pet/feedcontrol"
         const url = domain + path
 
@@ -75,15 +75,15 @@ module.exports.robotAPI = {
     sendMoveCmd: async (robot_ip, payload) => {
 
         // 로직 1. url + path = 로봇 ip 주소
-        const domain = "http://" + robot_ip
+        const domain = "http://172.30.1.7:3000"
         const path = "/pet/control"
         const url = domain + path
 
         await request.post(url, payload
         ).then((data) => {
-            // console.log(`[Success] sendMoveCmd ${url}`)
+            console.log(`[Success] sendMoveCmd ${url}`)
         }).catch((error) => {
-            // console.log(`[Error] sendMoveCmd ${url}`)
+            console.log(`[Error] sendMoveCmd ${url}`)
             throw new Error(error)
         })
     }

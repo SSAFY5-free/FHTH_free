@@ -6,17 +6,6 @@
 #   from gi.repository import GLib
 # except ImportError:
 #   import gobject as GObject<template>
-  <el-card id="Robot" shadow="always" :body-style="{ padding: '20px' }">
-    <div slot="header">
-      <el-select v-model="value" placeholder="Select" @change="onChange(value)">
-        <el-option
-          v-for="(robot, idx) in lst.robots"
-          :key="robot.name"
-          :label="robot.name"
-          :value="idx"
-        >
-        </el-option>
-      </el-select>
 # import sys
 # import threading
 # import requests
