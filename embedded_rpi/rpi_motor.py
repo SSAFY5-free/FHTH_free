@@ -48,3 +48,26 @@ class MotorControl:
     def middle(self):
         print("MOTOR MIDDLE")
         self.pwm.setPWM(self.ch, 0, 350)
+
+if __name__ == "__main__":
+    motor = MotorControl(2)
+    try:
+        while 1:
+            cmd = input("input: ")
+            if cmd == "go":
+                motor.go()
+            elif cmd == "stop":
+                motor.stop()
+            elif cmd == "back":
+                motor.back()
+            elif cmd == "left":
+                motor.left()
+            elif cmd == "right":
+                motor.right()
+            elif cmd == "middle":
+                motor.middle()
+            else:
+                print("Wrong Command")
+
+    except KeyboardInterrupt:
+        print("keyboard")
