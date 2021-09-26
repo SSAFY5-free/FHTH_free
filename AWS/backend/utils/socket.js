@@ -6,6 +6,7 @@ module.exports.createSocket = function (http_server, https_server) {
     cors: {
       origin: [
         //! origin 상관없이 처리되도록 
+        "http://127.0.0.1:8080",
         "http://127.0.0.1:8081",
         "http://127.0.0.1:8080",
         "http://127.0.0.1:8281",
@@ -49,8 +50,8 @@ module.exports.createSocket = function (http_server, https_server) {
       // console.log("socket module : ", result);
     }),
       socket.on("command", async (msg) => {
-        // const { data } = msg
-        // console.log("command : ", msg);
+        const { data } = msg
+        console.log("command : ", msg);
         const { robot_id, direction } = msg
         const { ip } = await db["robots"].findOne({ id: robot_id })
 
@@ -60,6 +61,6 @@ module.exports.createSocket = function (http_server, https_server) {
           console.log("jbjbjbjb: ", error)
         })
       });
-      
+
   });
 };
