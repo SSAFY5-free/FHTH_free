@@ -1,7 +1,7 @@
-{
+module.exports = {
   "development": {
     "database": {
-      "url": "mongodb://127.0.0.1/FHTH_dev",
+      "url": "mongodb://fhth-mongo/FHTH_dev",
       "options": {
         "useNewUrlParser": true
       }
@@ -9,7 +9,7 @@
   },
   "test": {
     "database": {
-      "url": "mongodb://127.0.0.1/FHTH_test",
+      "url": "mongodb://fhth-mongo/FHTH_test",
       "options": {
         "useNewUrlParser": true
       }
@@ -21,7 +21,7 @@
       "username": "root",
       "password": "qjawls0501",
       "name": "FHTH_production",
-      "host": "127.0.0.1",
+      "host": "fhth-mongo",
       "port": "27017",
       "options": {
         "useNewUrlParser": true
