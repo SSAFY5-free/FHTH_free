@@ -160,10 +160,6 @@ class MotorService(dbus.service.Object):
 
 
 def catchall_handler(*args, **kwargs):
-    """Catch all handler.
-
-    Catch and print information about all singals.
-    """
     print('---- Caught signal ----')
     print('%s:%s\n' % (kwargs['dbus_interface'], kwargs['member']))
 
@@ -230,20 +226,20 @@ def write_cb():
 def write_food_action():
     global FOOD_EATEN
     # 테스트용 코드: 먹었든 먹지 않았든 일단 write 되는 것 확인용
-    # print("write")
-    # str_value = bytes('1'.encode())
-    # food_action_chrc[0].WriteValue(str_value, {}, reply_handler=write_cb,
-    #                                  error_handler=generic_error_cb,
-    #                                  dbus_interface=GATT_CHRC_IFACE)
+    print("write")
+    str_value = bytes('1'.encode())
+    food_action_chrc[0].WriteValue(str_value, {}, reply_handler=write_cb,
+                                     error_handler=generic_error_cb,
+                                     dbus_interface=GATT_CHRC_IFACE)
 
     # FOOD를 먹었을 경우에만 새로 급식
-    if FOOD_EATEN:
-        print("write")
-        str_value = bytes('1'.encode())
-        food_action_chrc[0].WriteValue(str_value, {}, reply_handler=write_cb,
-                                         error_handler=generic_error_cb,
-                                         dbus_interface=GATT_CHRC_IFACE)
-        FOOD_EATEN = False
+    # if FOOD_EATEN:
+    #     print("write")
+    #     str_value = bytes('1'.encode())
+    #     food_action_chrc[0].WriteValue(str_value, {}, reply_handler=write_cb,
+    #                                      error_handler=generic_error_cb,
+    #                                      dbus_interface=GATT_CHRC_IFACE)
+    #     FOOD_EATEN = False
 
 def write_food_amount(amount):
 
@@ -305,7 +301,7 @@ def food_eaten_changed_cb(iface, changed_props, invalidated_props):
     print("FOOD:",FOOD_EATEN)
 
 # 남은 음식 양 notify 올 때마다 바로 POST
-# int가 아니라 uint8 4바이트가 와서 일단 맨 앞 인덱스만 POST하게 해 둠
+# String으로 받아서 값 그대로 전달
 def food_left_changed_cb(iface, changed_props, invalidated_props):
     print("left notify callback")
     if iface != GATT_CHRC_IFACE:
@@ -379,7 +375,7 @@ def drink_drink_changed_cb(iface, changed_props, invalidated_props):
     if strr[0] == '0':
         timestamp = get_timestamp()
         data = {'DRINK': True, 'DATE': timestamp}
-        post_data(data)
+        post_data(data, 'pet/waterdrink')
 
 # 물 부족 신호가 오면 계속 알림
 # 물 안 부족할 때는 계속 보낼 필요가 없으므로 바뀔 때 한번만 보냄
@@ -403,12 +399,12 @@ def drink_water_changed_cb(iface, changed_props, invalidated_props):
     if strr[0] == '0':
         WATER_LACK = True
         data = {'WATER_LACK': True, 'DATE': timestamp}
-        post_data(data)
+        post_data(data, 'pet/waterlack')
     else:
         if WATER_LACK:
             WATER_LACK = False
             data = {'WATER_LACK': False, 'DATE': timestamp}
-            post_data(data)
+            post_data(data, 'pet/waterlack')
 
 # 값 임시로 읽는 콜백. 쓸 일은 없고 그냥 값 제대로 읽어오는지 테스트용
 def temp_cb(value):

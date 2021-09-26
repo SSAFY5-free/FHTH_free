@@ -1,6 +1,6 @@
 var express = require("express");
-// var DBus = require("dbus");
-// var bus = DBus.getBus("session");
+var DBus = require("dbus");
+var bus = DBus.getBus("session");
 var router = express.Router();
 const axios = require("axios");
 var left = 0
@@ -49,12 +49,12 @@ router.post("/servefood", async function (req, res, next) {
   })
 });
 
-// 밥 먹은거 
+// 밥 먹은거
 router.post("/foodeat", async function (req, res, next) {
   iseaten = req.body.EATEN
   await axios
-    .post("http://127.0.0.1:8079/unauth/setModule", {
-      module_id: 2,
+    .post("http://192.168.35.149:8079/unauth/setModule", {
+      module_id: 1,
       data: {
         iseaten: iseaten,
         left: left,
@@ -78,8 +78,8 @@ router.post("/foodleft", async function (req, res, next) {
   left = req.body.LEFT
   res.json(req.body);
   await axios
-    .post("http://127.0.0.1:8079/unauth/setModule", {
-      module_id: 2,
+    .post("http://192.168.35.149:8079/unauth/setModule", {
+      module_id: 1,
       data: {
         iseaten: iseaten,
         left: left,
@@ -106,8 +106,8 @@ router.post("/waterdrink", async function (req, res, next) {
   res.json(req.body);
 
   await axios
-    .post("http://127.0.0.1:8079/unauth/setModule", {
-      module_id: 1,
+    .post("http://192.168.35.149:8079/unauth/setModule", {
+      module_id: 2,
       data: {
         drink: drink,
         water: water,
@@ -132,8 +132,8 @@ router.post("/waterlack", async function (req, res, next) {
   water = req.body.WATER_LACK
   res.json(req.body);
   await axios
-    .post("http://127.0.0.1:8079/unauth/setModule", {
-      module_id: 1,
+    .post("http://192.168.35.149:8079/unauth/setModule", {
+      module_id: 2,
       data: {
         drink: drink,
         water: water,
@@ -155,7 +155,7 @@ router.post("/waterlack", async function (req, res, next) {
 router.post("/getAccessToken", function (req, res, next) {
   console.log(req.headers["x-access-token"]);
   axios
-    .post("http://127.0.0.1:8079/unauth/getAccessToken", {
+    .post("http://192.168.35.149:8079/unauth/getAccessToken", {
       email: req.body.email,
       pw: req.body.pw,
     })

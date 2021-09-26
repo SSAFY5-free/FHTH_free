@@ -5,7 +5,7 @@ from Raspi_PWM_Servo_Driver import PWM
 
 # MotorControl 클래스를 통해서 동작시킬수 있음
 class MotorControl:
-    def __init__(self, m_ch, ch=0):
+    def __init__(self, m_ch, ch=1):
         super().__init__()
         # Motor 설정
         self.mh = Raspi_MotorHAT(addr=0x6f)
@@ -35,7 +35,7 @@ class MotorControl:
         self.myMotor.run(Raspi_MotorHAT.RELEASE)
 
     # left 앞바퀴 좌측으로 조향, value 값을 같이 입력하면 원하는 만큼 조향 가능
-    def left(self, value=300):
+    def left(self, value=270):
         print(f"MOTOR LEFT : {value}")
         self.pwm.setPWM(self.ch, 0, value)
 

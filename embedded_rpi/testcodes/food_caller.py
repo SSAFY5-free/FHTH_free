@@ -15,5 +15,5 @@ print(proxy)
 print(iface)
 # print(props)
 
-iface.activate_action()
-iface.set_amount("300")
+#iface.activate_action()
+iface.set_amount("20")
