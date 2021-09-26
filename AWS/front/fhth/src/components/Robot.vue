@@ -18,7 +18,7 @@
     <!-- <p>robots : {{ robots }}</p> -->
     <div style="display: flex"></div>
     <div id="screen" class="bc">
-      <img src="http://172.30.1.22:8080/?action=stream" alt="" />
+      <img src="http://172.30.1.7:8091/stream.mjpg" alt="" />
     </div>
     <div id="keyPad">
       <div>
