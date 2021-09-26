@@ -605,68 +605,70 @@ def main():
     global mainloop
     mainloop = GLib.MainLoop()
 
-    om = dbus.Interface(bus.get_object(BLUEZ_SERVICE_NAME, '/'), DBUS_OM_IFACE)
-    om.connect_to_signal('InterfacesRemoved', interfaces_removed_cb)
+    while True:
+        om = dbus.Interface(bus.get_object(BLUEZ_SERVICE_NAME, '/'), DBUS_OM_IFACE)
+        om.connect_to_signal('InterfacesRemoved', interfaces_removed_cb)
 
-    print('Getting objects...')
-    objects = om.GetManagedObjects()
-    chrcs = []
+        print('Getting objects...')
+        objects = om.GetManagedObjects()
+        chrcs = []
 
-    # find device
-    print("Finding Devices...")
-    for path, interfaces in objects.items():
-        dd = interfaces.get(DEVICE_IFACE)
-        if dd is None:
-            continue
+        # find device
+        print("Finding Devices...")
+        for path, interfaces in objects.items():
+            dd = interfaces.get(DEVICE_IFACE)
+            if dd is None:
+                continue
+            try:
+                for idx, dev_name in enumerate(dev_name_list):
+                    print(dd["Address"], dd["Name"])
+                    if str(dd["Name"]) == dev_name:
+                        device_list[idx] = dbus.Interface(bus.get_object(BLUEZ_SERVICE_NAME, path), DEVICE_IFACE)
+                        print(device_list[idx])
+                        device_list[idx].Connect()
+                        print(f"device {idx} Connect!!")
+            except Exception as e:
+                print("error: ",e)
+                continue
+
+
+        # List characteristics found
+        print("Finding Services...")
+        for path, interfaces in objects.items():
+            if GATT_CHRC_IFACE not in interfaces.keys():
+                continue
+            chrcs.append(path)
+
+        # List sevices found
+        for path, interfaces in objects.items():
+            if GATT_SERVICE_IFACE not in interfaces.keys():
+                continue
+
+            chrc_paths = [d for d in chrcs if d.startswith(path + "/")]
+            print(chrc_paths)
+
+            if process_service(path, chrc_paths):
+                continue
+
+        for idx, svc in enumerate(service_list):
+            if svc:
+                print(f"service exist: {idx}")
+
         try:
-            for idx, dev_name in enumerate(dev_name_list):
-                print(dd["Address"], dd["Name"])
-                if str(dd["Name"]) == dev_name:
-                    device_list[idx] = dbus.Interface(bus.get_object(BLUEZ_SERVICE_NAME, path), DEVICE_IFACE)
-                    print(device_list[idx])
-                    device_list[idx].Connect()
-                    print(f"device {idx} Connect!!")
-        except Exception as e:
-            print("error: ",e)
-            continue
+            start_client()
+            # temp_write_timer()
+            # write_food_amount(300)
+            # write_food_action()
 
+            mainloop.run()
+        except KeyboardInterrupt:
+            print("keyboard")
+        finally:
+            for idx, dev in enumerate(device_list):
+                if dev:
+                    print(f"device {idx} Disconnect!!")
+                    dev.Disconnect()
 
-    # List characteristics found
-    print("Finding Services...")
-    for path, interfaces in objects.items():
-        if GATT_CHRC_IFACE not in interfaces.keys():
-            continue
-        chrcs.append(path)
-
-    # List sevices found
-    for path, interfaces in objects.items():
-        if GATT_SERVICE_IFACE not in interfaces.keys():
-            continue
-
-        chrc_paths = [d for d in chrcs if d.startswith(path + "/")]
-        print(chrc_paths)
-
-        if process_service(path, chrc_paths):
-            continue
-
-    for idx, svc in enumerate(service_list):
-        if svc:
-            print(f"service exist: {idx}")
-
-    try:
-        start_client()
-        # temp_write_timer()
-        # write_food_amount(300)
-        # write_food_action()
-
-        mainloop.run()
-    except KeyboardInterrupt:
-        print("keyboard")
-    finally:
-        for idx, dev in enumerate(device_list):
-            if dev:
-                print(f"device {idx} Disconnect!!")
-                dev.Disconnect()
 
 if __name__ == '__main__':
     main()
