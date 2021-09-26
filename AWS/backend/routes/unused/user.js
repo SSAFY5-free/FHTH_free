@@ -31,7 +31,7 @@ const {MONGO_URI} = process.env
 // })
 
 router.post("/login", async (req, res) => {
-    console.log(req.headers)
+    // console.log(req.headers)
     // todo 세션 설정 수정
     const {email, pw, } = req.body
     const result = await User.findOne({email, pw})

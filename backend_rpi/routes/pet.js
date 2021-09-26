@@ -1,6 +1,6 @@
 var express = require("express");
-// var DBus = require("dbus");
-// var bus = DBus.getBus("session");
+var DBus = require("dbus");
+var bus = DBus.getBus("session");
 var router = express.Router();
 const axios = require("axios");
 var left = 0
@@ -54,7 +54,7 @@ router.post("/foodeat", async function (req, res, next) {
   iseaten = req.body.EATEN
   await axios
     .post("http://127.0.0.1:8079/unauth/setModule", {
-      module_id: 2,
+      module_id: 1,
       data: {
         iseaten: iseaten,
         left: left,
@@ -79,7 +79,7 @@ router.post("/foodleft", async function (req, res, next) {
   res.json(req.body);
   await axios
     .post("http://127.0.0.1:8079/unauth/setModule", {
-      module_id: 2,
+      module_id: 1,
       data: {
         iseaten: iseaten,
         left: left,
@@ -107,7 +107,7 @@ router.post("/waterdrink", async function (req, res, next) {
 
   await axios
     .post("http://127.0.0.1:8079/unauth/setModule", {
-      module_id: 1,
+      module_id:2,
       data: {
         drink: drink,
         water: water,
@@ -133,7 +133,7 @@ router.post("/waterlack", async function (req, res, next) {
   res.json(req.body);
   await axios
     .post("http://127.0.0.1:8079/unauth/setModule", {
-      module_id: 1,
+      module_id: 2,
       data: {
         drink: drink,
         water: water,

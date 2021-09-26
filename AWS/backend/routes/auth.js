@@ -54,7 +54,7 @@ router.post("/getModule", async (req, res) => {
 });
 
 router.post("/moduleCmd", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   await authService.post_moduleCmd(req)
     .then((data) => {
       console.log("[Success] routes /moduleCmd ", data)
