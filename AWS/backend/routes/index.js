@@ -1,13 +1,14 @@
-const express = require('express');
-const unauthRouter = require('./unauth.js')
-const authRouter = require('./auth.js')
-const adminRouter = require('./admin.js')
+const express = require("express");
+const unauthRouter = require("./unauth.js");
+const authRouter = require("./auth.js");
+const adminRouter = require("./admin.js");
+const rpiRouter = require("./rpi.js");
 
 const router = express.Router();
-router.use((req,res,next) => {
-    console.log("Path : ", req.path)
-    next()
-})
+router.use((req, res, next) => {
+  console.log("Path : ", req.path);
+  next();
+});
 // router.use(function (req, res, next) {
 //     const whiteList = ['/api/user/login', '/api/device']
 //     //세션 보안 구현
@@ -17,7 +18,7 @@ router.use((req,res,next) => {
 //     //accessToken이 있다
 //         //데이터 주기
 //     //없다
-//         //reTry 0 
+//         //reTry 0
 //             //refreshToken이 없다
 //                 //whiteList에도 없다
 //                     //리다이렉트
@@ -29,7 +30,8 @@ router.use((req,res,next) => {
 //     next();
 //   });
 //1차 라우터 /
-router.use("/admin", adminRouter)
-router.use("/unauth", unauthRouter)
-router.use("/auth", authRouter)
-module.exports =router;
+router.use("/admin", adminRouter);
+router.use("/unauth", unauthRouter);
+router.use("/auth", authRouter);
+router.use("/rpi", rpiRouter);
+module.exports = router;
