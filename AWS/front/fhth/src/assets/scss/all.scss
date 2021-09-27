@@ -1,5 +1,8 @@
-$robot_width: 450px;
-$nav_height: 80px;
+$nav-height: 80px;
+$ModuleBar-width: 100px;
+$robot-width: 450px;
+$sideBar-width: #{$robot-width + $ModuleBar-width};
+$moduleView_card_header_height: 80px;
 .bc {
   border: 1px solid black;
 }
@@ -9,49 +12,255 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: #909399;
 }
 /*# sourceMappingURL=all.css.map */
-
-#nav {
-  display: block;
-  height: $nav_height;
-  position: absolute;
-  padding: 0px;
-  width: -webkit-calc(100%);
-  // width: -webkit-calc(100vw-$robot_width);
+#SignUp {
+  width: 400px;
+  margin: auto auto;
 }
-#Robot {
-  width: $robot_width;
-  height: -webkit-calc(100% - #{$nav_height});
-  position: absolute;
-  margin-top: $nav_height;
-}
-#mainView {
-  width: -webkit-calc(100% - #{$robot_width});
-  height: -webkit-calc(100% - #{$nav_height});
-  margin-top: $nav_height;
-  margin-left: $robot_width;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  align-items: center;
-  > * {
-    height: 80%;
-    width: 60%;
+#Main {
+  > #nav {
+    display: block;
+    height: $nav-height;
+    position: absolute;
+    padding: 0px;
+    width: -webkit-calc(100%);
+    display: flex;
+    justify-content: space-between;
+    * {
+      // border: 1px solid black;
+    }
+    > #User {
+      display: flex;
+      align-items: center;
+      > #info {
+        width: 100px;
+      }
+      > #menu {
+        width: 100px;
+      }
+    }
   }
-  // > #Modules {
-  //   // position: absolute;
-  //   width: 100px;
-  // }
-}
+  > #Nav {
+    display: flex;
+    width: 100%;
+    // justify-content: space-between;
+    h1 {
+      margin: 0px;
+    }
+  }
+  > #sideBar {
+    width: $sideBar-width;
+    height: -webkit-calc(100% - #{$nav-height});
+    // margin-top: $nav-height;
+    position: absolute;
+    > * {
+      position: absolute;
+    }
+    > #Robot {
+      width: $robot_width;
+      height: 100%;
+      // background-color: #f56c6c;
+      > .el-card__body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        > #screen {
+          width: 400px;
+          height: 300px;
+          margin: 40px 30px;
+        }
+        #keyPad {
+          width: 240px;
+          display: flex;
+          flex-direction: column;
+          // flex-direction: column;
+          // justify-content: center;
+          button {
+            font-size: 30px;
+          }
+          > div {
+            display: flex;
+            > div {
+              width: 80px;
+              height: 80px;
+              > button {
+                width: 80px;
+                height: 80px;
+              }
+            }
+          }
+        }
+      }
+    }
+    > #ModuleBar {
+      height: -webkit-calc(100%);
+      width: $ModuleBar-width;
+      margin-left: $robot-width;
+    }
+  }
+  > #mainView {
+    width: -webkit-calc(100% - #{$sideBar-width});
+    height: -webkit-calc(100% - #{$nav-height});
+    // margin-top: $nav-height;
+    margin-left: $sideBar-width;
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    > * {
+      height: 80%;
+      width: 80%;
+    }
+    // > .el-card {
+    > #ModuleView {
+      padding: 40px;
+      padding-bottom: 80px;
+      > .el-card__header {
+        font-size: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      > .el-card__body {
+        display: flex;
+        height: -webkit-calc(100% - #{$moduleView_card_header_height});
+        justify-content: space-evenly;
+        > #moduleStatus {
+          width: 80%;
+          flex: 1;
+          > * {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+          > * > * > .el-card__header {
+            font-size: 25px;
+            height: 80px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          > * > * > .el-card__body {
+            display: flex;
+            height: -webkit-calc(100% - 80px - 20px);
+            padding: 20px 40px 40px 40px;
+          }
+          > #dev1 {
+            > #info {
+              flex: 1;
+              margin-bottom: 20px;
 
-#KeyPad {
-  justify-content: center;
-  > div {
-    > div {
-      border: 1px solid black;
-      width: 80px;
-      height: 80px;
+              > .el-card__body {
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                .el-progress {
+                  margin-top: 12px;
+                }
+                > #eatTime {
+                  flex: 1;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                }
+                > #remain {
+                  flex: 1;
+                  width: 80%;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  > * {
+                    width: 100%;
+                  }
+
+                  // flex: 1;
+                }
+              }
+            }
+            > #control {
+              flex: 1;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              // > * {
+              //   width: 80%;
+              // }
+              > .el-card__body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+            }
+          }
+          > #dev2 {
+            > #info {
+              margin-bottom: 20px;
+              > .el-card__body {
+                height: -webkit-calc(100% - 80px - 40px);
+                > div {
+                  display: flex;
+                  flex-direction: row;
+                  width: 100%;
+                  > div {
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    justify-content: center;
+                    align-items: center;
+                  }
+                }
+              }
+            }
+            > #control {
+              flex: 1;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              // > * {
+              //   width: 80%;
+              // }
+              > .el-card__body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+            }
+          }
+        }
+        > #moduleHistory {
+          width: 80%;
+          display: flex;
+          justify-content: center;
+          flex: 1;
+          > .el-card {
+            height: 100%;
+          }
+
+          > .el-card > .el-card__header {
+            font-size: 25px;
+            height: 80px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          > .el-card > .el-card__body {
+            height: -webkit-calc(100% - 80px);
+            > div {
+              width: 100%;
+              > div {
+                margin: 15px 0px 30px 0px;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -1,40 +1,48 @@
 <template>
-  <div id="ModuleView">
-    <div id="ModuleContent" class="bc">
-        <el-dropdown split-button type="primary">
-  Default
-  <el-dropdown-menu slot="dropdown">
-    <el-dropdown-item>Action 1</el-dropdown-item>
-    <el-dropdown-item>Action 2</el-dropdown-item>
-    <el-dropdown-item>Action 3</el-dropdown-item>
-    <el-dropdown-item>Action 4</el-dropdown-item>
-  </el-dropdown-menu>
-</el-dropdown>
-ModuleView
+  <el-card id="ModuleView" class="box-card">
+    <!-- <p>module : {{ module }}</p> -->
+    <!-- <p>modules : {{ modules }}</p> -->
+    <div slot="header">
+      <b>{{ module.name }}</b>
     </div>
-    <!-- {{ module }} -->
-    <!-- {{this.$store.state.mainInfo.cur.module_idx}} -->
-    <dev1 v-if="module.type_id == '60ed95d495b7ee1cccc3b484'" v-bind:module = "module"></dev1>
-    <dev2 v-if="module.type_id == '60ed95d695b7ee1cccc3b486'" v-bind:module = "module"></dev2>
-  </div>
+    <!-- {{ this.$store.state.mainInfo.cur.module_idx }} -->
+    <div id="moduleStatus">
+      <dev1 v-if="module.type_id == '1'" v-bind:module="module"></dev1>
+      <dev2 v-if="module.type_id == '2'" v-bind:module="module"></dev2>
+    </div>
+    <div id="moduleHistory">
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <el-tooltip
+            effect="light"
+            content="모듈 동작 이벤트를 보여줍니다."
+            placement="top"
+          >
+            <b>History</b>
+          </el-tooltip>
+        </div>
+        <history :actions="module.actions"></history>
+      </el-card>
+    </div>
+  </el-card>
 </template>
 <script>
-import dev1 from "./ModuleView/dev1.vue"
-import dev2 from "./ModuleView/dev2.vue"
+import dev1 from "./ModuleView/dev1.vue";
+import dev2 from "./ModuleView/dev2.vue";
+import history from "./ModuleView/history.vue";
+import { mapState } from "vuex";
 export default {
   components: {
-    dev1,dev2
-  },props: ["module"],
+    dev1,
+    dev2,
+    history,
+  },
+  computed: {
+    ...mapState("mainInfo", ["robots", "cur"]),
+  },
+  props: ["modules", "module"],
   mounted() {
-    console.log("mounted")
-    this.$socket.on("module", (data) => {
-        const {module_data} = data
-        // console.log("get from server : " , module_data)
-        this.$store.commit("mainInfo/SET_MODULE_DATA",{module_data})
-      })
-    setInterval(() => {
-      this.$socket.emit("module", this.module)
-    }, 2000)
+    console.log("mounted");
   },
 };
 </script>

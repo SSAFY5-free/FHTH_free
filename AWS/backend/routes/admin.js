@@ -1,49 +1,54 @@
-const express = require("express")
-const { ModuleType, RegistedModule,Robot,User } = require("../models")
-const router = express.Router()
-require("../models")
+const express = require("express");
+const db = require("../models").default
+const router = express.Router();
+require("../models");
 
 router.post("/addRobot", async (req, res) => {
-	const {serial,modules_id} = req.body
-	const result = await Robot.create({serial, modules:modules_id})
-    console.log(result)
+  const { serial, modules_id, name } = req.body;
+  const result = await db["robots"].create({ serial, modules_id, name });
+  // console.log(result);
 
-    if(!result) res.json({"result":0})
-    else res.json({"result":1})
-    return
-})
+  if (!result) res.json({ result: 0 });
+  else res.json({ result: 1 });
+  return;
+});
 
-router.post("/addAccount", async(req,res) => {
-    const {email, pw, robots_id} = req.body
-    console.log(email, pw, robots_id)
-    User.create({
-       email, pw , robots_id
-    }, function (err) {
-       console.log(err)
+router.post("/addAccount", async (req, res) => {
+  const { email, pw, robots_id } = req.body;
+  console.log(email, pw, robots_id);
+  db["users"].create(
+    {
+      email,
+      pw,
+      robots_id,
+    },
+    function (err) {
+      console.log(err);
+    }
+  );
+  console.log("계정생성");
+  return res.send({ result: 1 });
+});
+
+router.get("/addModuleType/:name", async (req, res) => {
+  db["moduleTypes"].create({ ...req.params })
+    .then((data) => {
+      console.log(data);
+      return res.send("ok");
     })
-    console.log("계정생성")
-    return res.send({"result" : 1})
-})
-
-router.get("/addModuleType/:id", async(req,res) => {
-    console.log("zz")
-    const name = req.params.id
-    ModuleType.create({name
-    }).then((data) =>{
-        console.log(data)
-        return res.send("ok")
-    }).catch((err) => {
-        return res.status("200").send("err")
+    .catch((err) => {
+      return res.status("200").send("err");
+    });
+});
+router.post("/addRegistedModule/", async (req, res) => {
+  const { serial, type_id, data, name } = req.body;
+  db["registedModules"].create({ serial, type_id, data, name })
+    .then((data) => {
+      console.log(data);
     })
-
-})
-router.post("/addRegistedModule/", async(req,res) => {
-    const {serial, moduleType_id, module_data} = req.body
-    RegistedModule.create({serial,moduleType_id,module_data}).then((data) =>{
-        console.log(data)
-    }).then((data) => {
-        console.log(data)
-    })
-    return res.json({result : 1})
-})
-module.exports = router
+    .then((data) => {
+      console.log(data);
+    });
+  return res.json({ result: 1 });
+});
+module.exports = router;

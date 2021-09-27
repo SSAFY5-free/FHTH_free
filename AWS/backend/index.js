@@ -1,57 +1,46 @@
-const express = require("express")
-const app = express()
-const cors = require("cors")
-const routes = require('./routes')
-const {RegistedModule} = require("./models")
-//dotenv
-const path = require("path")
-const dotenv = require('dotenv').config({})
-
-
-const { PORT, MONGO_URI } = process.env
-
-//db:mongo
-const mongoose = require("mongoose")
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, dbName: "fhth" })
-const db = mongoose.connection
-
-db.on('error', console.error.bind(console, 'connection error'))
-db.once('open', () => { console.log("mongoDB connected") })
+const express = require("express");
+const app = express();
+const routes = require("./routes");
+const env = process.env;
+require("dotenv").config({});
 
 //middleware
-app.use(express.urlencoded({ extended: true }))
+const cors = require("cors");
+var whitelist = ["http://127.0.0.1:8081", "http://127.0.0.1:8080", "http://127.0.0.1:8079"];
+var corsOptions = {
+  origin: function (origin, callback) {
+    // if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    // } else {
+      // callback(new Error("Not allowed by CORS"));
+    // }
+  },
+};
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors())
+app.use(cors(corsOptions));
+app.use("/", routes);
 
 
-
+const http_server = require("http").createServer(app);
+const https_server = require("https").createServer(
+  {
+    //  ca: fs.readFileSync('/fullchain.pem'),
+    //  key: fs.readFileSync('/privkey.pem'),
+    //  cert: fs.readFileSync('/cert.pem')
+  },
+  app
+);
 
 //socket.io
-const server = require('http').createServer(app);
-const io = require('socket.io')(server, {
-   cors: {
-      origin: "http://localhost:8081",
-      methods: ["GET", "POST"],
-      allowedHeaders: ["my-custom-header"],
-      transports: ['websocket', 'polling'],
-      credentials: true
-   }, allowEIO3: true
+require("./utils/socket.js").createSocket(http_server, https_server);
+
+//server listen
+http_server.listen(env.HTTP_PORT, "0.0.0.0", function () {
+  console.log(env.HTTP_PORT + " / FHTH.server is running");
 });
 
-io.on('connection', async(socket) => {
-   console.log('Connect from Client: ' + socket)
-   //Registedmodule에 있는 id들 조회
-   socket.on("module", async (data) => {
-      console.log("socket module : ", data)
-      const {id} = data
-      const result = await RegistedModule.findById(id);
-      socket.emit("module",{
-         module_data : result.module_data
-      })
-   })
-})
-//REST API
-app.use("/", routes);
-server.listen(PORT, function () {
-   console.log(PORT + " / FHTH.server is running")
-})
+https_server.listen(env.HTTPS_PORT, "::", function () {
+  console.log(env.HTTPS_PORT + " / FHTH.server2 is running");
+});

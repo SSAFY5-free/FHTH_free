@@ -1,29 +1,22 @@
 <template>
   <div id="app">
-    <div id="nav" v-if="check == null">
+    <div
+      id="nav"
+      v-if="$route.fullPath == '/login' || $route.fullPath == '/signup'"
+    >
       <router-link to="/login">로그인</router-link> |
       <router-link to="/signup">회원가입</router-link>
     </div>
-    <router-view/>
-    
+    <router-view />
   </div>
 </template>
 
 <script>
-import {mapState} from "vuex"
-import VueCookies from "vue-cookies"
 export default {
-  components: {
-  }, methods : {
-    check() {
-      return VueCookies.get("accessToken")
-    }
-  },
-  computed : {
-      ...mapState("userInfo", ["accessToken"])
-  },mounted() {
-  }
-}
+  components: {},
+  methods: {},
+  computed: {},
+};
 </script>
 
 <style>
@@ -33,6 +26,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-image: url("~@/assets/img/background.jpg");
+  background-size: cover;
 }
 
 #nav {
