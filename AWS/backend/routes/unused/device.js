@@ -33,7 +33,7 @@ router.get("/add/:type", async (req, res) => {
 })
 
 router.post("/validation/registedDevice", async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     const {serial, type} = req.body;
     const result = await RegistedDevice.findOne({serial, type})
     // console.log(result)

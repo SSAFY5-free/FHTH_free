@@ -64,6 +64,7 @@ exports.get_module = (req) => {
 
       //로직 2. result = 모듈의 데이터
       const result = await db["registedModules"].findOne({ id });
+      console.log(result)
       return resolve(result);
 
     } catch (error) {

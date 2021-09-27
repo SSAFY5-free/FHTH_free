@@ -6,11 +6,17 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
 
 if (config.database.url) {
-  Mongoose.connect(config.database.url, config.database.options);
+  setTimeout(function () {
+    Mongoose.connect(config.database.url, config.database.options);
+  }, 60000)
 } else if (config.database.config.dbName) {
-  Mongoose.connect(`${config.database.protocol}://${config.database.username}:${config.database.password}@${config.database.host}:${config.database.port}`, config.database.options);
+  setTimeout(function () {
+    Mongoose.connect(`${config.database.protocol}://${config.database.username}:${config.database.password}@${config.database.host}:${config.database.port}`, config.database.options);
+  }, 60000)
 } else {
-  Mongoose.connect(`${config.database.protocol}://${config.database.username}:${config.database.password}@${config.database.host}:${config.database.port}/${config.database.name}`, config.database.options);
+  setTimeout(function () {
+    Mongoose.connect(`${config.database.protocol}://${config.database.username}:${config.database.password}@${config.database.host}:${config.database.port}/${config.database.name}`, config.database.options);
+  }, 60000)
 }
 
 const db = () => {
