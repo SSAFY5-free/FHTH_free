@@ -53,9 +53,9 @@ $ npm start
 ## Member
 - 김지환 <img src="https://img.shields.io/badge/-BE-brightgreen"> <img src="https://img.shields.io/badge/-FE-orange"> <a href="mailto:bure5kzam.gmail.com" target="_blank"><img src="https://img.shields.io/badge/Email-EA4335?style=flat-square&logo=gmail&logoColor=white"/></a>
 - 김현우 <img src="https://img.shields.io/badge/-EM-lightgrey"> <a href="mailto:ssej0221@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Email-EA4335?style=flat-square&logo=gmail&logoColor=white"/></a>
-- 신은지 <img src="https://img.shields.io/badge/-EM-lightgrey"> <a href="mailto:tyl1996@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Email-EA4335?style=flat-square&logo=gmail&logoColor=white"/></a>
-- 이희재 <img src="https://img.shields.io/badge/-EM-lightgrey">  <a href="mailto:wony5248@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Email-EA4335?style=flat-square&logo=gmail&logoColor=white"/></a>
-- 장범진 <img src="https://img.shields.io/badge/-BE-brightgreen">  <a href="mailto:heoeari51@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Email-EA4335?style=flat-square&logo=gmail&logoColor=white"/></a>
+- 신은지 <img src="https://img.shields.io/badge/-EM-lightgrey"> <a href="mailto:ssej0221@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Email-EA4335?style=flat-square&logo=gmail&logoColor=white"/></a>
+- 이희재 <img src="https://img.shields.io/badge/-EM-lightgrey">  <a href="mailto:ssej0221@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Email-EA4335?style=flat-square&logo=gmail&logoColor=white"/></a>
+- 장범진 <img src="https://img.shields.io/badge/-BE-brightgreen"> <img src="https://img.shields.io/badge/-LS-blue">  <a href="mailto:wony5248@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Email-EA4335?style=flat-square&logo=gmail&logoColor=white"/></a>
 
 ## Docs
 <a href="https://docs.google.com/document/d/1xqy321uU2ttPre2sWIUGsBPwnsdbCFoakWDbejdvc-o/edit" target="_blank"><img src="https://img.shields.io/badge/Project Docs-2B579A?style=flat-square&logo=microsoftword&logoColor=white"/></a>
