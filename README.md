@@ -58,5 +58,5 @@ $ npm start
 - 장범진 <img src="https://img.shields.io/badge/-BE-brightgreen"> <img src="https://img.shields.io/badge/-FE-orange"> <a href="mailto:wony5248@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Email-EA4335?style=flat-square&logo=gmail&logoColor=white"/></a>
 
 ## Docs
-<a href="https://docs.google.com/document/d/1xqy321uU2ttPre2sWIUGsBPwnsdbCFoakWDbejdvc-o/edit" target="_blank"><img src="https://img.shields.io/badge/Youtube?style=flat-square&logo=microsoftword&logoColor=white"/></a>
-<a href="https://www.youtube.com/watch?v=omfhNOcvgS8" target="_blank"><img src="https://img.shields.io/badge/Project Docs-2B579A?style=flat-square&logo=microsoftword&logoColor=white"/></a>
+<a href="https://docs.google.com/document/d/1xqy321uU2ttPre2sWIUGsBPwnsdbCFoakWDbejdvc-o/edit" target="_blank"><img src="https://img.shields.io/badge/Project Docs-2B579A?style=flat-square&logo=microsoftword&logoColor=white"/></a>
+<a href="https://www.youtube.com/watch?v=omfhNOcvgS8" target="_blank"><img src="https://img.shields.io/badge/Project Youtube-2B579A?style=flat-square&logo=microsoftword&logoColor=white"/></a>
