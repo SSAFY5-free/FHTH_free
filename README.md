@@ -1,9 +1,6 @@
 # FHTH (For Happy To Happy)
 반려동물 통합 관리 시스템
 
-## Quick Link
-<a href="http://i5a109.p.ssafy.io/" target="_blank"><img src="https://img.shields.io/badge/HOMEPAGE-A3CCA3?style=flat-square&logo=&logoColor=white"/></a>
-
 
 ## Setup
 ```
