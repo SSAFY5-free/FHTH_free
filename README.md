@@ -59,3 +59,4 @@ $ npm start
 
 ## Docs
 <a href="https://docs.google.com/document/d/1xqy321uU2ttPre2sWIUGsBPwnsdbCFoakWDbejdvc-o/edit" target="_blank"><img src="https://img.shields.io/badge/Project Docs-2B579A?style=flat-square&logo=microsoftword&logoColor=white"/></a>
+<a href="https://www.youtube.com/watch?v=omfhNOcvgS8" target="_blank"><img src="https://img.shields.io/badge/Project Docs-2B579A?style=flat-square&logo=microsoftword&logoColor=white"/></a>
