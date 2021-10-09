@@ -22,6 +22,15 @@ $ cd backend_rpi
 $ npm install
 $ npm start
 ```
+### 구조
+![FHTH 구조](https://user-images.githubusercontent.com/48344143/136668315-24706283-cc43-494e-bd52-e9fbab73995b.PNG)
+
+## DEMO(급식기)
+### 조종 및 급식 확인
+https://user-images.githubusercontent.com/48344143/136668187-56852fdc-b579-47ca-8b45-f07f2cf88d7d.mp4
+### 급수 확인
+https://user-images.githubusercontent.com/48344143/136668228-5aa4d187-e028-4fd2-bc3a-ea669a1b1e14.mp4
+
 
 ## Technical Stack
 ### Backend
