@@ -25,26 +25,6 @@ $ npm start
 ### 구조
 ![FHTH 구조](https://user-images.githubusercontent.com/48344143/136668315-24706283-cc43-494e-bd52-e9fbab73995b.PNG)
 
-## PREVIEW(급식기)
-### 급식기
-https://user-images.githubusercontent.com/48344143/136668875-ed2ee8f4-de30-4ced-b896-035ee7002f52.mp4
-### 조종 및 급식 확인
-https://user-images.githubusercontent.com/48344143/136668187-56852fdc-b579-47ca-8b45-f07f2cf88d7d.mp4
-### 급식기 배식
-https://user-images.githubusercontent.com/48344143/136668840-6a5fcbfc-9cd1-4c3c-ad84-9088386f2401.mp4
-
-
-## PREVIEW(급수기)
-### 급수기
-https://user-images.githubusercontent.com/48344143/136668863-3d597702-b615-49d4-af44-6d7537cef013.mp4
-### 물부족 여부 확인
-https://user-images.githubusercontent.com/48344143/136668228-5aa4d187-e028-4fd2-bc3a-ea669a1b1e14.mp4
-![급수기 물주기](https://user-images.githubusercontent.com/48344143/136668703-6cbd1b2f-9481-43a6-ab2c-f663227069b6.gif)
-### 급수 여부 확인
-https://user-images.githubusercontent.com/48344143/136668476-0df3e50e-420d-4021-b433-0a9faa1ae3ba.mp4
-
-
-
 
 ## Technical Stack
 ### Backend
@@ -71,6 +51,25 @@ https://user-images.githubusercontent.com/48344143/136668476-0df3e50e-420d-4021-
 - Github
 - Docker
 - Nginx
+
+
+## PREVIEW(급식기)
+### 급식기
+https://user-images.githubusercontent.com/48344143/136668875-ed2ee8f4-de30-4ced-b896-035ee7002f52.mp4
+### 조종 및 급식 확인
+https://user-images.githubusercontent.com/48344143/136668187-56852fdc-b579-47ca-8b45-f07f2cf88d7d.mp4
+### 급식기 배식
+https://user-images.githubusercontent.com/48344143/136668840-6a5fcbfc-9cd1-4c3c-ad84-9088386f2401.mp4
+
+
+## PREVIEW(급수기)
+### 급수기
+https://user-images.githubusercontent.com/48344143/136668863-3d597702-b615-49d4-af44-6d7537cef013.mp4
+### 물부족 여부 확인
+https://user-images.githubusercontent.com/48344143/136668228-5aa4d187-e028-4fd2-bc3a-ea669a1b1e14.mp4
+![급수기 물주기](https://user-images.githubusercontent.com/48344143/136668703-6cbd1b2f-9481-43a6-ab2c-f663227069b6.gif)
+### 급수 여부 확인
+https://user-images.githubusercontent.com/48344143/136668476-0df3e50e-420d-4021-b433-0a9faa1ae3ba.mp4
 
 
 ## Member
