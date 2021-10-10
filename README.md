@@ -1,6 +1,9 @@
 # FHTH (For Happy To Happy)
 반려동물 통합 관리 시스템
 
+# Why FHTH?
+https://www.etoday.co.kr/news/view/2001092
+![FHTH](https://user-images.githubusercontent.com/48344143/136697847-e353af67-c28a-409b-bcfc-de2a6997c07f.PNG)
 
 ## Setup
 ```
